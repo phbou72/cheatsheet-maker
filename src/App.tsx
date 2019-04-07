@@ -1,14 +1,18 @@
-import React, { Component } from "react";
-import "./App.css";
+import React from "react";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header" />
-      </div>
-    );
-  }
-}
+import KeyStrokesForm from "./KeyStrokesForm";
+import Sheet from "./Sheet";
+
+import "./App.scss";
+const onAddEvent = (description: string, keyStrokes: string) => {
+  console.log(description, keyStrokes);
+};
+
+const App = () => (
+  <div className="app">
+    <Sheet />
+    <KeyStrokesForm onAddEvent={onAddEvent} />
+  </div>
+);
 
 export default App;

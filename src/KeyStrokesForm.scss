@@ -1,0 +1,14 @@
+.key-strokes-form {
+  min-width: 350px;
+  display: inline-flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-direction: column;
+
+  input[type="text"] {
+    margin-bottom: 10px;
+  }
+  .button {
+    display: inline;
+  }
+}
