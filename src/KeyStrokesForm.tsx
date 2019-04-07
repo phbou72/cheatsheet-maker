@@ -3,17 +3,16 @@ import React, { useState } from "react";
 import "./KeyStrokesForm.scss";
 
 interface Props {
-  onAddEvent: (description: string, keyStrokes: string) => void;
+  onAddEvent: (shortcut: Shortcut) => void;
 }
 
-const onAdd = (
-  onAddEvent: (description: string, keyStrokes: string) => void,
+const onAddClick = (
+  onAddEvent: (shortcut: Shortcut) => void,
   setDescription: (value: string) => void,
   setKeyStrokes: (value: string) => void,
-  description: string,
-  keyStrokes: string
+  shortcut: Shortcut
 ) => {
-  onAddEvent(description, keyStrokes);
+  onAddEvent(shortcut);
   setDescription("");
   setKeyStrokes("");
 };
@@ -45,13 +44,10 @@ const KeyStrokesForm = (props: Props) => {
       <a
         className="button is-white"
         onClick={() => {
-          onAdd(
-            onAddEvent,
-            setDescription,
-            setKeyStrokes,
+          onAddClick(onAddEvent, setDescription, setKeyStrokes, {
             description,
             keyStrokes
-          );
+          });
         }}
       >
         Add
