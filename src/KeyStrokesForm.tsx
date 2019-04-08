@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import classnames from "classnames";
 
 import "./KeyStrokesForm.scss";
 
@@ -22,6 +23,15 @@ const KeyStrokesForm = (props: Props) => {
 
   const [description, setDescription] = useState("");
   const [keyStrokes, setKeyStrokes] = useState("");
+  const isFilled = description.length > 0 && keyStrokes.length > 0;
+
+  const onClick = !isFilled
+    ? undefined
+    : () =>
+        onAddClick(onAddEvent, setDescription, setKeyStrokes, {
+          description,
+          keyStrokes
+        });
 
   return (
     <div className="key-strokes-form sm-panel">
@@ -41,15 +51,7 @@ const KeyStrokesForm = (props: Props) => {
         onChange={e => setKeyStrokes(e.currentTarget.value)}
         value={keyStrokes}
       />
-      <a
-        className="button is-white"
-        onClick={() => {
-          onAddClick(onAddEvent, setDescription, setKeyStrokes, {
-            description,
-            keyStrokes
-          });
-        }}
-      >
+      <a className="button is-white" onClick={onClick}>
         Add
       </a>
     </div>

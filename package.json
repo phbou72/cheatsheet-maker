@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bulma-scss": "^0.7.4-1",
+    "classname": "0.0.0",
+    "classnames": "^2.2.6",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -23,5 +25,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/classnames": "^2.2.7"
+  }
 }
