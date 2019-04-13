@@ -1,4 +1,9 @@
 interface Shortcut {
   description: string;
-  keyStrokes: string;
+  keyStrokes: KeyStroke[];
+}
+
+interface KeyStroke {
+  label: string;
+  symbol: string;
 }
