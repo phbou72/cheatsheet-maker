@@ -1,5 +1,5 @@
 .key-strokes-form {
-  min-width: 350px;
+  min-width: 420px;
   display: inline-flex;
   flex-grow: 0;
   flex-shrink: 0;
@@ -10,5 +10,9 @@
   }
   .button {
     display: inline;
+  }
+
+  &-error {
+    margin-top: 16px;
   }
 }
