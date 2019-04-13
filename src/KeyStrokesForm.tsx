@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import classnames from "classnames";
 
+import KEYS from "./Keys";
+
 import "./KeyStrokesForm.scss";
 
 interface Props {
@@ -32,18 +34,6 @@ const onAddClick = (
 };
 
 const validKeyStrokeRegex = /[\w\W]+(\+?[\w\W]*\+?)+/;
-
-const KEYS: { [key: string]: string } = {
-  alt: "⎇",
-  backspace: "⌫",
-  cmd: "⌘",
-  ctrl: "⌃",
-  down: "↓",
-  left: "←",
-  right: "→",
-  shift: "⇧",
-  up: "↑"
-};
 
 const KeyStrokesForm = (props: Props) => {
   const { onAddEvent } = props;
