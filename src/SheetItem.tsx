@@ -5,8 +5,7 @@ interface SheetItemProps {
 }
 
 const createKeyStrokesString = (keyStrokes: KeyStroke[]) => {
-  const symbols =
-    (keyStrokes && keyStrokes.map(keyStroke => keyStroke.symbol)) || [];
+  const symbols = (keyStrokes && keyStrokes.map(keyStroke => keyStroke.symbol)) || [];
   return symbols.join(" + ");
 };
 

@@ -52,11 +52,7 @@ const KeyStrokesForm = (props: Props) => {
         value={keyStrokesString}
       />
 
-      <a
-        className="button is-white"
-        {...{ disabled: !canSubmitForm }}
-        onClick={onAddClick}
-      >
+      <a className="button is-white" {...{ disabled: !canSubmitForm }} onClick={onAddClick}>
         Add
       </a>
     </div>

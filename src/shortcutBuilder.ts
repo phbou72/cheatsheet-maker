@@ -3,7 +3,7 @@ import KEYS from "./KeysSymbol";
 const createKeyStroke = (value: string): KeyStroke => {
   return {
     label: value,
-    symbol: KEYS[value] || value
+    symbol: KEYS[value] || value,
   };
 };
 
@@ -15,7 +15,7 @@ const createKeyStrokes = (keyStroke: string) => {
 
 const buildShortcut = (description: string, keyStrokes: string): Shortcut => ({
   description,
-  keyStrokes: createKeyStrokes(keyStrokes)
+  keyStrokes: createKeyStrokes(keyStrokes),
 });
 
 export default buildShortcut;

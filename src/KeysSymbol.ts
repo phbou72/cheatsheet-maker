@@ -7,7 +7,7 @@ const KEYS: { [key: string]: string } = {
   left: "←",
   right: "→",
   shift: "⇧",
-  up: "↑"
+  up: "↑",
 };
 
 export default KEYS;

@@ -1,6 +1,6 @@
 interface Props {}
 
-const KeyStrokes = (props: Props) => {
+const KeyStrokes = (_props: Props) => {
   return <div />;
 };
 

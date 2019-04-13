@@ -11,9 +11,7 @@ const App = () => {
   return (
     <div className="app">
       <Sheet items={shortcuts} />
-      <KeyStrokesForm
-        onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])}
-      />
+      <KeyStrokesForm onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])} />
     </div>
   );
 };
