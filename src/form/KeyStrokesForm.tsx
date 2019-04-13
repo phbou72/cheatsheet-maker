@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import shortcutBuilder from "./shortcutBuilder";
+import shortcutBuilder from "../shortcutBuilder";
 
 import "./KeyStrokesForm.scss";
 

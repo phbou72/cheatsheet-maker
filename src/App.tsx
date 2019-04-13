@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import KeyStrokesForm from "./KeyStrokesForm";
-import Sheet from "./Sheet";
+import KeyStrokesForm from "./form/KeyStrokesForm";
+import Sheet from "./sheet/Sheet";
 
 import "./App.scss";
 
