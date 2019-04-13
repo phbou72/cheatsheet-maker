@@ -8,22 +8,11 @@ interface Props {
   onAddEvent: (shortcut: Shortcut) => void;
 }
 
-const onAddClick = (
-  onAddEvent: (shortcut: Shortcut) => void,
-  setDescription: (value: string) => void,
-  setKeyStrokes: (value: string) => void,
-  shortcut: Shortcut
-) => {
-  onAddEvent(shortcut);
-  setDescription("");
-  setKeyStrokes("");
-};
-
 const validKeyStrokeRegex = /[\w\W]+(\+?[\w\W]*\+?)+/;
 
-const canSubmit = (description: string, keyStrokes: string) => {
-  const isFilled = description.length > 0 && keyStrokes.length > 0;
-  const isValidKeyStroke = validKeyStrokeRegex.test(keyStrokes);
+const canSubmit = (description: string, keyStrokesString: string) => {
+  const isFilled = description.length > 0 && keyStrokesString.length > 0;
+  const isValidKeyStroke = validKeyStrokeRegex.test(keyStrokesString);
   return isFilled && isValidKeyStroke;
 };
 
@@ -31,18 +20,16 @@ const KeyStrokesForm = (props: Props) => {
   const { onAddEvent } = props;
 
   const [description, setDescription] = useState("");
-  const [keyStrokes, setKeyStrokes] = useState("");
+  const [keyStrokesString, setKeyStrokesString] = useState("");
 
-  const canSubmitForm = canSubmit(description, keyStrokes);
+  const canSubmitForm = canSubmit(description, keyStrokesString);
 
-  const onClick = canSubmitForm
-    ? () =>
-        onAddClick(
-          onAddEvent,
-          setDescription,
-          setKeyStrokes,
-          shortcutBuilder(description, keyStrokes)
-        )
+  const onAddClick = canSubmitForm
+    ? () => {
+        onAddEvent(shortcutBuilder(description, keyStrokesString));
+        setDescription("");
+        setKeyStrokesString("");
+      }
     : undefined;
 
   return (
@@ -61,14 +48,14 @@ const KeyStrokesForm = (props: Props) => {
         name="keyStrokes"
         placeholder="Key strokes"
         type="text"
-        onChange={e => setKeyStrokes(e.currentTarget.value)}
-        value={keyStrokes}
+        onChange={e => setKeyStrokesString(e.currentTarget.value)}
+        value={keyStrokesString}
       />
 
       <a
         className="button is-white"
         {...{ disabled: !canSubmitForm }}
-        onClick={onClick}
+        onClick={onAddClick}
       >
         Add
       </a>
