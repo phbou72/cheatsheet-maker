@@ -1,26 +1,12 @@
 import React, { useState } from "react";
-import classnames from "classnames";
 
-import KEYS from "./Keys";
+import shortcutBuilder from "./shortcutBuilder";
 
 import "./KeyStrokesForm.scss";
 
 interface Props {
   onAddEvent: (shortcut: Shortcut) => void;
 }
-
-const createKeyStroke = (value: string): KeyStroke => {
-  return {
-    label: value,
-    symbol: KEYS[value] || value
-  };
-};
-
-const cleanupKeyStrokes = (keyStroke: string) => {
-  const groups = keyStroke.split("+");
-
-  return (groups && groups.map(createKeyStroke)) || [];
-};
 
 const onAddClick = (
   onAddEvent: (shortcut: Shortcut) => void,
@@ -35,22 +21,28 @@ const onAddClick = (
 
 const validKeyStrokeRegex = /[\w\W]+(\+?[\w\W]*\+?)+/;
 
+const canSubmit = (description: string, keyStrokes: string) => {
+  const isFilled = description.length > 0 && keyStrokes.length > 0;
+  const isValidKeyStroke = validKeyStrokeRegex.test(keyStrokes);
+  return isFilled && isValidKeyStroke;
+};
+
 const KeyStrokesForm = (props: Props) => {
   const { onAddEvent } = props;
 
   const [description, setDescription] = useState("");
   const [keyStrokes, setKeyStrokes] = useState("");
 
-  const isFilled = description.length > 0 && keyStrokes.length > 0;
-  const isValidKeyStroke = validKeyStrokeRegex.test(keyStrokes);
-  const canSubmit = isFilled && isValidKeyStroke;
+  const canSubmitForm = canSubmit(description, keyStrokes);
 
-  const onClick = canSubmit
+  const onClick = canSubmitForm
     ? () =>
-        onAddClick(onAddEvent, setDescription, setKeyStrokes, {
-          description,
-          keyStrokes: cleanupKeyStrokes(keyStrokes)
-        })
+        onAddClick(
+          onAddEvent,
+          setDescription,
+          setKeyStrokes,
+          shortcutBuilder(description, keyStrokes)
+        )
     : undefined;
 
   return (
@@ -63,6 +55,7 @@ const KeyStrokesForm = (props: Props) => {
         value={description}
         onChange={e => setDescription(e.currentTarget.value)}
       />
+
       <input
         className="input"
         name="keyStrokes"
@@ -71,7 +64,12 @@ const KeyStrokesForm = (props: Props) => {
         onChange={e => setKeyStrokes(e.currentTarget.value)}
         value={keyStrokes}
       />
-      <a className="button is-white" onClick={onClick}>
+
+      <a
+        className="button is-white"
+        {...{ disabled: !canSubmitForm }}
+        onClick={onClick}
+      >
         Add
       </a>
     </div>
