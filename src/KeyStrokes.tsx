@@ -1,7 +1,7 @@
 interface Props {}
 
 const KeyStrokes = (_props: Props) => {
-  return <div />;
+    return <div />;
 };
 
 export default KeyStrokes;

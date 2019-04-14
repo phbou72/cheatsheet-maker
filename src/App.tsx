@@ -6,17 +6,17 @@ import Sheet from "./sheet/Sheet";
 import "./App.scss";
 
 const App = () => {
-  const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
+    const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
 
-  return (
-    <div className="app">
-      <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} />
-      <KeyStrokesForm
-        shortcuts={shortcuts}
-        onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])}
-      />
-    </div>
-  );
+    return (
+        <div className="app">
+            <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} />
+            <KeyStrokesForm
+                shortcuts={shortcuts}
+                onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])}
+            />
+        </div>
+    );
 };
 
 export default App;

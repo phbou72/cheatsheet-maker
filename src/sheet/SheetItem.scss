@@ -1,19 +1,19 @@
 .sheet-item {
-  margin: 0 0 8px 0;
-  font-size: 18px;
-  line-height: 32px;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    line-height: 32px;
 
-  &:hover {
+    &:hover {
+        .button {
+            display: inline;
+        }
+    }
+
     .button {
-      display: inline;
+        display: none;
+        margin-left: 9px;
+        &:first-child {
+            margin-left: 16px;
+        }
     }
-  }
-
-  .button {
-    display: none;
-    margin-left: 9px;
-    &:first-child {
-      margin-left: 16px;
-    }
-  }
 }
