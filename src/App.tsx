@@ -6,7 +6,29 @@ import Sheet from "./sheet/Sheet";
 import "./App.scss";
 
 const App = () => {
-    const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
+    const [shortcuts, setShortcuts] = useState<Shortcut[]>([
+        {
+            description: "Supprimer la ligne",
+            keyStrokes: [
+                { label: "alt", symbol: "alt" },
+                { label: "k", symbol: "k" },
+            ],
+        },
+        {
+            description: "Déplacer la ligne",
+            keyStrokes: [
+                { label: "cmd", symbol: "cmd" },
+                { label: "k", symbol: "k" },
+            ],
+        },
+        {
+            description: "Refactoriser la ligne",
+            keyStrokes: [
+                { label: "cmd", symbol: "cmd" },
+                { label: "k", symbol: "k" },
+            ],
+        },
+    ]);
 
     return (
         <div className="app">

@@ -9,14 +9,46 @@ interface SheetProps {
     setShortcuts: (shortcuts: Shortcut[]) => void;
 }
 
+let draggedShortcut: Shortcut;
+let draggedOverShortcut: Shortcut;
+
 const Sheet = (props: SheetProps) => {
     const { shortcuts, setShortcuts } = props;
 
     const onDeleteItem = (deleteShortcut: Shortcut) => {
         setShortcuts(
-            shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description),
+            shortcuts.filter(
+                shortcut => shortcut.description !== deleteShortcut.description,
+            ),
         );
     };
+
+    // const onDragStart = (e: any, shortcut: Shortcut) => {
+    //     draggedShortcut = shortcut;
+    // };
+
+    // const onDragOver = (e: any, shortcut: Shortcut) => {
+    //     if (draggedOverShortcut === shortcut) {
+    //         return;
+    //     }
+
+    //     draggedOverShortcut = shortcut;
+
+    //     const draggedIndex = shortcuts.findIndex(
+    //         shortcut => shortcut.description === draggedShortcut.description,
+    //     );
+
+    //     const draggedOverIndex = shortcuts.findIndex(
+    //         shortcut =>
+    //             shortcut.description === draggedOverShortcut.description,
+    //     );
+
+    //     const oldShortcut = shortcuts[draggedOverIndex];
+    //     shortcuts[draggedOverIndex] = shortcut;
+    //     shortcuts[draggedIndex] = oldShortcut;
+    // };
+
+    // const onDrop = (e: any) => {};
 
     return (
         <div className="sheet">
@@ -29,9 +61,17 @@ const Sheet = (props: SheetProps) => {
                 </a>
             </div>
             <div className="sheet-content">
-                <ul>
-                    {props.shortcuts.map(item => (
-                        <SheetItem shortcut={item} key={item.description} onDelete={onDeleteItem} />
+                <ul
+                // onDrop={onDrop}
+                >
+                    {props.shortcuts.map(shortcut => (
+                        <SheetItem
+                            // onDragOver={onDragOver}
+                            // onDragStart={onDragStart}
+                            shortcut={shortcut}
+                            key={shortcut.description}
+                            onDelete={onDeleteItem}
+                        />
                     ))}
                 </ul>
             </div>
