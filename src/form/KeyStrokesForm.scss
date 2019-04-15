@@ -7,7 +7,9 @@
     box-sizing: border-box;
     padding-left: 20px;
     padding: 24px 8px 24px 16px;
-
+    @media print {
+        display: none;
+    }
     input[type="text"] {
         margin-bottom: 10px;
     }
