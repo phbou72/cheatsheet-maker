@@ -20,7 +20,15 @@ const Sheet = (props: SheetProps) => {
 
     return (
         <div className="sheet">
-            <div className="sheet-container">
+            <div className="sheet-header">
+                <a href="#" className="button">
+                    Import
+                </a>
+                <a href="#" className="button">
+                    Export
+                </a>
+            </div>
+            <div className="sheet-content">
                 <ul>
                     {props.shortcuts.map(item => (
                         <SheetItem shortcut={item} key={item.description} onDelete={onDeleteItem} />
