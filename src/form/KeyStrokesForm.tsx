@@ -32,7 +32,7 @@ const showErrors = (description: string, keyStrokesString: string, shortcuts: Sh
     const isFilled = checkIsFilled(description, keyStrokesString);
 
     if (!isFilled) {
-        return <div className="key-strokes-form-error">Both fields must be filled</div>;
+        return <div className="key-strokes-form-error">Both field must be filled</div>;
     }
 
     const isValidKeyStroke = checkIsValidKeyStroke(keyStrokesString);
@@ -42,11 +42,7 @@ const showErrors = (description: string, keyStrokesString: string, shortcuts: Sh
 
     const foundDescription = checkFoundDescription(description, shortcuts);
     if (foundDescription) {
-        return (
-            <div className="key-strokes-form-error">
-                Found another shortcut with the same description
-            </div>
-        );
+        return <div className="key-strokes-form-error">Duplicate shortcut description</div>;
     }
 };
 
@@ -69,7 +65,7 @@ const KeyStrokesForm = (props: Props) => {
         : undefined;
 
     return (
-        <div className="key-strokes-form sm-panel">
+        <div className="key-strokes-form">
             <input
                 className="input"
                 name="description"
@@ -88,7 +84,7 @@ const KeyStrokesForm = (props: Props) => {
                 value={keyStrokesString}
             />
 
-            <a className="button is-white" {...{ disabled: !canSubmitForm }} onClick={onAddClick}>
+            <a className="button is-primary" {...{ disabled: !canSubmitForm }} onClick={onAddClick}>
                 Add
             </a>
 

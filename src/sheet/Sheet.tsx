@@ -19,12 +19,14 @@ const Sheet = (props: SheetProps) => {
     };
 
     return (
-        <div className="sheet sm-panel">
-            <ul>
-                {props.shortcuts.map(item => (
-                    <SheetItem shortcut={item} key={item.description} onDelete={onDeleteItem} />
-                ))}
-            </ul>
+        <div className="sheet">
+            <div className="sheet-container">
+                <ul>
+                    {props.shortcuts.map(item => (
+                        <SheetItem shortcut={item} key={item.description} onDelete={onDeleteItem} />
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };

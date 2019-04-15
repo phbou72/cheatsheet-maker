@@ -4,6 +4,9 @@
     flex-grow: 0;
     flex-shrink: 0;
     flex-direction: column;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding: 24px 8px 24px 16px;
 
     input[type="text"] {
         margin-bottom: 10px;
@@ -14,5 +17,6 @@
 
     &-error {
         margin-top: 16px;
+        color: #e16f6f;
     }
 }
