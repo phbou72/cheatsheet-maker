@@ -1,60 +1,77 @@
 import React, { useState } from "react";
 
 import shortcutBuilder from "../shortcutBuilder";
+import Errors from "./Errors";
+import {
+    isFilled,
+    isValidKeyStroke,
+    hasNoDuplicateDescription,
+} from "./validators";
 
 import "./KeyStrokesForm.scss";
 
 interface Props {
     onAddEvent: (shortcut: Shortcut) => void;
+    onEditEvent: (shortcut: Shortcut, newShortcut: Shortcut) => void;
     shortcuts: Shortcut[];
+    editedShortcut?: Shortcut;
 }
 
-const validKeyStrokeRegex = /[\w\W]+(\+?[\w\W]*\+?)+/;
-
-const checkIsFilled = (description: string, keyStrokesString: string) =>
-    description.length > 0 && keyStrokesString.length > 0;
-
-const checkIsValidKeyStroke = (keyStrokesString: string) =>
-    validKeyStrokeRegex.test(keyStrokesString);
-
-const checkFoundDescription = (description: string, shortcuts: Shortcut[]) =>
-    shortcuts.find(shortcut => shortcut.description === description);
-
-const canSubmit = (description: string, keyStrokesString: string, shortcuts: Shortcut[]) => {
-    const isFilled = checkIsFilled(description, keyStrokesString);
-    const isValidKeyStroke = checkIsValidKeyStroke(keyStrokesString);
-    const foundDescription = checkFoundDescription(description, shortcuts);
-
-    return isFilled && isValidKeyStroke && !foundDescription;
+const canSubmit = (
+    description: string,
+    keyStrokesString: string,
+    shortcuts: Shortcut[],
+) => {
+    return (
+        isFilled(description, keyStrokesString, shortcuts) &&
+        isValidKeyStroke(description, keyStrokesString, shortcuts) &&
+        hasNoDuplicateDescription(description, keyStrokesString, shortcuts)
+    );
 };
 
-const showErrors = (description: string, keyStrokesString: string, shortcuts: Shortcut[]) => {
-    const isFilled = checkIsFilled(description, keyStrokesString);
+const buildButton = (
+    canSubmitForm: boolean,
+    onAddClick?: () => void,
+    onEditClick?: () => void,
+    editedShortcut?: Shortcut,
+) => {
+    const text = !editedShortcut ? "Add" : "Edit";
+    const action = !editedShortcut ? onAddClick : onEditClick;
 
-    if (!isFilled) {
-        return <div className="key-strokes-form-error">Both field must be filled</div>;
-    }
-
-    const isValidKeyStroke = checkIsValidKeyStroke(keyStrokesString);
-    if (!isValidKeyStroke) {
-        return <div className="key-strokes-form-error">Invalid key stroke</div>;
-    }
-
-    const foundDescription = checkFoundDescription(description, shortcuts);
-    if (foundDescription) {
-        return <div className="key-strokes-form-error">Duplicate shortcut description</div>;
-    }
+    return (
+        <a
+            className="button is-primary"
+            {...{ disabled: !canSubmitForm }}
+            onClick={action}
+        >
+            {text}
+        </a>
+    );
 };
+
+let lastEditedShortcut: Shortcut;
 
 const KeyStrokesForm = (props: Props) => {
-    const { onAddEvent, shortcuts } = props;
+    const { onAddEvent, onEditEvent, shortcuts, editedShortcut } = props;
 
+    // hooks
     const [description, setDescription] = useState("");
     const [keyStrokesString, setKeyStrokesString] = useState("");
 
-    const canSubmitForm = canSubmit(description, keyStrokesString, shortcuts);
+    if (
+        (!lastEditedShortcut && editedShortcut) ||
+        (editedShortcut && lastEditedShortcut !== editedShortcut)
+    ) {
+        setDescription(editedShortcut.description);
+        setKeyStrokesString(
+            editedShortcut.keyStrokes
+                .map(keyStroke => keyStroke.label)
+                .join("+"),
+        );
+        lastEditedShortcut = editedShortcut;
+    }
 
-    const errors = showErrors(description, keyStrokesString, shortcuts);
+    const canSubmitForm = canSubmit(description, keyStrokesString, shortcuts);
 
     const onAddClick = canSubmitForm
         ? () => {
@@ -63,6 +80,22 @@ const KeyStrokesForm = (props: Props) => {
               setKeyStrokesString("");
           }
         : undefined;
+
+    const onEditClick = canSubmitForm
+        ? () => {
+              onEditEvent(
+                  lastEditedShortcut,
+                  shortcutBuilder(description, keyStrokesString),
+              );
+          }
+        : undefined;
+
+    const button = buildButton(
+        canSubmitForm,
+        onAddClick,
+        onEditClick,
+        editedShortcut,
+    );
 
     return (
         <div className="key-strokes-form">
@@ -84,11 +117,13 @@ const KeyStrokesForm = (props: Props) => {
                 value={keyStrokesString}
             />
 
-            <a className="button is-primary" {...{ disabled: !canSubmitForm }} onClick={onAddClick}>
-                Add
-            </a>
+            {button}
 
-            {errors}
+            <Errors
+                description={description}
+                keyStrokesString={keyStrokesString}
+                shortcuts={shortcuts}
+            />
         </div>
     );
 };

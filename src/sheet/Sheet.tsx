@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import SheetItem from "./SheetItem";
 
@@ -7,20 +7,25 @@ import "./Sheet.scss";
 interface SheetProps {
     shortcuts: Shortcut[];
     setShortcuts: (shortcuts: Shortcut[]) => void;
+    setEditedShortcut: (shortcut: Shortcut) => void;
 }
 
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
 
 const Sheet = (props: SheetProps) => {
-    const { shortcuts, setShortcuts } = props;
+    const { shortcuts, setShortcuts, setEditedShortcut } = props;
 
-    const onDeleteItem = (deleteShortcut: Shortcut) => {
+    const onDeleteShortcut = (deleteShortcut: Shortcut) => {
         setShortcuts(
             shortcuts.filter(
                 shortcut => shortcut.description !== deleteShortcut.description,
             ),
         );
+    };
+
+    const onEditShortcut = (shortcut: Shortcut) => {
+        setEditedShortcut(shortcut);
     };
 
     // const onDragStart = (e: any, shortcut: Shortcut) => {
@@ -70,7 +75,8 @@ const Sheet = (props: SheetProps) => {
                             // onDragStart={onDragStart}
                             shortcut={shortcut}
                             key={shortcut.description}
-                            onDelete={onDeleteItem}
+                            onDelete={onDeleteShortcut}
+                            onEdit={onEditShortcut}
                         />
                     ))}
                 </ul>

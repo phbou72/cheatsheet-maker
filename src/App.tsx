@@ -6,6 +6,8 @@ import Sheet from "./sheet/Sheet";
 import "./App.scss";
 
 const App = () => {
+    const [editedShortcut, setEditedShortcut] = useState();
+
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([
         {
             description: "Supprimer la ligne",
@@ -30,12 +32,28 @@ const App = () => {
         },
     ]);
 
+    const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
+        const shortcutIndex = shortcuts.findIndex(
+            shortcut => shortcut === oldShortcut,
+        );
+
+        const newShortcuts = shortcuts.slice(0);
+        newShortcuts[shortcutIndex] = newShortcut;
+        setShortcuts(newShortcuts);
+    };
+
     return (
         <div className="app">
-            <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} />
+            <Sheet
+                shortcuts={shortcuts}
+                setShortcuts={setShortcuts}
+                setEditedShortcut={setEditedShortcut}
+            />
             <KeyStrokesForm
                 shortcuts={shortcuts}
+                editedShortcut={editedShortcut}
                 onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])}
+                onEditEvent={onEditShortcut}
             />
         </div>
     );

@@ -5,6 +5,7 @@ import "./SheetItem.scss";
 interface SheetItemProps {
     shortcut: Shortcut;
     onDelete: (shortcut: Shortcut) => void;
+    onEdit: (shortcut: Shortcut) => void;
     onDragStart?: (e: any, shortcut: Shortcut) => void;
     onDragOver?: (e: any, shortcut: Shortcut) => void;
 }
@@ -16,7 +17,7 @@ const createKeyStrokesString = (keyStrokes: KeyStroke[]) => {
 };
 
 const SheetItem = (props: SheetItemProps) => {
-    const { onDelete, onDragStart, onDragOver, shortcut } = props;
+    const { onDelete, onEdit, onDragStart, onDragOver, shortcut } = props;
     const { description, keyStrokes } = shortcut;
 
     const keyStrokesString = createKeyStrokesString(keyStrokes);
@@ -35,7 +36,10 @@ const SheetItem = (props: SheetItemProps) => {
             >
                 Delete
             </button>
-            <button className="button is-success is-small is-rounded">
+            <button
+                className="button is-success is-small is-rounded"
+                onClick={() => onEdit(shortcut)}
+            >
                 Edit
             </button>
         </li>
