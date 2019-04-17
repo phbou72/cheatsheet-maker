@@ -49,7 +49,7 @@ const buildButton = (
     );
 };
 
-let lastEditedShortcut: Shortcut;
+let lastEditedShortcut: Shortcut | null;
 
 const KeyStrokesForm = (props: Props) => {
     const { onAddEvent, onEditEvent, shortcuts, editedShortcut } = props;
@@ -84,9 +84,10 @@ const KeyStrokesForm = (props: Props) => {
     const onEditClick = canSubmitForm
         ? () => {
               onEditEvent(
-                  lastEditedShortcut,
+                  lastEditedShortcut as Shortcut,
                   shortcutBuilder(description, keyStrokesString),
               );
+              lastEditedShortcut = null;
           }
         : undefined;
 
