@@ -17,7 +17,12 @@ const createKeyStrokesString = (keyStrokes: KeyStroke[]) => {
 };
 
 const SheetItem = (props: SheetItemProps) => {
-    const { onDelete, onEdit, onDragStart, onDragOver, shortcut } = props;
+    const {
+        onDelete,
+        onEdit,
+        shortcut,
+        // onDragStart, onDragOver
+    } = props;
     const { description, keyStrokes } = shortcut;
 
     const keyStrokesString = createKeyStrokesString(keyStrokes);
@@ -25,9 +30,9 @@ const SheetItem = (props: SheetItemProps) => {
     return (
         <li
             className="sheet-item"
-            draggable
-            onDragStart={e => onDragStart && onDragStart(e, shortcut)}
-            onDragOver={e => onDragOver && onDragOver(e, shortcut)}
+            // draggable
+            // onDragStart={e => onDragStart && onDragStart(e, shortcut)}
+            // onDragOver={e => onDragOver && onDragOver(e, shortcut)}
         >
             {description}: {keyStrokesString}
             <button
