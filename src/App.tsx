@@ -6,7 +6,7 @@ import Sheet from "./sheet/Sheet";
 import "./App.scss";
 
 const App = () => {
-    const [editedShortcut, setEditedShortcut] = useState();
+    const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
 
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([
         {
@@ -40,6 +40,7 @@ const App = () => {
         const newShortcuts = shortcuts.slice(0);
         newShortcuts[shortcutIndex] = newShortcut;
         setShortcuts(newShortcuts);
+        setEditedShortcut(null);
     };
 
     return (

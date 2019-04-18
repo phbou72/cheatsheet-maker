@@ -10,8 +10,8 @@ interface SheetProps {
     setEditedShortcut: (shortcut: Shortcut) => void;
 }
 
-let draggedShortcut: Shortcut;
-let draggedOverShortcut: Shortcut;
+// let draggedShortcut: Shortcut;
+// let draggedOverShortcut: Shortcut;
 
 const Sheet = (props: SheetProps) => {
     const { shortcuts, setShortcuts, setEditedShortcut } = props;

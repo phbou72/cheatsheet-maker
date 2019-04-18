@@ -14,7 +14,7 @@ interface Props {
     onAddEvent: (shortcut: Shortcut) => void;
     onEditEvent: (shortcut: Shortcut, newShortcut: Shortcut) => void;
     shortcuts: Shortcut[];
-    editedShortcut?: Shortcut;
+    editedShortcut: Shortcut | null;
 }
 
 const canSubmit = (
@@ -31,9 +31,9 @@ const canSubmit = (
 
 const buildButton = (
     canSubmitForm: boolean,
+    editedShortcut: Shortcut | null,
     onAddClick?: () => void,
     onEditClick?: () => void,
-    editedShortcut?: Shortcut,
 ) => {
     const text = !editedShortcut ? "Add" : "Edit";
     const action = !editedShortcut ? onAddClick : onEditClick;
@@ -88,14 +88,16 @@ const KeyStrokesForm = (props: Props) => {
                   shortcutBuilder(description, keyStrokesString),
               );
               lastEditedShortcut = null;
+              setDescription("");
+              setKeyStrokesString("");
           }
         : undefined;
 
     const button = buildButton(
         canSubmitForm,
+        editedShortcut,
         onAddClick,
         onEditClick,
-        editedShortcut,
     );
 
     return (
