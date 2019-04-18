@@ -57,14 +57,14 @@ const Sheet = (props: SheetProps) => {
 
     return (
         <div className="sheet">
-            <div className="sheet-header">
+            {/* <div className="sheet-header">
                 <a href="#" className="button">
                     Import
                 </a>
                 <a href="#" className="button">
                     Export
                 </a>
-            </div>
+            </div> */}
             <div className="sheet-content">
                 <ul
                 // onDrop={onDrop}
