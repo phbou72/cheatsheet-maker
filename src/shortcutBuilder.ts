@@ -8,8 +8,7 @@ const createKeyStroke = (value: string): KeyStroke => ({
     symbol: createSplitteStroke(value).join("/"),
 });
 
-const createKeyStrokes = (keyStroke: string) =>
-    keyStroke.split("+").map(createKeyStroke);
+const createKeyStrokes = (keyStroke: string) => keyStroke.split("+").map(createKeyStroke);
 
 const buildShortcut = (description: string, keyStrokes: string): Shortcut => ({
     description,

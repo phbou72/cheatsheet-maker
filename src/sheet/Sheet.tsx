@@ -17,11 +17,7 @@ const Sheet = (props: SheetProps) => {
     const { shortcuts, setShortcuts, setEditedShortcut } = props;
 
     const onDeleteShortcut = (deleteShortcut: Shortcut) => {
-        setShortcuts(
-            shortcuts.filter(
-                shortcut => shortcut.description !== deleteShortcut.description,
-            ),
-        );
+        setShortcuts(shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description));
     };
 
     const onEditShortcut = (shortcut: Shortcut) => {

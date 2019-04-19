@@ -2,11 +2,7 @@ import React, { useState } from "react";
 
 import shortcutBuilder from "../shortcutBuilder";
 import Errors from "./Errors";
-import {
-    isFilled,
-    isValidKeyStroke,
-    hasNoDuplicateDescription,
-} from "./validators";
+import { isFilled, isValidKeyStroke, hasNoDuplicateDescription } from "./validators";
 
 import "./KeyStrokesForm.scss";
 
@@ -17,11 +13,7 @@ interface Props {
     editedShortcut: Shortcut | null;
 }
 
-const canSubmit = (
-    description: string,
-    keyStrokesString: string,
-    shortcuts: Shortcut[],
-) => {
+const canSubmit = (description: string, keyStrokesString: string, shortcuts: Shortcut[]) => {
     return (
         isFilled(description, keyStrokesString, shortcuts) &&
         isValidKeyStroke(description, keyStrokesString, shortcuts) &&
@@ -39,11 +31,7 @@ const buildButton = (
     const action = !editedShortcut ? onAddClick : onEditClick;
 
     return (
-        <a
-            className="button is-primary"
-            {...{ disabled: !canSubmitForm }}
-            onClick={action}
-        >
+        <a className="button is-primary" {...{ disabled: !canSubmitForm }} onClick={action}>
             {text}
         </a>
     );
@@ -58,16 +46,9 @@ const KeyStrokesForm = (props: Props) => {
     const [description, setDescription] = useState("");
     const [keyStrokesString, setKeyStrokesString] = useState("");
 
-    if (
-        (!lastEditedShortcut && editedShortcut) ||
-        (editedShortcut && lastEditedShortcut !== editedShortcut)
-    ) {
+    if ((!lastEditedShortcut && editedShortcut) || (editedShortcut && lastEditedShortcut !== editedShortcut)) {
         setDescription(editedShortcut.description);
-        setKeyStrokesString(
-            editedShortcut.keyStrokes
-                .map(keyStroke => keyStroke.label)
-                .join("+"),
-        );
+        setKeyStrokesString(editedShortcut.keyStrokes.map(keyStroke => keyStroke.label).join("+"));
         lastEditedShortcut = editedShortcut;
     }
 
@@ -83,22 +64,14 @@ const KeyStrokesForm = (props: Props) => {
 
     const onEditClick = canSubmitForm
         ? () => {
-              onEditEvent(
-                  lastEditedShortcut as Shortcut,
-                  shortcutBuilder(description, keyStrokesString),
-              );
+              onEditEvent(lastEditedShortcut as Shortcut, shortcutBuilder(description, keyStrokesString));
               lastEditedShortcut = null;
               setDescription("");
               setKeyStrokesString("");
           }
         : undefined;
 
-    const button = buildButton(
-        canSubmitForm,
-        editedShortcut,
-        onAddClick,
-        onEditClick,
-    );
+    const button = buildButton(canSubmitForm, editedShortcut, onAddClick, onEditClick);
 
     return (
         <div className="key-strokes-form">
@@ -122,11 +95,7 @@ const KeyStrokesForm = (props: Props) => {
 
             {button}
 
-            <Errors
-                description={description}
-                keyStrokesString={keyStrokesString}
-                shortcuts={shortcuts}
-            />
+            <Errors description={description} keyStrokesString={keyStrokesString} shortcuts={shortcuts} />
         </div>
     );
 };

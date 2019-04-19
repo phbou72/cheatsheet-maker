@@ -17,9 +17,7 @@ const App = () => {
     ]);
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
-        const shortcutIndex = shortcuts.findIndex(
-            shortcut => shortcut === oldShortcut,
-        );
+        const shortcutIndex = shortcuts.findIndex(shortcut => shortcut === oldShortcut);
 
         const newShortcuts = shortcuts.slice(0);
         newShortcuts[shortcutIndex] = newShortcut;
@@ -29,11 +27,7 @@ const App = () => {
 
     return (
         <div className="app">
-            <Sheet
-                shortcuts={shortcuts}
-                setShortcuts={setShortcuts}
-                setEditedShortcut={setEditedShortcut}
-            />
+            <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} setEditedShortcut={setEditedShortcut} />
             <KeyStrokesForm
                 shortcuts={shortcuts}
                 editedShortcut={editedShortcut}
