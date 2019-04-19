@@ -4,7 +4,7 @@ import shortcutBuilder from "../shortcutBuilder";
 import Errors from "./Errors";
 import { isFilled, isValidKeyStroke, hasNoDuplicateDescription } from "./validators";
 
-import "./KeyStrokesForm.scss";
+import "./KeyStrokeForm.scss";
 
 interface Props {
     onAddEvent: (shortcut: Shortcut) => void;
@@ -39,7 +39,7 @@ const buildButton = (
 
 let lastEditedShortcut: Shortcut | null;
 
-const KeyStrokesForm = (props: Props) => {
+const KeyStrokeForm = (props: Props) => {
     const { onAddEvent, onEditEvent, shortcuts, editedShortcut } = props;
 
     // hooks
@@ -74,7 +74,7 @@ const KeyStrokesForm = (props: Props) => {
     const button = buildButton(canSubmitForm, editedShortcut, onAddClick, onEditClick);
 
     return (
-        <div className="key-strokes-form">
+        <div className="key-stroke-form">
             <input
                 className="input"
                 name="description"
@@ -100,4 +100,4 @@ const KeyStrokesForm = (props: Props) => {
     );
 };
 
-export default KeyStrokesForm;
+export default KeyStrokeForm;

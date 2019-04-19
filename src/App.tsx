@@ -1,20 +1,14 @@
 import React, { useState } from "react";
 
-import KeyStrokesForm from "./form/KeyStrokesForm";
+import KeyStrokeForm from "./keyStroke/KeyStrokeForm";
 import Sheet from "./sheet/Sheet";
-
-import shortcutBuilder from "./shortcutBuilder";
 
 import "./App.scss";
 
 const App = () => {
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
 
-    const [shortcuts, setShortcuts] = useState<Shortcut[]>([
-        // shortcutBuilder("Supprimer la ligne", "shift+cmd+k"),
-        // shortcutBuilder("Déplacer la ligne", "alt+down/up"),
-        // shortcutBuilder("Renommer la variable", "fn+f2"),
-    ]);
+    const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
         const shortcutIndex = shortcuts.findIndex(shortcut => shortcut === oldShortcut);
@@ -28,7 +22,7 @@ const App = () => {
     return (
         <div className="app">
             <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} setEditedShortcut={setEditedShortcut} />
-            <KeyStrokesForm
+            <KeyStrokeForm
                 shortcuts={shortcuts}
                 editedShortcut={editedShortcut}
                 onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])}

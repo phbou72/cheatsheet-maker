@@ -17,13 +17,10 @@ let draggedOverShortcut: Shortcut;
 const Sheet = (props: SheetProps) => {
     const { shortcuts, setShortcuts, setEditedShortcut } = props;
 
-    const onDeleteShortcut = (deleteShortcut: Shortcut) => {
+    const onDeleteShortcut = (deleteShortcut: Shortcut) =>
         setShortcuts(shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description));
-    };
 
-    const onEditShortcut = (shortcut: Shortcut) => {
-        setEditedShortcut(shortcut);
-    };
+    const onEditShortcut = (shortcut: Shortcut) => setEditedShortcut(shortcut);
 
     const onDragStart = (shortcut: Shortcut) => {
         draggedShortcut = shortcut;

@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "bulma-scss/bulma.scss";
 
 import "./index.scss";
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import download from "../download";
+import download from "../utils/download";
 
 import "./SheetActions.scss";
 
