@@ -21,7 +21,9 @@ const App = () => {
 
     return (
         <div className="app">
-            <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} setEditedShortcut={setEditedShortcut} />
+            <div className="app-sheets">
+                <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} setEditedShortcut={setEditedShortcut} />
+            </div>
             <KeyStrokeForm
                 shortcuts={shortcuts}
                 editedShortcut={editedShortcut}
