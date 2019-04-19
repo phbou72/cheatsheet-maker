@@ -10,8 +10,8 @@ interface SheetProps {
     setEditedShortcut: (shortcut: Shortcut) => void;
 }
 
-// let draggedShortcut: Shortcut;
-// let draggedOverShortcut: Shortcut;
+let draggedShortcut: Shortcut;
+let draggedOverShortcut: Shortcut;
 
 const Sheet = (props: SheetProps) => {
     const { shortcuts, setShortcuts, setEditedShortcut } = props;
@@ -24,32 +24,30 @@ const Sheet = (props: SheetProps) => {
         setEditedShortcut(shortcut);
     };
 
-    // const onDragStart = (e: any, shortcut: Shortcut) => {
-    //     draggedShortcut = shortcut;
-    // };
+    const onDragStart = (shortcut: Shortcut) => {
+        draggedShortcut = shortcut;
+    };
 
-    // const onDragOver = (e: any, shortcut: Shortcut) => {
-    //     if (draggedOverShortcut === shortcut) {
-    //         return;
-    //     }
+    const onDragOver = (shortcut: Shortcut) => {
+        if (draggedOverShortcut === shortcut) {
+            return;
+        }
 
-    //     draggedOverShortcut = shortcut;
+        draggedOverShortcut = shortcut;
+    };
 
-    //     const draggedIndex = shortcuts.findIndex(
-    //         shortcut => shortcut.description === draggedShortcut.description,
-    //     );
+    const onDragEnd = () => {
+        const draggedIndex = shortcuts.findIndex(shortcut => shortcut.description === draggedShortcut.description);
+        const draggedOverIndex = shortcuts.findIndex(
+            shortcut => shortcut.description === draggedOverShortcut.description,
+        );
 
-    //     const draggedOverIndex = shortcuts.findIndex(
-    //         shortcut =>
-    //             shortcut.description === draggedOverShortcut.description,
-    //     );
+        const newShortcuts = shortcuts.splice(0);
+        newShortcuts.splice(draggedOverIndex, 1, draggedShortcut);
+        newShortcuts.splice(draggedIndex, 1, draggedOverShortcut);
 
-    //     const oldShortcut = shortcuts[draggedOverIndex];
-    //     shortcuts[draggedOverIndex] = shortcut;
-    //     shortcuts[draggedIndex] = oldShortcut;
-    // };
-
-    // const onDrop = (e: any) => {};
+        setShortcuts(newShortcuts);
+    };
 
     return (
         <div className="sheet">
@@ -62,13 +60,12 @@ const Sheet = (props: SheetProps) => {
                 </a>
             </div> */}
             <div className="sheet-content">
-                <ul
-                // onDrop={onDrop}
-                >
+                <ul>
                     {props.shortcuts.map(shortcut => (
                         <SheetItem
-                            // onDragOver={onDragOver}
-                            // onDragStart={onDragStart}
+                            onDragOver={onDragOver}
+                            onDragStart={onDragStart}
+                            onDragEnd={onDragEnd}
                             shortcut={shortcut}
                             key={shortcut.description}
                             onDelete={onDeleteShortcut}

@@ -6,8 +6,9 @@ interface SheetItemProps {
     shortcut: Shortcut;
     onDelete: (shortcut: Shortcut) => void;
     onEdit: (shortcut: Shortcut) => void;
-    onDragStart?: (e: any, shortcut: Shortcut) => void;
-    onDragOver?: (e: any, shortcut: Shortcut) => void;
+    onDragStart?: (shortcut: Shortcut) => void;
+    onDragOver?: (shortcut: Shortcut) => void;
+    onDragEnd?: () => void;
 }
 
 const createKeyStrokesString = (keyStrokes: KeyStroke[]) => {
@@ -16,13 +17,7 @@ const createKeyStrokesString = (keyStrokes: KeyStroke[]) => {
 };
 
 const SheetItem = (props: SheetItemProps) => {
-    const {
-        onDelete,
-        onEdit,
-        shortcut,
-        onDragStart,
-        // onDragOver
-    } = props;
+    const { onDelete, onEdit, shortcut, onDragStart, onDragOver, onDragEnd } = props;
     const { description, keyStrokes } = shortcut;
 
     const keyStrokesString = createKeyStrokesString(keyStrokes);
@@ -31,8 +26,9 @@ const SheetItem = (props: SheetItemProps) => {
         <li
             className="sheet-item"
             draggable
-            onDragStart={e => onDragStart && onDragStart(e, shortcut)}
-            // onDragOver={e => onDragOver && onDragOver(e, shortcut)}
+            onDragStart={e => onDragStart && onDragStart(shortcut)}
+            onDragOver={e => onDragOver && onDragOver(shortcut)}
+            onDragEnd={e => onDragEnd && onDragEnd()}
         >
             {description}: {keyStrokesString}
             <button className="button is-danger is-small is-rounded" onClick={() => onDelete(shortcut)}>
