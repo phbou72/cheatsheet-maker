@@ -2,14 +2,8 @@
     padding: 16px;
     background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
     flex-grow: 1;
-    &-header {
+    .sheet-actions {
         padding-bottom: 8px;
-        .button:first-child {
-            margin-right: 8px;
-        }
-        @media print {
-            display: none;
-        }
     }
     &-content {
         border-radius: 8px;
@@ -22,17 +16,5 @@
     ul {
         margin: 0;
         padding: 0;
-    }
-
-    input[type="file"] {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-        z-index: -1;
-    }
-    .button {
-        margin-right: 8px;
     }
 }
