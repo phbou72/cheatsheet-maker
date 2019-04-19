@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import SheetItem from "./SheetItem";
 
+import download from "../download";
+
 import "./Sheet.scss";
 
 interface SheetProps {
@@ -12,6 +14,17 @@ interface SheetProps {
 
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
+
+const exportShortcuts = (shortcuts: Shortcut[]) => {
+    const object = JSON.stringify({ shortcuts });
+    download(object, "shortcuts.json", "application/json");
+};
+
+const importShortcuts = (): Shortcut[] => {
+    // const object = {shortcuts: };
+    // return (object.shortcuts && (object.shortcuts as Shortcut[])) || [];
+    return [];
+};
 
 const Sheet = (props: SheetProps) => {
     const { shortcuts, setShortcuts, setEditedShortcut } = props;
@@ -51,14 +64,28 @@ const Sheet = (props: SheetProps) => {
 
     return (
         <div className="sheet">
-            {/* <div className="sheet-header">
-                <a href="#" className="button">
+            <div className="sheet-header">
+                <a
+                    href="#"
+                    className="button"
+                    onClick={e => {
+                        e.preventDefault();
+                        exportShortcuts(shortcuts);
+                    }}
+                >
                     Import
                 </a>
-                <a href="#" className="button">
+                <a
+                    href="#"
+                    className="button"
+                    onClick={e => {
+                        e.preventDefault();
+                        setShortcuts(importShortcuts());
+                    }}
+                >
                     Export
                 </a>
-            </div> */}
+            </div>
             <div className="sheet-content">
                 <ul>
                     {props.shortcuts.map(shortcut => (
