@@ -14,16 +14,33 @@ interface SheetProps {
 
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
+let currentFile: File;
 
 const exportShortcuts = (shortcuts: Shortcut[]) => {
     const object = JSON.stringify({ shortcuts });
     download(object, "shortcuts.json", "application/json");
 };
 
-const importShortcuts = (): Shortcut[] => {
-    // const object = {shortcuts: };
-    // return (object.shortcuts && (object.shortcuts as Shortcut[])) || [];
-    return [];
+const importShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
+    if (!currentFile) {
+        return;
+    }
+
+    let reader = new FileReader();
+    reader.onload = function(e: any) {
+        let content = e.target.result;
+        const shortcuts = JSON.parse(content).shortcuts as Shortcut[];
+        setShortcuts(shortcuts);
+    };
+    reader.readAsText(currentFile);
+};
+
+const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) {
+        return;
+    }
+    currentFile = file;
 };
 
 const Sheet = (props: SheetProps) => {
@@ -65,12 +82,14 @@ const Sheet = (props: SheetProps) => {
     return (
         <div className="sheet">
             <div className="sheet-header">
+                <input type="file" id="file-input" onChange={e => onFileChange(e)} />
+
                 <a
                     href="#"
                     className="button"
                     onClick={e => {
                         e.preventDefault();
-                        exportShortcuts(shortcuts);
+                        importShortcuts(setShortcuts);
                     }}
                 >
                     Import
@@ -80,7 +99,7 @@ const Sheet = (props: SheetProps) => {
                     className="button"
                     onClick={e => {
                         e.preventDefault();
-                        setShortcuts(importShortcuts());
+                        exportShortcuts(shortcuts);
                     }}
                 >
                     Export

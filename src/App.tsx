@@ -11,9 +11,9 @@ const App = () => {
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
 
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([
-        shortcutBuilder("Supprimer la ligne", "shift+cmd+k"),
-        shortcutBuilder("Déplacer la ligne", "alt+down/up"),
-        shortcutBuilder("Renommer la variable", "fn+f2"),
+        // shortcutBuilder("Supprimer la ligne", "shift+cmd+k"),
+        // shortcutBuilder("Déplacer la ligne", "alt+down/up"),
+        // shortcutBuilder("Renommer la variable", "fn+f2"),
     ]);
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
