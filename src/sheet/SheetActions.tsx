@@ -18,17 +18,22 @@ const clearShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
     setShortcuts([]);
 };
 
-const importShortcuts = (e: React.ChangeEvent<HTMLInputElement>, setShortcuts: (shortcuts: Shortcut[]) => void) => {
-    const file = e.target.files && e.target.files[0];
+const importShortcuts = (
+    eInput: React.ChangeEvent<HTMLInputElement>,
+    setShortcuts: (shortcuts: Shortcut[]) => void,
+) => {
+    const target = eInput.target;
+    const file = target.files && target.files[0];
     if (!file) {
         return;
     }
 
     let reader = new FileReader();
-    reader.onload = function(e: any) {
-        let content = e.target.result;
+    reader.onload = function(eLoad: any) {
+        let content = eLoad.target.result;
         const shortcuts = JSON.parse(content).shortcuts as Shortcut[];
         setShortcuts(shortcuts);
+        target.value = "";
     };
     reader.readAsText(file);
 };
