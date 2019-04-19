@@ -14,15 +14,19 @@ interface SheetProps {
 
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
-let currentFile: File;
 
 const exportShortcuts = (shortcuts: Shortcut[]) => {
     const object = JSON.stringify({ shortcuts });
     download(object, "shortcuts.json", "application/json");
 };
 
-const importShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
-    if (!currentFile) {
+const clearShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
+    setShortcuts([]);
+};
+
+const importShortcuts = (e: React.ChangeEvent<HTMLInputElement>, setShortcuts: (shortcuts: Shortcut[]) => void) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) {
         return;
     }
 
@@ -32,15 +36,7 @@ const importShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
         const shortcuts = JSON.parse(content).shortcuts as Shortcut[];
         setShortcuts(shortcuts);
     };
-    reader.readAsText(currentFile);
-};
-
-const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) {
-        return;
-    }
-    currentFile = file;
+    reader.readAsText(file);
 };
 
 const Sheet = (props: SheetProps) => {
@@ -82,18 +78,16 @@ const Sheet = (props: SheetProps) => {
     return (
         <div className="sheet">
             <div className="sheet-header">
-                <input type="file" id="file-input" onChange={e => onFileChange(e)} />
+                <input
+                    type="file"
+                    name="importInput"
+                    id="importInput"
+                    onChange={e => importShortcuts(e, setShortcuts)}
+                />
+                <label htmlFor="importInput">
+                    <span className="button">Import</span>
+                </label>
 
-                <a
-                    href="#"
-                    className="button"
-                    onClick={e => {
-                        e.preventDefault();
-                        importShortcuts(setShortcuts);
-                    }}
-                >
-                    Import
-                </a>
                 <a
                     href="#"
                     className="button"
@@ -103,6 +97,17 @@ const Sheet = (props: SheetProps) => {
                     }}
                 >
                     Export
+                </a>
+
+                <a
+                    href="#"
+                    className="button"
+                    onClick={e => {
+                        e.preventDefault();
+                        clearShortcuts(setShortcuts);
+                    }}
+                >
+                    Clear
                 </a>
             </div>
             <div className="sheet-content">
