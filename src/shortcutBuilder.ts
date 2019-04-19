@@ -1,17 +1,15 @@
 import KEYS from "./KeysSymbol";
 
-const createKeyStroke = (value: string): KeyStroke => {
-    return {
-        label: value,
-        symbol: KEYS[value] || value,
-    };
-};
+const createSplitteStroke = (value: string) =>
+    value.split("/").map(valueSplitted => KEYS[valueSplitted] || valueSplitted);
 
-const createKeyStrokes = (keyStroke: string) => {
-    const groups = keyStroke.split("+");
+const createKeyStroke = (value: string): KeyStroke => ({
+    label: value,
+    symbol: createSplitteStroke(value).join("/"),
+});
 
-    return (groups && groups.map(createKeyStroke)) || [];
-};
+const createKeyStrokes = (keyStroke: string) =>
+    keyStroke.split("+").map(createKeyStroke);
 
 const buildShortcut = (description: string, keyStrokes: string): Shortcut => ({
     description,

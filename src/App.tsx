@@ -3,33 +3,17 @@ import React, { useState } from "react";
 import KeyStrokesForm from "./form/KeyStrokesForm";
 import Sheet from "./sheet/Sheet";
 
+import shortcutBuilder from "./shortcutBuilder";
+
 import "./App.scss";
 
 const App = () => {
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
 
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([
-        {
-            description: "Supprimer la ligne",
-            keyStrokes: [
-                { label: "alt", symbol: "alt" },
-                { label: "k", symbol: "k" },
-            ],
-        },
-        {
-            description: "Déplacer la ligne",
-            keyStrokes: [
-                { label: "cmd", symbol: "cmd" },
-                { label: "k", symbol: "k" },
-            ],
-        },
-        {
-            description: "Refactoriser la ligne",
-            keyStrokes: [
-                { label: "cmd", symbol: "cmd" },
-                { label: "k", symbol: "k" },
-            ],
-        },
+        shortcutBuilder("Supprimer la ligne", "shift+cmd+k"),
+        shortcutBuilder("Déplacer la ligne", "alt+down/up"),
+        shortcutBuilder("Renommer la variable", "fn+f2"),
     ]);
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
