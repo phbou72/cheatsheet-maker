@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import shortcutBuilder from "../shortcutBuilder";
-import Errors from "./Errors";
+import FormErrors from "./FormErrors";
 import { isFilled, isValidKeyStroke, hasNoDuplicateDescription } from "./validators";
 
 import "./KeyStrokeForm.scss";
@@ -42,7 +42,6 @@ let lastEditedShortcut: Shortcut | null;
 const KeyStrokeForm = (props: Props) => {
     const { onAddEvent, onEditEvent, shortcuts, editedShortcut } = props;
 
-    // hooks
     const [description, setDescription] = useState("");
     const [keyStrokesString, setKeyStrokesString] = useState("");
 
@@ -95,7 +94,7 @@ const KeyStrokeForm = (props: Props) => {
 
             {button}
 
-            <Errors description={description} keyStrokesString={keyStrokesString} shortcuts={shortcuts} />
+            <FormErrors description={description} keyStrokesString={keyStrokesString} shortcuts={shortcuts} />
         </div>
     );
 };
