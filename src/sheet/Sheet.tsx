@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { MdAddCircleOutline } from "react-icons/md";
 
 import SheetItem from "./SheetItem";
 import SheetActions from "./SheetActions";
@@ -9,6 +10,7 @@ interface SheetProps {
     shortcuts: Shortcut[];
     setShortcuts: (shortcuts: Shortcut[]) => void;
     setEditedShortcut: (shortcut: Shortcut) => void;
+    onAddShortcutEvent: () => void;
 }
 
 let draggedShortcut: Shortcut;
@@ -73,6 +75,11 @@ const Sheet = (props: SheetProps) => {
         setShortcuts(newShortcuts);
     };
 
+    const onAddShortcutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        props.onAddShortcutEvent();
+    };
+
     const sheetTitleButton = (
         <a
             href="#"
@@ -91,6 +98,9 @@ const Sheet = (props: SheetProps) => {
 
             <div className="sheet-content">
                 {editTitle ? <EditTitleForm {...{ sheetTitle, setSheetTitle, setEditTitle }} /> : sheetTitleButton}
+                <a href="#" className="sheet-add-shortcut" onClick={onAddShortcutClick}>
+                    <MdAddCircleOutline />
+                </a>
                 <ul>
                     {props.shortcuts.map(shortcut => (
                         <SheetItem

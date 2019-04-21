@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import KeyStrokeForm from "./keyStroke/KeyStrokeForm";
+import ShortcutForm from "./shortcut/ShortcutForm";
 import Sheet from "./sheet/Sheet";
 
 import "./App.scss";
@@ -9,6 +9,7 @@ const App = () => {
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
 
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
+    const [isAddShortcutOpen, setIsAddShortcutOpen] = useState(false);
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
         const shortcutIndex = shortcuts.findIndex(shortcut => shortcut === oldShortcut);
@@ -19,16 +20,31 @@ const App = () => {
         setEditedShortcut(null);
     };
 
+    const onCloseForm = () => {
+        setIsAddShortcutOpen(false);
+    };
+
+    const onAddShortcutEvent = () => {
+        setIsAddShortcutOpen(true);
+    };
+
     return (
         <div className="app">
             <div className="app-sheets">
-                <Sheet shortcuts={shortcuts} setShortcuts={setShortcuts} setEditedShortcut={setEditedShortcut} />
+                <Sheet
+                    shortcuts={shortcuts}
+                    setShortcuts={setShortcuts}
+                    setEditedShortcut={setEditedShortcut}
+                    onAddShortcutEvent={onAddShortcutEvent}
+                />
             </div>
-            <KeyStrokeForm
+            <ShortcutForm
                 shortcuts={shortcuts}
                 editedShortcut={editedShortcut}
                 onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])}
                 onEditEvent={onEditShortcut}
+                onClose={onCloseForm}
+                isOpen={isAddShortcutOpen}
             />
         </div>
     );

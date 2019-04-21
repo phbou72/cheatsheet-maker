@@ -2,15 +2,18 @@ import React, { useState } from "react";
 
 import shortcutBuilder from "../shortcutBuilder";
 import FormErrors from "./FormErrors";
+import Modal from "../common/modal";
 import { isFilled, isValidKeyStroke, hasNoDuplicateDescription } from "./validators";
 
-import "./KeyStrokeForm.scss";
+import "./ShortcutForm.scss";
 
 interface Props {
     onAddEvent: (shortcut: Shortcut) => void;
     onEditEvent: (shortcut: Shortcut, newShortcut: Shortcut) => void;
     shortcuts: Shortcut[];
     editedShortcut: Shortcut | null;
+    isOpen: boolean;
+    onClose: () => void;
 }
 
 const canSubmit = (description: string, keyStrokesString: string, shortcuts: Shortcut[]) => {
@@ -21,7 +24,7 @@ const canSubmit = (description: string, keyStrokesString: string, shortcuts: Sho
     );
 };
 
-const buildButton = (
+const buildSubmitButton = (
     canSubmitForm: boolean,
     editedShortcut: Shortcut | null,
     onAddClick?: () => void,
@@ -40,7 +43,7 @@ const buildButton = (
 let lastEditedShortcut: Shortcut | null;
 
 const KeyStrokeForm = (props: Props) => {
-    const { onAddEvent, onEditEvent, shortcuts, editedShortcut } = props;
+    const { onAddEvent, onEditEvent, shortcuts, editedShortcut, isOpen } = props;
 
     const [description, setDescription] = useState("");
     const [keyStrokesString, setKeyStrokesString] = useState("");
@@ -58,6 +61,7 @@ const KeyStrokeForm = (props: Props) => {
               onAddEvent(shortcutBuilder(description, keyStrokesString));
               setDescription("");
               setKeyStrokesString("");
+              props.onClose();
           }
         : undefined;
 
@@ -67,13 +71,34 @@ const KeyStrokeForm = (props: Props) => {
               lastEditedShortcut = null;
               setDescription("");
               setKeyStrokesString("");
+              props.onClose();
           }
         : undefined;
 
-    const button = buildButton(canSubmitForm, editedShortcut, onAddClick, onEditClick);
+    const submitButton = buildSubmitButton(canSubmitForm, editedShortcut, onAddClick, onEditClick);
+
+    const onClose = () => {
+        props.onClose();
+    };
+
+    const header = (
+        <React.Fragment>
+            <p className="modal-card-title">Add Shortcut</p>
+            <button className="delete" aria-label="close" onClick={onClose} />
+        </React.Fragment>
+    );
+
+    const footer = (
+        <React.Fragment>
+            {submitButton}
+            <button className="button" onClick={onClose}>
+                Cancel
+            </button>
+        </React.Fragment>
+    );
 
     return (
-        <div className="key-stroke-form">
+        <Modal className="key-stroke-form" isOpen={isOpen} header={header} footer={footer}>
             <input
                 className="input"
                 name="description"
@@ -92,10 +117,8 @@ const KeyStrokeForm = (props: Props) => {
                 value={keyStrokesString}
             />
 
-            {button}
-
             <FormErrors description={description} keyStrokesString={keyStrokesString} shortcuts={shortcuts} />
-        </div>
+        </Modal>
     );
 };
 
