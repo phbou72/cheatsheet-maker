@@ -6,4 +6,4 @@ export const isValidKeyStroke = (_description: string, keyStrokesString: string,
     validKeyStrokeRegex.test(keyStrokesString);
 
 export const hasNoDuplicateDescription = (description: string, _keyStrokesString: string, shortcuts: Shortcut[]) =>
-    shortcuts.some(shortcut => shortcut.description !== description);
+    !(shortcuts && shortcuts.some(shortcut => shortcut.description === description));
