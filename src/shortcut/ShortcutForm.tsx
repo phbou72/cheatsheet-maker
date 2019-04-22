@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import shortcutBuilder from "../shortcutBuilder";
 import FormErrors from "./FormErrors";
 import Modal from "../common/modal";
-import { isFilled, isValidKeyStroke, hasNoDuplicateDescription } from "./validators";
+import { isFilled, isValidKeyStroke } from "./validators";
 
 import "./ShortcutForm.scss";
 
@@ -18,9 +18,7 @@ interface Props {
 
 const canSubmit = (description: string, keyStrokesString: string, shortcuts: Shortcut[]) => {
     return (
-        isFilled(description, keyStrokesString, shortcuts) &&
-        isValidKeyStroke(description, keyStrokesString, shortcuts) &&
-        hasNoDuplicateDescription(description, keyStrokesString, shortcuts)
+        isFilled(description, keyStrokesString, shortcuts) && isValidKeyStroke(description, keyStrokesString, shortcuts)
     );
 };
 

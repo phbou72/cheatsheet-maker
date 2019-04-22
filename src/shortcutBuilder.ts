@@ -1,3 +1,5 @@
+import uuidv4 from "uuid/v4";
+
 import KEYS from "./KeysSymbol";
 
 const createSplitteStroke = (value: string) =>
@@ -12,6 +14,7 @@ const createKeyStrokes = (keyStroke: string) => keyStroke.split("+").map(createK
 
 const buildShortcut = (description: string, keyStrokes: string): Shortcut => ({
     description,
+    id: uuidv4(),
     keyStrokes: createKeyStrokes(keyStrokes),
 });
 

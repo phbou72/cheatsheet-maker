@@ -108,7 +108,7 @@ const Sheet = (props: SheetProps) => {
                             onDragStart={onDragStart}
                             onDragEnd={onDragEnd}
                             shortcut={shortcut}
-                            key={shortcut.description}
+                            key={shortcut.id}
                             onDelete={onDeleteShortcut}
                             onEdit={onEditShortcut}
                         />

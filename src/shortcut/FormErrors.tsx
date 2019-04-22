@@ -1,10 +1,9 @@
 import React from "react";
 
-import { isFilled, isValidKeyStroke, hasNoDuplicateDescription } from "./validators";
+import { isFilled, isValidKeyStroke } from "./validators";
 
 const buildBothFilledError = () => <div className="key-stroke-error">Both field must be filled</div>;
 const buildInvalidKeyStrokeError = () => <div className="key-stroke-error">Invalid key stroke</div>;
-const buildDuplicateDescription = () => <div className="key-stroke-error">Duplicate shortcut description</div>;
 
 interface Props {
     description: string;
@@ -21,10 +20,6 @@ const FormErrors = (props: Props) => {
 
     if (!isValidKeyStroke(description, keyStrokesString, shortcuts)) {
         return buildInvalidKeyStrokeError();
-    }
-
-    if (!hasNoDuplicateDescription(description, keyStrokesString, shortcuts)) {
-        return buildDuplicateDescription();
     }
 
     return null;

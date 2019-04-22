@@ -4,6 +4,3 @@ export const isFilled = (description: string, keyStrokesString: string, _shortcu
 const validKeyStrokeRegex = /[\w\W]+(\+?[\w\W]*\+?)+/;
 export const isValidKeyStroke = (_description: string, keyStrokesString: string, _shortcuts: Shortcut[]) =>
     validKeyStrokeRegex.test(keyStrokesString);
-
-export const hasNoDuplicateDescription = (description: string, _keyStrokesString: string, shortcuts: Shortcut[]) =>
-    !(shortcuts && shortcuts.some(shortcut => shortcut.description === description));

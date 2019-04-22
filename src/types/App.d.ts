@@ -1,5 +1,6 @@
 interface Shortcut {
     description: string;
+    id: string; // uuid
     keyStrokes: KeyStroke[];
 }
 
