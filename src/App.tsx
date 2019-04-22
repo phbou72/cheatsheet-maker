@@ -6,8 +6,8 @@ import Sheet from "./sheet/Sheet";
 import "./App.scss";
 
 const App = () => {
+    // hooks
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
-
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
     const [isAddShortcutOpen, setIsAddShortcutOpen] = useState(false);
 
@@ -20,11 +20,16 @@ const App = () => {
         setEditedShortcut(null);
     };
 
-    const onCloseForm = () => {
+    const onCloseAddShortcutForm = () => {
         setIsAddShortcutOpen(false);
     };
 
-    const onAddShortcutEvent = () => {
+    const onEditShortcutClick = () => {
+        setIsAddShortcutOpen(true);
+    };
+
+    const onAddShortcutClick = () => {
+        setEditedShortcut(null);
         setIsAddShortcutOpen(true);
     };
 
@@ -35,7 +40,8 @@ const App = () => {
                     shortcuts={shortcuts}
                     setShortcuts={setShortcuts}
                     setEditedShortcut={setEditedShortcut}
-                    onAddShortcutEvent={onAddShortcutEvent}
+                    onAddShortcutClick={onAddShortcutClick}
+                    onEditShortcutClick={onEditShortcutClick}
                 />
             </div>
             <ShortcutForm
@@ -43,7 +49,7 @@ const App = () => {
                 editedShortcut={editedShortcut}
                 onAddEvent={shortcut => setShortcuts([...shortcuts, shortcut])}
                 onEditEvent={onEditShortcut}
-                onClose={onCloseForm}
+                onClose={onCloseAddShortcutForm}
                 isOpen={isAddShortcutOpen}
             />
         </div>

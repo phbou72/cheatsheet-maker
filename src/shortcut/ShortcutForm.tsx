@@ -43,6 +43,7 @@ let lastEditedShortcut: Shortcut | null;
 const KeyStrokeForm = (props: Props) => {
     const { onAddEvent, onEditEvent, shortcuts, editedShortcut, isOpen } = props;
 
+    // hooks
     const [description, setDescription] = useState("");
     const [keyStrokesString, setKeyStrokesString] = useState("");
 
@@ -54,6 +55,8 @@ const KeyStrokeForm = (props: Props) => {
 
     const canSubmitForm = canSubmit(description, keyStrokesString, shortcuts);
 
+    const title = editedShortcut ? "Edit shortcut" : "Add shortcut";
+
     const onAddClick = canSubmitForm
         ? () => {
               onAddEvent(shortcutBuilder(description, keyStrokesString));
@@ -62,7 +65,6 @@ const KeyStrokeForm = (props: Props) => {
               props.onClose();
           }
         : undefined;
-
     const onEditClick = canSubmitForm
         ? () => {
               onEditEvent(lastEditedShortcut as Shortcut, shortcutBuilder(description, keyStrokesString));
@@ -72,7 +74,6 @@ const KeyStrokeForm = (props: Props) => {
               props.onClose();
           }
         : undefined;
-
     const submitButton = buildSubmitButton(canSubmitForm, editedShortcut, onAddClick, onEditClick);
 
     const onClose = () => {
@@ -81,7 +82,7 @@ const KeyStrokeForm = (props: Props) => {
 
     const header = (
         <React.Fragment>
-            <p className="modal-card-title">Add Shortcut</p>
+            <p className="modal-card-title">{title}</p>
             <button className="delete" aria-label="close" onClick={onClose} />
         </React.Fragment>
     );

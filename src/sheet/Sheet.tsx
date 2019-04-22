@@ -10,7 +10,8 @@ interface SheetProps {
     shortcuts: Shortcut[];
     setShortcuts: (shortcuts: Shortcut[]) => void;
     setEditedShortcut: (shortcut: Shortcut) => void;
-    onAddShortcutEvent: () => void;
+    onAddShortcutClick: () => void;
+    onEditShortcutClick: () => void;
 }
 
 let draggedShortcut: Shortcut;
@@ -41,17 +42,21 @@ const EditTitleForm = (props: EditTitleFormProps) => {
 };
 
 const Sheet = (props: SheetProps) => {
-    const { shortcuts, setShortcuts, setEditedShortcut } = props;
+    const { shortcuts, setShortcuts, setEditedShortcut, onEditShortcutClick } = props;
 
+    // hooks
     const [sheetTitle, setSheetTitle] = useState("A title");
     const [editTitle, setEditTitle] = useState(false);
 
-    // EDIT/DELETE
+    // edit/delete
     const onDeleteShortcut = (deleteShortcut: Shortcut) =>
         setShortcuts(shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description));
-    const onEditShortcut = (shortcut: Shortcut) => setEditedShortcut(shortcut);
+    const onEditShortcut = (shortcut: Shortcut) => {
+        setEditedShortcut(shortcut);
+        onEditShortcutClick();
+    };
 
-    // DRAG EVENT
+    // drag event
     const onDragStart = (shortcut: Shortcut) => {
         draggedShortcut = shortcut;
     };
@@ -77,7 +82,7 @@ const Sheet = (props: SheetProps) => {
 
     const onAddShortcutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        props.onAddShortcutEvent();
+        props.onAddShortcutClick();
     };
 
     const sheetTitleButton = (
