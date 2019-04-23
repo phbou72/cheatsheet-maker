@@ -7,6 +7,13 @@
         position: absolute;
         z-index: -1;
     }
+    .navbar-item.import {
+        &:hover {
+            background-color: whitesmoke;
+            cursor: pointer;
+        }
+    }
+
     @media print {
         display: none;
     }

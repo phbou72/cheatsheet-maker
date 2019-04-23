@@ -19,6 +19,12 @@ interface EditTitleFormProps {
 
 const EditTitleForm = (props: EditTitleFormProps) => {
     const { sheetTitle, setSheetTitle, setEditTitle } = props;
+
+    const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setEditTitle(false);
+    };
+
     return (
         <div className="sheet-edit-title">
             <input
@@ -28,14 +34,14 @@ const EditTitleForm = (props: EditTitleFormProps) => {
                 value={sheetTitle}
                 onChange={e => setSheetTitle(e.target.value)}
             />
-            <a href="#" className="button" onClick={_e => setEditTitle(false)}>
+            <button className="button" onClick={onSaveClick}>
                 Save
-            </a>
+            </button>
         </div>
     );
 };
 
-const Sheet = (props: SheetProps) => {
+const Sheet = (_props: SheetProps) => {
     // hooks
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
@@ -96,14 +102,13 @@ const Sheet = (props: SheetProps) => {
         setShortcuts(newShortcuts);
     };
 
+    const onEditTitle = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        setEditTitle(true);
+    };
+
     const sheetTitleButton = (
-        <a
-            href="#"
-            onClick={e => {
-                e.preventDefault();
-                setEditTitle(true);
-            }}
-        >
+        <a href="#sheettitle" onClick={onEditTitle}>
             {sheetTitle}
         </a>
     );
@@ -112,7 +117,7 @@ const Sheet = (props: SheetProps) => {
         <div className="sheet">
             <div className="sheet-content">
                 {editTitle ? <EditTitleForm {...{ sheetTitle, setSheetTitle, setEditTitle }} /> : sheetTitleButton}
-                <a href="#" className="sheet-add-shortcut" onClick={onAddShortcutClick}>
+                <a href="#addsheet" className="sheet-add-shortcut" onClick={onAddShortcutClick}>
                     <MdAddCircleOutline />
                 </a>
                 <ul>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import download from "./utils/download";
+// import download from "./utils/download";
 
 import "./Menu.scss";
 
@@ -42,6 +42,7 @@ const SheetActions = (_props: Props) => {
     // const { shortcuts, setShortcuts } = props;
 
     const onImportClick = (_e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("derp");
         // importShortcuts(e, setShortcuts)
     };
 
@@ -55,21 +56,25 @@ const SheetActions = (_props: Props) => {
         // clearShortcuts(setShortcuts);
     };
 
+    const onClickPreventDefault = (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault();
+
     return (
         <nav className="navbar menu">
             <div className="navbar-start">
                 <div className="navbar-item has-dropdown is-hoverable">
-                    <a className="navbar-link">File</a>
+                    <a href="#file" className="navbar-link" onClick={onClickPreventDefault}>
+                        File
+                    </a>
 
                     <div className="navbar-dropdown">
                         <input type="file" name="importInput" id="importInput" onChange={onImportClick} />
                         <label htmlFor="importInput">
-                            <a className="navbar-item">Import</a>
+                            <div className="navbar-item import">Import</div>
                         </label>
-                        <a href="#" className="navbar-item" onClick={onExportClick}>
+                        <a href="#export" className="navbar-item" onClick={onExportClick}>
                             Export
                         </a>
-                        <a href="#" className="navbar-item" onClick={onClearClick}>
+                        <a href="newpage" className="navbar-item" onClick={onClearClick}>
                             New page
                         </a>
                     </div>
