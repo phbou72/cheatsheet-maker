@@ -1,10 +1,16 @@
+interface KeyStroke {
+    label: string;
+    symbol: string;
+}
+
 interface Shortcut {
     description: string;
     id: string; // uuid
     keyStrokes: KeyStroke[];
 }
 
-interface KeyStroke {
-    label: string;
-    symbol: string;
+interface Sheet {
+    id: string; // uuid
+    shortcuts: Shortcut[];
+    title: string;
 }
