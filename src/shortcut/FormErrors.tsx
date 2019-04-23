@@ -1,6 +1,6 @@
 import React from "react";
 
-import { isFilled, isValidKeyStroke } from "./validators";
+import { isFilled, isValidKeyStroke } from "shortcut/validators";
 
 const buildBothFilledError = () => <div className="key-stroke-error">Both field must be filled</div>;
 const buildInvalidKeyStrokeError = () => <div className="key-stroke-error">Invalid key stroke</div>;

@@ -1,7 +1,7 @@
 import React from "react";
 
-import Menu from "./Menu";
-import Sheet from "./sheet/Sheet";
+import Menu from "Menu";
+import Sheet from "sheet/Sheet";
 
 import "./App.scss";
 

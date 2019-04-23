@@ -6,9 +6,9 @@ interface SheetItemProps {
     shortcut: Shortcut;
     onDelete: (shortcut: Shortcut) => void;
     onEdit: (shortcut: Shortcut) => void;
-    onDragStart?: (shortcut: Shortcut) => void;
-    onDragOver?: (shortcut: Shortcut) => void;
-    onDragEnd?: () => void;
+    onDragStart: (shortcut: Shortcut) => void;
+    onDragOver: (shortcut: Shortcut) => void;
+    onDragEnd: () => void;
 }
 
 const createKeyStrokesString = (keyStrokes: KeyStroke[]) => {
@@ -26,9 +26,9 @@ const SheetItem = (props: SheetItemProps) => {
         <li
             className="sheet-item"
             draggable
-            onDragStart={e => onDragStart && onDragStart(shortcut)}
-            onDragOver={e => onDragOver && onDragOver(shortcut)}
-            onDragEnd={e => onDragEnd && onDragEnd()}
+            onDragStart={_e => onDragStart(shortcut)}
+            onDragOver={_e => onDragOver(shortcut)}
+            onDragEnd={_e => onDragEnd()}
         >
             {description}: {keyStrokesString}
             <button className="button is-danger is-small is-rounded" onClick={() => onDelete(shortcut)}>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
-import shortcutBuilder from "../shortcutBuilder";
-import FormErrors from "./FormErrors";
-import Modal from "../common/modal";
-import { isFilled, isValidKeyStroke } from "./validators";
+import shortcutBuilder from "shortcutBuilder";
+
+import Modal from "common/modal";
+
+import FormErrors from "shortcut/FormErrors";
+import { isFilled, isValidKeyStroke } from "shortcut/validators";
 
 import "./ShortcutForm.scss";
 

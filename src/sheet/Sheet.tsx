@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 
-import SheetItem from "./SheetItem";
-import ShortcutForm from "../shortcut/ShortcutForm";
+import SheetItem from "sheet/SheetItem";
+import ShortcutForm from "shortcut/ShortcutForm";
 
 import "./Sheet.scss";
 
@@ -89,11 +89,10 @@ const Sheet = (_props: SheetProps) => {
 
         draggedOverShortcut = shortcut;
     };
+    const sameId = (compareShortcut: Shortcut) => (toShortcut: Shortcut) => toShortcut.id === compareShortcut.id;
     const onDragEnd = () => {
-        const draggedIndex = shortcuts.findIndex(shortcut => shortcut.description === draggedShortcut.description);
-        const draggedOverIndex = shortcuts.findIndex(
-            shortcut => shortcut.description === draggedOverShortcut.description,
-        );
+        const draggedIndex = shortcuts.findIndex(sameId(draggedShortcut));
+        const draggedOverIndex = shortcuts.findIndex(sameId(draggedOverShortcut));
 
         const newShortcuts = shortcuts.splice(0);
         newShortcuts.splice(draggedOverIndex, 1, draggedShortcut);
