@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 
 import SheetItem from "./SheetItem";
+import ShortcutForm from "../shortcut/ShortcutForm";
 
 import "./Sheet.scss";
 
-interface SheetProps {
-    shortcuts: Shortcut[];
-    setShortcuts: (shortcuts: Shortcut[]) => void;
-    setEditedShortcut: (shortcut: Shortcut) => void;
-    onAddShortcutClick: () => void;
-    onEditShortcutClick: () => void;
-}
+interface SheetProps {}
 
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
@@ -41,18 +36,40 @@ const EditTitleForm = (props: EditTitleFormProps) => {
 };
 
 const Sheet = (props: SheetProps) => {
-    const { shortcuts, setShortcuts, setEditedShortcut, onEditShortcutClick } = props;
-
     // hooks
+    const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
+    const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
+    const [isAddShortcutOpen, setIsAddShortcutOpen] = useState(false);
     const [sheetTitle, setSheetTitle] = useState("A title");
     const [editTitle, setEditTitle] = useState(false);
+
+    // Form Events
+    const onAddShortcutEvent = (shortcut: Shortcut) => setShortcuts([...shortcuts, shortcut]);
+    const onEditShortcutEvent = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
+        const shortcutIndex = shortcuts.findIndex(shortcut => shortcut === oldShortcut);
+
+        const newShortcuts = shortcuts.slice(0);
+        newShortcuts[shortcutIndex] = newShortcut;
+        setShortcuts(newShortcuts);
+        setEditedShortcut(null);
+    };
+    const onCloseAddShortcutForm = () => {
+        setIsAddShortcutOpen(false);
+    };
+
+    const onAddShortcutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        setEditedShortcut(null);
+        setIsAddShortcutOpen(true);
+    };
 
     // edit/delete
     const onDeleteShortcut = (deleteShortcut: Shortcut) =>
         setShortcuts(shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description));
+
     const onEditShortcut = (shortcut: Shortcut) => {
         setEditedShortcut(shortcut);
-        onEditShortcutClick();
+        setIsAddShortcutOpen(true);
     };
 
     // drag event
@@ -79,11 +96,6 @@ const Sheet = (props: SheetProps) => {
         setShortcuts(newShortcuts);
     };
 
-    const onAddShortcutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        props.onAddShortcutClick();
-    };
-
     const sheetTitleButton = (
         <a
             href="#"
@@ -104,7 +116,7 @@ const Sheet = (props: SheetProps) => {
                     <MdAddCircleOutline />
                 </a>
                 <ul>
-                    {props.shortcuts.map(shortcut => (
+                    {shortcuts.map(shortcut => (
                         <SheetItem
                             onDragOver={onDragOver}
                             onDragStart={onDragStart}
@@ -117,6 +129,14 @@ const Sheet = (props: SheetProps) => {
                     ))}
                 </ul>
             </div>
+            <ShortcutForm
+                shortcuts={shortcuts}
+                editedShortcut={editedShortcut}
+                onAddEvent={onAddShortcutEvent}
+                onEditEvent={onEditShortcutEvent}
+                onClose={onCloseAddShortcutForm}
+                isOpen={isAddShortcutOpen}
+            />
         </div>
     );
 };
