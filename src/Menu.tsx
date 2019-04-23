@@ -5,41 +5,55 @@ import download from "./utils/download";
 import "./Menu.scss";
 
 interface Props {
-    shortcuts: Shortcut[];
-    setShortcuts: (shortcuts: Shortcut[]) => void;
+    // shortcuts: Shortcut[];
+    // setShortcuts: (shortcuts: Shortcut[]) => void;
 }
 
-const exportShortcuts = (shortcuts: Shortcut[]) => {
-    const object = JSON.stringify({ shortcuts });
-    download(object, "shortcuts.json", "application/json");
-};
+// const exportShortcuts = (shortcuts: Shortcut[]) => {
+//     const object = JSON.stringify({ shortcuts });
+//     download(object, "shortcuts.json", "application/json");
+// };
 
-const clearShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
-    setShortcuts([]);
-};
+// const clearShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
+//     setShortcuts([]);
+// };
 
-const importShortcuts = (
-    eInput: React.ChangeEvent<HTMLInputElement>,
-    setShortcuts: (shortcuts: Shortcut[]) => void,
-) => {
-    const target = eInput.target;
-    const file = target.files && target.files[0];
-    if (!file) {
-        return;
-    }
+// const importShortcuts = (
+//     eInput: React.ChangeEvent<HTMLInputElement>,
+//     setShortcuts: (shortcuts: Shortcut[]) => void,
+// ) => {
+//     const target = eInput.target;
+//     const file = target.files && target.files[0];
+//     if (!file) {
+//         return;
+//     }
 
-    let reader = new FileReader();
-    reader.onload = function(eLoad: any) {
-        let content = eLoad.target.result;
-        const shortcuts = JSON.parse(content).shortcuts as Shortcut[];
-        setShortcuts(shortcuts);
-        target.value = "";
+//     let reader = new FileReader();
+//     reader.onload = function(eLoad: any) {
+//         let content = eLoad.target.result;
+//         const shortcuts = JSON.parse(content).shortcuts as Shortcut[];
+//         setShortcuts(shortcuts);
+//         target.value = "";
+//     };
+//     reader.readAsText(file);
+// };
+
+const SheetActions = (_props: Props) => {
+    // const { shortcuts, setShortcuts } = props;
+
+    const onImportClick = (_e: React.ChangeEvent<HTMLInputElement>) => {
+        // importShortcuts(e, setShortcuts)
     };
-    reader.readAsText(file);
-};
 
-const SheetActions = (props: Props) => {
-    const { shortcuts, setShortcuts } = props;
+    const onExportClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        // exportShortcuts(shortcuts);
+    };
+
+    const onClearClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        // clearShortcuts(setShortcuts);
+    };
 
     return (
         <nav className="navbar menu">
@@ -48,33 +62,14 @@ const SheetActions = (props: Props) => {
                     <a className="navbar-link">File</a>
 
                     <div className="navbar-dropdown">
-                        <input
-                            type="file"
-                            name="importInput"
-                            id="importInput"
-                            onChange={e => importShortcuts(e, setShortcuts)}
-                        />
+                        <input type="file" name="importInput" id="importInput" onChange={onImportClick} />
                         <label htmlFor="importInput">
                             <a className="navbar-item">Import</a>
                         </label>
-                        <a
-                            href="#"
-                            className="navbar-item"
-                            onClick={e => {
-                                e.preventDefault();
-                                exportShortcuts(shortcuts);
-                            }}
-                        >
+                        <a href="#" className="navbar-item" onClick={onExportClick}>
                             Export
                         </a>
-                        <a
-                            href="#"
-                            className="navbar-item"
-                            onClick={e => {
-                                e.preventDefault();
-                                clearShortcuts(setShortcuts);
-                            }}
-                        >
+                        <a href="#" className="navbar-item" onClick={onClearClick}>
                             New page
                         </a>
                     </div>
