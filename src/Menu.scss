@@ -1,4 +1,4 @@
-.sheet-actions {
+.menu {
     input[type="file"] {
         width: 0.1px;
         height: 0.1px;
@@ -6,9 +6,6 @@
         overflow: hidden;
         position: absolute;
         z-index: -1;
-    }
-    .button {
-        margin-right: 8px;
     }
     @media print {
         display: none;

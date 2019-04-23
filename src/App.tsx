@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import Menu from "./Menu";
 import ShortcutForm from "./shortcut/ShortcutForm";
 import Sheet from "./sheet/Sheet";
 
@@ -35,6 +36,8 @@ const App = () => {
 
     return (
         <div className="app">
+            <Menu shortcuts={shortcuts} setShortcuts={setShortcuts} />
+
             <div className="app-sheets">
                 <Sheet
                     shortcuts={shortcuts}
