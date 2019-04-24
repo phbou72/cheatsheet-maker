@@ -6,7 +6,10 @@ import ShortcutForm from "shortcut/ShortcutForm";
 
 import "./Sheet.scss";
 
-interface SheetProps {}
+interface SheetProps {
+    sheet: Sheet;
+    onSheetUpdateEvent: (id: String, title: string, shortcuts: Shortcut[]) => void;
+}
 
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
@@ -41,13 +44,23 @@ const EditTitleForm = (props: EditTitleFormProps) => {
     );
 };
 
-const Sheet = (_props: SheetProps) => {
+let isSheetInitialized: { [id: string]: boolean } = {};
+
+const Sheet = (props: SheetProps) => {
+    const { sheet } = props;
+
     // hooks
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
     const [isAddShortcutOpen, setIsAddShortcutOpen] = useState(false);
-    const [sheetTitle, setSheetTitle] = useState("A title");
+    const [title, setTitle] = useState("");
     const [editTitle, setEditTitle] = useState(false);
+
+    if (!isSheetInitialized[sheet.id]) {
+        setTitle(sheet.title);
+        setShortcuts(sheet.shortcuts);
+        isSheetInitialized[sheet.id] = true;
+    }
 
     // Form Events
     const onAddShortcutEvent = (shortcut: Shortcut) => setShortcuts([...shortcuts, shortcut]);
@@ -63,7 +76,7 @@ const Sheet = (_props: SheetProps) => {
         setIsAddShortcutOpen(false);
     };
 
-    const onAddShortcutClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const onAddShortcutClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         setEditedShortcut(null);
         setIsAddShortcutOpen(true);
@@ -108,17 +121,22 @@ const Sheet = (_props: SheetProps) => {
 
     const sheetTitleButton = (
         <a href="#sheettitle" onClick={onEditTitle}>
-            {sheetTitle}
+            {title}
         </a>
     );
 
     return (
         <div className="sheet">
             <div className="sheet-content">
-                {editTitle ? <EditTitleForm {...{ sheetTitle, setSheetTitle, setEditTitle }} /> : sheetTitleButton}
-                <a href="#addsheet" className="sheet-add-shortcut" onClick={onAddShortcutClick}>
+                {editTitle ? (
+                    <EditTitleForm {...{ sheetTitle: title, setSheetTitle: setTitle, setEditTitle }} />
+                ) : (
+                    sheetTitleButton
+                )}
+                <div className="sheet-add-shortcut" onClick={onAddShortcutClick}>
+                    Add Shortcut
                     <MdAddCircleOutline />
-                </a>
+                </div>
                 <ul>
                     {shortcuts.map(shortcut => (
                         <SheetItem
