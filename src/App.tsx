@@ -27,7 +27,6 @@ const App = () => {
 
     const onSheetsImportEvent = (sheets: Sheet[]) => {
         setSheets(sheets);
-        console.log(sheets);
     };
 
     const onSheetsClearEvent = () => setSheets([]);

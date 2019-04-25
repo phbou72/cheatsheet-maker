@@ -12,7 +12,6 @@ interface SheetProps {
     onSheetUpdateEvent: (id: String, title: string, shortcuts: Shortcut[]) => void;
 }
 
-let isSheetInitialized: { [id: string]: boolean } = {};
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
 let title: string;
@@ -22,13 +21,8 @@ const Sheet = (props: SheetProps) => {
 
     // hooks
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
-    const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
+    const [shortcuts, setShortcuts] = useState<Shortcut[]>(sheet.shortcuts);
     const [isAddShortcutOpen, setIsAddShortcutOpen] = useState(false);
-
-    if (!isSheetInitialized[sheet.id]) {
-        setShortcuts(sheet.shortcuts);
-        isSheetInitialized[sheet.id] = true;
-    }
 
     // Add/edit/close shortcut form event
     const onAddShortcutEvent = (shortcut: Shortcut) => {
@@ -96,6 +90,7 @@ const Sheet = (props: SheetProps) => {
             <div className="sheet-content">
                 <EditTitle onEditTitleEvent={onEditTitleEvent} sheet={sheet} />
                 <AddShortcut onAddShortcutClick={onAddShortcutClick} />
+
                 <ul>
                     {shortcuts.map(shortcut => (
                         <SheetItem
