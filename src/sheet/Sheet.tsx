@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 
 import SheetItem from "sheet/SheetItem";
+import EditTitle from "sheet/EditTitle";
 import ShortcutForm from "shortcut/ShortcutForm";
 
 import "./Sheet.scss";
@@ -11,38 +12,10 @@ interface SheetProps {
     onSheetUpdateEvent: (id: String, title: string, shortcuts: Shortcut[]) => void;
 }
 
-interface EditTitleFormProps extends SheetProps {
-    title: string;
-    setTitle: (sheetTitle: string) => void;
-    setEditTitle: (editTitle: boolean) => void;
-}
-
-const EditTitleForm = (props: EditTitleFormProps) => {
-    const { title, setTitle, setEditTitle, onSheetUpdateEvent, sheet } = props;
-
-    const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        setEditTitle(false);
-    };
-
-    const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value);
-        onSheetUpdateEvent(sheet.id, e.target.value, sheet.shortcuts);
-    };
-
-    return (
-        <div className="sheet-edit-title">
-            <input className="input" type="text" placeholder="Sheet title" value={title} onChange={onChangeTitle} />
-            <button className="button" onClick={onSaveClick}>
-                Save
-            </button>
-        </div>
-    );
-};
-
 let isSheetInitialized: { [id: string]: boolean } = {};
 let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
+let title: string;
 
 const Sheet = (props: SheetProps) => {
     const { sheet, onSheetUpdateEvent } = props;
@@ -51,11 +24,8 @@ const Sheet = (props: SheetProps) => {
     const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
     const [shortcuts, setShortcuts] = useState<Shortcut[]>([]);
     const [isAddShortcutOpen, setIsAddShortcutOpen] = useState(false);
-    const [title, setTitle] = useState("");
-    const [editTitle, setEditTitle] = useState(false);
 
     if (!isSheetInitialized[sheet.id]) {
-        setTitle(sheet.title);
         setShortcuts(sheet.shortcuts);
         isSheetInitialized[sheet.id] = true;
     }
@@ -116,21 +86,15 @@ const Sheet = (props: SheetProps) => {
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
 
-    // Edit title
-    const onEditTitleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault();
-        setEditTitle(true);
+    const onEditTitleEvent = (newTitle: string) => {
+        title = newTitle;
+        onSheetUpdateEvent(sheet.id, newTitle, shortcuts);
     };
-    const editTitleButton = (
-        <a href="#sheettitle" onClick={onEditTitleClick}>
-            {title}
-        </a>
-    );
 
     return (
         <div className="sheet">
             <div className="sheet-content">
-                {editTitle ? <EditTitleForm {...{ title, setTitle, setEditTitle, ...props }} /> : editTitleButton}
+                <EditTitle onEditTitleEvent={onEditTitleEvent} sheet={sheet} />
                 <div className="sheet-add-shortcut" onClick={onAddShortcutClick}>
                     Add Shortcut
                     <MdAddCircleOutline />
