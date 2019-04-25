@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import "./EditTitle.scss";
+
 interface EditTitleProps {
     onEditTitleEvent: (title: string) => void;
     sheet: Sheet;

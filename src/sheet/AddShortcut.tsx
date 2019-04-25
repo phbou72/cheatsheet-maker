@@ -1,6 +1,8 @@
 import React from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 
+import "./AddShortcut.scss";
+
 interface Props {
     onAddShortcutClick: () => void;
 }
