@@ -20,8 +20,8 @@ const Sheet = (props: SheetProps) => {
 
     // hooks
     const [shortcuts, setShortcuts] = useState<Shortcut[]>(sheet.shortcuts);
-    const [isAddShortcutOpen, setIsAddShortcutOpen] = useState(false);
-    const [editedShortcut, setEditedShortcut] = useState<Shortcut | null>(null);
+    const [isShortcutFormOpen, setIsShortcutFormOpen] = useState(false);
+    const [editingShortcut, setEditingShortcut] = useState<Shortcut | null>(null);
 
     // Add/edit/close shortcut form event
     const onAddShortcutEvent = (shortcut: Shortcut) => {
@@ -35,11 +35,11 @@ const Sheet = (props: SheetProps) => {
         const newShortcuts = shortcuts.slice(0);
         newShortcuts[shortcutIndex] = newShortcut;
         setShortcuts(newShortcuts);
-        setEditedShortcut(null);
+        setEditingShortcut(null);
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
-    const onCloseAddShortcutForm = () => {
-        setIsAddShortcutOpen(false);
+    const onCloseShortcutForm = () => {
+        setIsShortcutFormOpen(false);
     };
 
     const onEditTitleEvent = (newTitle: string) => {
@@ -48,12 +48,12 @@ const Sheet = (props: SheetProps) => {
     };
 
     const onAddShortcutClick = () => {
-        setEditedShortcut(null);
-        setIsAddShortcutOpen(true);
+        setEditingShortcut(null);
+        setIsShortcutFormOpen(true);
     };
     const onEditShortcutClick = (shortcut: Shortcut) => {
-        setEditedShortcut(shortcut);
-        setIsAddShortcutOpen(true);
+        setEditingShortcut(shortcut);
+        setIsShortcutFormOpen(true);
     };
 
     const onUpdateShortcutsEvent = (newShortcuts: Shortcut[]) => {
@@ -74,11 +74,11 @@ const Sheet = (props: SheetProps) => {
             </div>
             <ShortcutForm
                 shortcuts={shortcuts}
-                editedShortcut={editedShortcut}
+                editedShortcut={editingShortcut}
                 onAddEvent={onAddShortcutEvent}
                 onEditEvent={onEditShortcutEvent}
-                onClose={onCloseAddShortcutForm}
-                isOpen={isAddShortcutOpen}
+                onClose={onCloseShortcutForm}
+                isOpen={isShortcutFormOpen}
             />
         </div>
     );
