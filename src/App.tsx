@@ -25,6 +25,13 @@ const App = () => {
         setSheets(newSheets);
     };
 
+    const onSheetDeleteEvent = (id: string) => {
+        const newSheets = sheets.filter(sheet => sheet.id !== id);
+
+        console.log(newSheets);
+        setSheets(newSheets);
+    };
+
     const onSheetsImportEvent = (sheets: Sheet[]) => {
         setSheets(sheets);
     };
@@ -41,7 +48,12 @@ const App = () => {
 
             <div className="app-sheets">
                 {sheets.map(sheet => (
-                    <Sheet key={sheet.id} sheet={sheet} onSheetUpdateEvent={onSheetUpdateEvent} />
+                    <Sheet
+                        key={sheet.id}
+                        sheet={sheet}
+                        onSheetUpdateEvent={onSheetUpdateEvent}
+                        onSheetDeleteEvent={onSheetDeleteEvent}
+                    />
                 ))}
             </div>
         </div>

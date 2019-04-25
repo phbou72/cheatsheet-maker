@@ -11,7 +11,8 @@ import "./Sheet.scss";
 
 interface SheetProps {
     sheet: Sheet;
-    onSheetUpdateEvent: (id: String, title: string, shortcuts: Shortcut[]) => void;
+    onSheetUpdateEvent: (id: string, title: string, shortcuts: Shortcut[]) => void;
+    onSheetDeleteEvent: (id: string) => void;
 }
 
 let title: string;
@@ -30,6 +31,7 @@ const Sheet = (props: SheetProps) => {
         setShortcuts(newShortcuts);
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
+
     const onEditShortcutEvent = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
         const shortcutIndex = shortcuts.findIndex(shortcut => shortcut === oldShortcut);
 
@@ -39,6 +41,7 @@ const Sheet = (props: SheetProps) => {
         setEditingShortcut(null);
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
+
     const onCloseShortcutForm = () => {
         setIsShortcutFormOpen(false);
     };
@@ -52,6 +55,7 @@ const Sheet = (props: SheetProps) => {
         setEditingShortcut(null);
         setIsShortcutFormOpen(true);
     };
+
     const onEditShortcutClick = (shortcut: Shortcut) => {
         setEditingShortcut(shortcut);
         setIsShortcutFormOpen(true);
@@ -62,10 +66,14 @@ const Sheet = (props: SheetProps) => {
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
 
+    const onDeleteSheetEvent = () => {
+        props.onSheetDeleteEvent(sheet.id);
+    };
+
     return (
         <div className="sheet">
             <div className="sheet-content">
-                <DeleteSheet />
+                <DeleteSheet onDeleteSheetEvent={onDeleteSheetEvent} />
                 <EditTitle onEditTitleEvent={onEditTitleEvent} sheet={sheet} />
                 <SheetItems
                     shortcuts={shortcuts}
