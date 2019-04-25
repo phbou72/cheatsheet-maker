@@ -35,7 +35,7 @@ const App = () => {
 
             <div className="app-sheets">
                 {sheets.map(sheet => (
-                    <Sheet sheet={sheet} onSheetUpdateEvent={onSheetUpdateEvent} />
+                    <Sheet key={sheet.id} sheet={sheet} onSheetUpdateEvent={onSheetUpdateEvent} />
                 ))}
             </div>
         </div>
