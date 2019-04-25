@@ -1,59 +1,52 @@
 import React from "react";
 
-// import download from "./utils/download";
+import download from "./utils/download";
 
 import "./Menu.scss";
 
 interface Props {
-    // shortcuts: Shortcut[];
-    // setShortcuts: (shortcuts: Shortcut[]) => void;
+    sheets: Sheet[];
+    onSheetsImportEvent: (sheets: Sheet[]) => void;
+    onSheetsClearEvent: () => void;
 }
 
-// const exportShortcuts = (shortcuts: Shortcut[]) => {
-//     const object = JSON.stringify({ shortcuts });
-//     download(object, "shortcuts.json", "application/json");
-// };
+const exportShortcuts = (sheets: Sheet[]) => {
+    const object = JSON.stringify({ sheets });
+    download(object, "sheets.json", "application/json");
+};
 
-// const clearShortcuts = (setShortcuts: (shortcuts: Shortcut[]) => void) => {
-//     setShortcuts([]);
-// };
+const importSheets = (eInput: React.ChangeEvent<HTMLInputElement>, onSheetsImportEvent: (sheets: Sheet[]) => void) => {
+    const target = eInput.target;
+    const file = target.files && target.files[0];
+    if (!file) {
+        return;
+    }
 
-// const importShortcuts = (
-//     eInput: React.ChangeEvent<HTMLInputElement>,
-//     setShortcuts: (shortcuts: Shortcut[]) => void,
-// ) => {
-//     const target = eInput.target;
-//     const file = target.files && target.files[0];
-//     if (!file) {
-//         return;
-//     }
+    let reader = new FileReader();
+    reader.onload = function(eLoad: any) {
+        let content = eLoad.target.result;
+        const sheets = JSON.parse(content).sheets as Sheet[];
+        onSheetsImportEvent(sheets);
+        target.value = "";
+    };
+    reader.readAsText(file);
+};
 
-//     let reader = new FileReader();
-//     reader.onload = function(eLoad: any) {
-//         let content = eLoad.target.result;
-//         const shortcuts = JSON.parse(content).shortcuts as Shortcut[];
-//         setShortcuts(shortcuts);
-//         target.value = "";
-//     };
-//     reader.readAsText(file);
-// };
+const SheetActions = (props: Props) => {
+    const { sheets, onSheetsImportEvent, onSheetsClearEvent } = props;
 
-const SheetActions = (_props: Props) => {
-    // const { shortcuts, setShortcuts } = props;
-
-    const onImportClick = (_e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("derp");
-        // importShortcuts(e, setShortcuts)
+    const onImportClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+        importSheets(e, onSheetsImportEvent);
     };
 
     const onExportClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        // exportShortcuts(shortcuts);
+        exportShortcuts(sheets);
     };
 
     const onClearClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        // clearShortcuts(setShortcuts);
+        onSheetsClearEvent();
     };
 
     const onClickPreventDefault = (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault();

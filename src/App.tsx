@@ -25,9 +25,16 @@ const App = () => {
         setSheets(newSheets);
     };
 
+    const onSheetsImportEvent = (sheets: Sheet[]) => {
+        setSheets(sheets);
+        console.log(sheets);
+    };
+
+    const onSheetsClearEvent = () => setSheets([]);
+
     return (
         <div className="app">
-            <Menu />
+            <Menu sheets={sheets} onSheetsImportEvent={onSheetsImportEvent} onSheetsClearEvent={onSheetsClearEvent} />
 
             <div className="app-add-sheet" onClick={onAddSheetClick}>
                 Add Sheet <MdAddCircleOutline />
