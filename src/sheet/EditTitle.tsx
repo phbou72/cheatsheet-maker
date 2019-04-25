@@ -47,7 +47,7 @@ const EditTitle = (props: EditTitleProps) => {
     };
 
     const editTitleButton = (
-        <a href="#sheettitle" onClick={onEditTitleClick}>
+        <a className="sheet-edit-title-button" href="#sheettitle" onClick={onEditTitleClick}>
             {title}
         </a>
     );

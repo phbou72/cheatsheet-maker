@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import SheetItems from "sheet/SheetItems";
 import EditTitle from "sheet/EditTitle";
 import AddShortcut from "sheet/AddShortcut";
+import DeleteSheet from "sheet/DeleteSheet";
 
 import ShortcutForm from "shortcut/ShortcutForm";
 
@@ -64,13 +65,14 @@ const Sheet = (props: SheetProps) => {
     return (
         <div className="sheet">
             <div className="sheet-content">
+                <DeleteSheet />
                 <EditTitle onEditTitleEvent={onEditTitleEvent} sheet={sheet} />
-                <AddShortcut onAddShortcutClick={onAddShortcutClick} />
                 <SheetItems
                     shortcuts={shortcuts}
                     onEditShortcutClick={onEditShortcutClick}
                     onUpdateShortcutsEvent={onUpdateShortcutsEvent}
                 />
+                <AddShortcut onAddShortcutClick={onAddShortcutClick} />
             </div>
             <ShortcutForm
                 shortcuts={shortcuts}
