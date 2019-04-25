@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { MdAddCircleOutline } from "react-icons/md";
 
 import SheetItem from "sheet/SheetItem";
 import EditTitle from "sheet/EditTitle";
+import AddShortcut from "sheet/AddShortcut";
 import ShortcutForm from "shortcut/ShortcutForm";
 
 import "./Sheet.scss";
@@ -50,11 +50,6 @@ const Sheet = (props: SheetProps) => {
     };
 
     // Add/edit/delete shortcut
-    const onAddShortcutClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        setEditedShortcut(null);
-        setIsAddShortcutOpen(true);
-    };
     const onDeleteShortcut = (deleteShortcut: Shortcut) =>
         setShortcuts(shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description));
     const onEditShortcut = (shortcut: Shortcut) => {
@@ -86,6 +81,11 @@ const Sheet = (props: SheetProps) => {
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
 
+    const onAddShortcutClick = () => {
+        setEditedShortcut(null);
+        setIsAddShortcutOpen(true);
+    };
+
     const onEditTitleEvent = (newTitle: string) => {
         title = newTitle;
         onSheetUpdateEvent(sheet.id, newTitle, shortcuts);
@@ -95,10 +95,7 @@ const Sheet = (props: SheetProps) => {
         <div className="sheet">
             <div className="sheet-content">
                 <EditTitle onEditTitleEvent={onEditTitleEvent} sheet={sheet} />
-                <div className="sheet-add-shortcut" onClick={onAddShortcutClick}>
-                    Add Shortcut
-                    <MdAddCircleOutline />
-                </div>
+                <AddShortcut onAddShortcutClick={onAddShortcutClick} />
                 <ul>
                     {shortcuts.map(shortcut => (
                         <SheetItem
