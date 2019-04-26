@@ -17,5 +17,8 @@
         &:first-child {
             margin-left: 16px;
         }
+        @media print {
+            display: none;
+        }
     }
 }

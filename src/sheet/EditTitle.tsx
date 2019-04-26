@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import classnames from "classnames";
 
 import "./EditTitle.scss";
 
@@ -7,18 +8,19 @@ interface EditTitleProps {
     sheet: Sheet;
 }
 
-interface EditTitleFormProps extends EditTitleProps {
+interface EditTitleFormProps {
     title: string;
     setTitle: (sheetTitle: string) => void;
-    setEditTitle: (editTitle: boolean) => void;
+    setEditingTitle: (editTitle: boolean) => void;
+    onEditTitle: (title: string) => void;
 }
 
 const EditTitleForm = (props: EditTitleFormProps) => {
-    const { title, setTitle, setEditTitle, onEditTitle } = props;
+    const { title, setTitle, setEditingTitle, onEditTitle } = props;
 
     const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setEditTitle(false);
+        setEditingTitle(false);
     };
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +30,7 @@ const EditTitleForm = (props: EditTitleFormProps) => {
     };
 
     return (
-        <div className="sheet-edit-title">
+        <div className="sheet-edit-title-form">
             <input className="input" type="text" placeholder="Sheet title" value={title} onChange={onChangeTitle} />
             <button className="button" onClick={onSaveClick}>
                 Save
@@ -38,21 +40,33 @@ const EditTitleForm = (props: EditTitleFormProps) => {
 };
 
 const EditTitle = (props: EditTitleProps) => {
-    const [editTitle, setEditTitle] = useState(false);
+    const { onEditTitle } = props;
+
+    const [editingTitle, setEditingTitle] = useState(false);
     const [title, setTitle] = useState(props.sheet.title);
 
     const onEditTitleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        setEditTitle(true);
+        setEditingTitle(true);
     };
 
-    const editTitleButton = (
-        <a className="sheet-edit-title-button" href="#sheettitle" onClick={onEditTitleClick}>
-            {title}
-        </a>
-    );
+    const classes = classnames("sheet-edit-title", {
+        editing: editingTitle,
+    });
 
-    return editTitle ? <EditTitleForm {...{ title, setTitle, setEditTitle, ...props }} /> : editTitleButton;
+    return (
+        <div className={classes}>
+            <EditTitleForm
+                title={title}
+                setTitle={setTitle}
+                setEditingTitle={setEditingTitle}
+                onEditTitle={onEditTitle}
+            />
+            <a className="sheet-edit-title-button" href="#sheettitle" onClick={onEditTitleClick}>
+                {title}
+            </a>
+        </div>
+    );
 };
 
 export default EditTitle;

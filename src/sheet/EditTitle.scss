@@ -1,11 +1,35 @@
 .sheet-edit-title {
     margin-bottom: 12px;
     &-button {
-        padding-bottom: 24px;
+        padding-bottom: 12px;
         display: inline-block;
     }
-    input[type="text"] {
-        max-width: 250px;
-        margin-right: 8px;
+    &-form {
+        display: none;
+        input[type="text"] {
+            max-width: 250px;
+            margin-right: 8px;
+        }
+    }
+
+    &.editing {
+        .sheet-edit-title-button {
+            display: none;
+        }
+        .sheet-edit-title-form {
+            display: block;
+        }
+    }
+
+    @media print {
+        &.editing,
+        & {
+            .sheet-edit-title-button {
+                display: inline;
+            }
+            .sheet-edit-title-form {
+                display: none;
+            }
+        }
     }
 }

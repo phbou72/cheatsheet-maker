@@ -2,6 +2,9 @@
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
+    @media print {
+        padding: 0;
+    }
     &-content {
         position: relative;
         box-sizing: border-box;
@@ -10,5 +13,10 @@
         border-radius: 8px;
         padding: 16px;
         background-color: rgba(255, 255, 255, 0.3);
+        @media print {
+            min-height: unset;
+            padding: 0;
+            margin-bottom: 32px;
+        }
     }
 }
