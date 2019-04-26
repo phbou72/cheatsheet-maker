@@ -5,17 +5,17 @@ import { MdRemoveCircleOutline } from "react-icons/md";
 import "./DeleteSheet.scss";
 
 interface Props {
-    onDeleteSheetEvent: () => void;
+    onDeleteSheetClick: () => void;
 }
 
 const DeleteSheet = (props: Props) => {
-    const onDeleteSheetEven = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const onDeleteSheetClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        props.onDeleteSheetEvent();
+        props.onDeleteSheetClick();
     };
 
     return (
-        <a href="#delete-sheet" className="sheet-delete" onClick={onDeleteSheetEven}>
+        <a href="#delete-sheet" className="sheet-delete" onClick={onDeleteSheetClick}>
             Delete Sheet <MdRemoveCircleOutline />
         </a>
     );

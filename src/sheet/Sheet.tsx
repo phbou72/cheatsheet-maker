@@ -11,14 +11,14 @@ import "./Sheet.scss";
 
 interface SheetProps {
     sheet: Sheet;
-    onSheetUpdateEvent: (id: string, title: string, shortcuts: Shortcut[]) => void;
-    onSheetDeleteEvent: (id: string) => void;
+    onSheetUpdate: (id: string, title: string, shortcuts: Shortcut[]) => void;
+    onSheetDelete: (id: string) => void;
 }
 
 let title: string;
 
 const Sheet = (props: SheetProps) => {
-    const { sheet, onSheetUpdateEvent } = props;
+    const { sheet, onSheetUpdate: onSheetUpdateEvent } = props;
 
     // hooks
     const [shortcuts, setShortcuts] = useState<Shortcut[]>(sheet.shortcuts);
@@ -26,13 +26,13 @@ const Sheet = (props: SheetProps) => {
     const [editingShortcut, setEditingShortcut] = useState<Shortcut | null>(null);
 
     // Add/edit/close shortcut form event
-    const onAddShortcutEvent = (shortcut: Shortcut) => {
+    const onAddShortcut = (shortcut: Shortcut) => {
         const newShortcuts = [...shortcuts, shortcut];
         setShortcuts(newShortcuts);
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
 
-    const onEditShortcutEvent = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
+    const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
         const shortcutIndex = shortcuts.findIndex(shortcut => shortcut === oldShortcut);
 
         const newShortcuts = shortcuts.slice(0);
@@ -46,7 +46,7 @@ const Sheet = (props: SheetProps) => {
         setIsShortcutFormOpen(false);
     };
 
-    const onEditTitleEvent = (newTitle: string) => {
+    const onEditTitle = (newTitle: string) => {
         title = newTitle;
         onSheetUpdateEvent(sheet.id, newTitle, shortcuts);
     };
@@ -61,32 +61,32 @@ const Sheet = (props: SheetProps) => {
         setIsShortcutFormOpen(true);
     };
 
-    const onUpdateShortcutsEvent = (newShortcuts: Shortcut[]) => {
+    const onUpdateShortcuts = (newShortcuts: Shortcut[]) => {
         setShortcuts(newShortcuts);
         onSheetUpdateEvent(sheet.id, title, newShortcuts);
     };
 
-    const onDeleteSheetEvent = () => {
-        props.onSheetDeleteEvent(sheet.id);
+    const onDeleteSheetClick = () => {
+        props.onSheetDelete(sheet.id);
     };
 
     return (
         <div className="sheet">
             <div className="sheet-content">
-                <DeleteSheet onDeleteSheetEvent={onDeleteSheetEvent} />
-                <EditTitle onEditTitleEvent={onEditTitleEvent} sheet={sheet} />
+                <DeleteSheet onDeleteSheetClick={onDeleteSheetClick} />
+                <EditTitle onEditTitle={onEditTitle} sheet={sheet} />
                 <SheetItems
                     shortcuts={shortcuts}
                     onEditShortcutClick={onEditShortcutClick}
-                    onUpdateShortcutsEvent={onUpdateShortcutsEvent}
+                    onUpdateShortcuts={onUpdateShortcuts}
                 />
                 <AddShortcut onAddShortcutClick={onAddShortcutClick} />
             </div>
             <ShortcutForm
                 shortcuts={shortcuts}
                 editedShortcut={editingShortcut}
-                onAddEvent={onAddShortcutEvent}
-                onEditEvent={onEditShortcutEvent}
+                onAddEvent={onAddShortcut}
+                onEditEvent={onEditShortcut}
                 onClose={onCloseShortcutForm}
                 isOpen={isShortcutFormOpen}
             />

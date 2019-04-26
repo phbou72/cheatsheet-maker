@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./EditTitle.scss";
 
 interface EditTitleProps {
-    onEditTitleEvent: (title: string) => void;
+    onEditTitle: (title: string) => void;
     sheet: Sheet;
 }
 
@@ -14,7 +14,7 @@ interface EditTitleFormProps extends EditTitleProps {
 }
 
 const EditTitleForm = (props: EditTitleFormProps) => {
-    const { title, setTitle, setEditTitle, onEditTitleEvent } = props;
+    const { title, setTitle, setEditTitle, onEditTitle } = props;
 
     const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -24,7 +24,7 @@ const EditTitleForm = (props: EditTitleFormProps) => {
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         const title = e.target.value;
         setTitle(title);
-        onEditTitleEvent(title);
+        onEditTitle(title);
     };
 
     return (

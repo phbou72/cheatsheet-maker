@@ -6,8 +6,8 @@ import "./Menu.scss";
 
 interface Props {
     sheets: Sheet[];
-    onSheetsImportEvent: (sheets: Sheet[]) => void;
-    onSheetsClearEvent: () => void;
+    onSheetsImport: (sheets: Sheet[]) => void;
+    onSheetsClear: () => void;
 }
 
 const exportShortcuts = (sheets: Sheet[]) => {
@@ -33,7 +33,7 @@ const importSheets = (eInput: React.ChangeEvent<HTMLInputElement>, onSheetsImpor
 };
 
 const SheetActions = (props: Props) => {
-    const { sheets, onSheetsImportEvent, onSheetsClearEvent } = props;
+    const { sheets, onSheetsImport: onSheetsImportEvent, onSheetsClear: onSheetsClearEvent } = props;
 
     const onImportClick = (e: React.ChangeEvent<HTMLInputElement>) => {
         importSheets(e, onSheetsImportEvent);

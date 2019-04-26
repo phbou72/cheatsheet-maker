@@ -6,7 +6,7 @@ import "./SheetItems.scss";
 
 interface Props {
     shortcuts: Shortcut[];
-    onUpdateShortcutsEvent: (shortcuts: Shortcut[]) => void;
+    onUpdateShortcuts: (shortcuts: Shortcut[]) => void;
     onEditShortcutClick: (shortcut: Shortcut) => void;
 }
 
@@ -14,7 +14,7 @@ let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
 
 const SheetItems = (props: Props) => {
-    const { shortcuts, onUpdateShortcutsEvent } = props;
+    const { shortcuts, onUpdateShortcuts: onUpdateShortcutsEvent } = props;
 
     // edit/delete button events
     const onDeleteShortcutClick = (deleteShortcut: Shortcut) => {
@@ -26,6 +26,7 @@ const SheetItems = (props: Props) => {
     };
 
     // Drag events
+    const sameId = (compareShortcut: Shortcut) => (toShortcut: Shortcut) => toShortcut.id === compareShortcut.id;
     const onDragStart = (shortcut: Shortcut) => {
         draggedShortcut = shortcut;
     };
@@ -35,7 +36,6 @@ const SheetItems = (props: Props) => {
         }
         draggedOverShortcut = shortcut;
     };
-    const sameId = (compareShortcut: Shortcut) => (toShortcut: Shortcut) => toShortcut.id === compareShortcut.id;
     const onDragEnd = () => {
         const draggedIndex = shortcuts.findIndex(sameId(draggedShortcut));
         const draggedOverIndex = shortcuts.findIndex(sameId(draggedOverShortcut));
@@ -56,8 +56,8 @@ const SheetItems = (props: Props) => {
                     onDragEnd={onDragEnd}
                     shortcut={shortcut}
                     key={shortcut.id}
-                    onDelete={onDeleteShortcutClick}
-                    onEdit={onEditShortcutClick}
+                    onDeleteShortcutClick={onDeleteShortcutClick}
+                    onEditShortcutClick={onEditShortcutClick}
                 />
             ))}
         </ul>

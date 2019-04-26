@@ -16,7 +16,7 @@ const App = () => {
         setSheets([...sheets, buildEmptySheet()]);
     };
 
-    const onSheetUpdateEvent = (id: String, title: string, shortcuts: Shortcut[]) => {
+    const onSheetUpdate = (id: String, title: string, shortcuts: Shortcut[]) => {
         const sheetIndex = sheets.findIndex(sheet => sheet.id === id);
         const updatedSheet = { ...sheets[sheetIndex], title, shortcuts };
 
@@ -25,22 +25,20 @@ const App = () => {
         setSheets(newSheets);
     };
 
-    const onSheetDeleteEvent = (id: string) => {
+    const onSheetDelete = (id: string) => {
         const newSheets = sheets.filter(sheet => sheet.id !== id);
-
-        console.log(newSheets);
         setSheets(newSheets);
     };
 
-    const onSheetsImportEvent = (sheets: Sheet[]) => {
+    const onSheetsImport = (sheets: Sheet[]) => {
         setSheets(sheets);
     };
 
-    const onSheetsClearEvent = () => setSheets([]);
+    const onSheetsClear = () => setSheets([]);
 
     return (
         <div className="app">
-            <Menu sheets={sheets} onSheetsImportEvent={onSheetsImportEvent} onSheetsClearEvent={onSheetsClearEvent} />
+            <Menu sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
 
             <div className="app-add-sheet" onClick={onAddSheetClick}>
                 Add Sheet <MdAddCircleOutline />
@@ -48,12 +46,7 @@ const App = () => {
 
             <div className="app-sheets">
                 {sheets.map(sheet => (
-                    <Sheet
-                        key={sheet.id}
-                        sheet={sheet}
-                        onSheetUpdateEvent={onSheetUpdateEvent}
-                        onSheetDeleteEvent={onSheetDeleteEvent}
-                    />
+                    <Sheet key={sheet.id} sheet={sheet} onSheetUpdate={onSheetUpdate} onSheetDelete={onSheetDelete} />
                 ))}
             </div>
         </div>
