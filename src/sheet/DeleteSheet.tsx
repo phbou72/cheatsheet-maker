@@ -9,15 +9,15 @@ interface Props {
 }
 
 const DeleteSheet = (props: Props) => {
-    const onDeleteSheetClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const onDeleteSheetClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         props.onDeleteSheetClick();
     };
 
     return (
-        <a href="#delete-sheet" className="sheet-delete" onClick={onDeleteSheetClick}>
+        <button className="button is-danger sheet-delete" onClick={onDeleteSheetClick}>
             Delete Sheet <MdRemoveCircleOutline />
-        </a>
+        </button>
     );
 };
 

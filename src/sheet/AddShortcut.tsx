@@ -8,16 +8,16 @@ interface Props {
 }
 
 const AddShortcut = (props: Props) => {
-    const onAddShortcutClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const onAddShortcutClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         props.onAddShortcutClick();
     };
 
     return (
-        <div className="sheet-add-shortcut" onClick={onAddShortcutClick}>
+        <button className="sheet-add-shortcut button is-success" onClick={onAddShortcutClick}>
             Add Shortcut
             <MdAddCircleOutline />
-        </div>
+        </button>
     );
 };
 

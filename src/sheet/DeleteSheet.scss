@@ -6,12 +6,8 @@
     align-items: center;
     font-size: 20px;
     color: rgba(255, 255, 255, 0.6);
-    cursor: pointer;
     @media print {
         display: none;
-    }
-    &:hover {
-        color: rgba(255, 255, 255, 0.8);
     }
     svg {
         font-size: 32px;

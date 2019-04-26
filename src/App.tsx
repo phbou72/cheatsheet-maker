@@ -40,9 +40,9 @@ const App = () => {
         <div className="app">
             <Menu sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
 
-            <div className="app-add-sheet" onClick={onAddSheetClick}>
+            <button className="app-add-sheet button is-success" onClick={onAddSheetClick}>
                 Add Sheet <MdAddCircleOutline />
-            </div>
+            </button>
 
             <div className="app-sheets">
                 {sheets.map(sheet => (
