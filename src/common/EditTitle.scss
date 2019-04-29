@@ -1,4 +1,4 @@
-.sheet-edit-title {
+.edit-title {
     margin-bottom: 12px;
     &-button {
         display: inline-block;
@@ -13,21 +13,21 @@
     }
 
     &.editing {
-        .sheet-edit-title-button {
+        .edit-title-button {
             display: none;
         }
-        .sheet-edit-title-form {
-            display: block;
+        .edit-title-form {
+            display: flex;
         }
     }
 
     @media print {
         &.editing,
         & {
-            .sheet-edit-title-button {
+            .edit-title-button {
                 display: inline;
             }
-            .sheet-edit-title-form {
+            .edit-title-form {
                 display: none;
             }
         }

@@ -22,11 +22,26 @@
             display: none;
         }
     }
+
     &-sheets {
         margin-top: 48px;
         box-sizing: border-box;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
+    }
+    > .edit-title {
+        position: absolute;
+        top: 60px;
+        left: 16px;
+        height: 48px;
+        margin-bottom: 0;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .edit-title-button {
+            font-size: 32px;
+        }
     }
 }

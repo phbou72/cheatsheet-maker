@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 
 import Menu from "Menu";
+import { buildEmptySheet } from "sheetBuilder";
+
+import EditTitle from "common/EditTitle";
 
 import Sheet from "sheet/Sheet";
-
-import { buildEmptySheet } from "sheetBuilder";
 
 import "./App.scss";
 
 const App = () => {
     const [sheets, setSheets] = useState<Sheet[]>([]);
+    const [title, setTitle] = useState("Untitled page");
 
     const onAddSheetClick = () => {
         setSheets([...sheets, buildEmptySheet()]);
@@ -30,15 +32,22 @@ const App = () => {
         setSheets(newSheets);
     };
 
-    const onSheetsImport = (sheets: Sheet[]) => {
+    const onSheetsImport = (newTitle: string, sheets: Sheet[]) => {
+        setTitle(newTitle);
         setSheets(sheets);
     };
 
     const onSheetsClear = () => setSheets([]);
 
+    const onEditTitle = (newTitle: string) => {
+        setTitle(newTitle);
+    };
+
     return (
         <div className="app">
-            <Menu sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
+            <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
+
+            <EditTitle onEditTitle={onEditTitle} title={title} />
 
             <button className="app-add-sheet button is-success" onClick={onAddSheetClick}>
                 Add Sheet <MdAddCircleOutline />

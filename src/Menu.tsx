@@ -5,17 +5,21 @@ import download from "./utils/download";
 import "./Menu.scss";
 
 interface Props {
+    title: string;
     sheets: Sheet[];
-    onSheetsImport: (sheets: Sheet[]) => void;
+    onSheetsImport: (title: string, sheets: Sheet[]) => void;
     onSheetsClear: () => void;
 }
 
-const exportShortcuts = (sheets: Sheet[]) => {
-    const object = JSON.stringify({ sheets });
+const exportSheets = (title: string, sheets: Sheet[]) => {
+    const object = JSON.stringify({ title, sheets });
     download(object, "sheets.json", "application/json");
 };
 
-const importSheets = (eInput: React.ChangeEvent<HTMLInputElement>, onSheetsImportEvent: (sheets: Sheet[]) => void) => {
+const importSheets = (
+    eInput: React.ChangeEvent<HTMLInputElement>,
+    onSheetsImport: (title: string, sheets: Sheet[]) => void,
+) => {
     const target = eInput.target;
     const file = target.files && target.files[0];
     if (!file) {
@@ -25,28 +29,29 @@ const importSheets = (eInput: React.ChangeEvent<HTMLInputElement>, onSheetsImpor
     let reader = new FileReader();
     reader.onload = function(eLoad: any) {
         let content = eLoad.target.result;
-        const sheets = JSON.parse(content).sheets as Sheet[];
-        onSheetsImportEvent(sheets);
+        const obj = JSON.parse(content);
+        const sheets = obj.sheets as Sheet[];
+        onSheetsImport(obj.title, sheets);
         target.value = "";
     };
     reader.readAsText(file);
 };
 
 const SheetActions = (props: Props) => {
-    const { sheets, onSheetsImport: onSheetsImportEvent, onSheetsClear: onSheetsClearEvent } = props;
+    const { title, sheets, onSheetsImport, onSheetsClear } = props;
 
     const onImportClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-        importSheets(e, onSheetsImportEvent);
+        importSheets(e, onSheetsImport);
     };
 
     const onExportClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        exportShortcuts(sheets);
+        exportSheets(title, sheets);
     };
 
     const onClearClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        onSheetsClearEvent();
+        onSheetsClear();
     };
 
     const onClickPreventDefault = (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault();

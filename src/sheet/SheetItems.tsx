@@ -14,12 +14,12 @@ let draggedShortcut: Shortcut;
 let draggedOverShortcut: Shortcut;
 
 const SheetItems = (props: Props) => {
-    const { shortcuts, onUpdateShortcuts: onUpdateShortcutsEvent } = props;
+    const { shortcuts, onUpdateShortcuts } = props;
 
     // edit/delete button events
     const onDeleteShortcutClick = (deleteShortcut: Shortcut) => {
         const newShortcuts = shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description);
-        onUpdateShortcutsEvent(newShortcuts);
+        onUpdateShortcuts(newShortcuts);
     };
     const onEditShortcutClick = (shortcut: Shortcut) => {
         props.onEditShortcutClick(shortcut);
@@ -44,7 +44,7 @@ const SheetItems = (props: Props) => {
         newShortcuts.splice(draggedOverIndex, 1, draggedShortcut);
         newShortcuts.splice(draggedIndex, 1, draggedOverShortcut);
 
-        onUpdateShortcutsEvent(newShortcuts);
+        onUpdateShortcuts(newShortcuts);
     };
 
     return (

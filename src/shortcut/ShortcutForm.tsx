@@ -10,8 +10,8 @@ import { isFilled, isValidKeyStroke } from "shortcut/validators";
 import "./ShortcutForm.scss";
 
 interface Props {
-    onAddEvent: (shortcut: Shortcut) => void;
-    onEditEvent: (shortcut: Shortcut, newShortcut: Shortcut) => void;
+    onAddShortcut: (shortcut: Shortcut) => void;
+    onEditShortcut: (shortcut: Shortcut, newShortcut: Shortcut) => void;
     shortcuts: Shortcut[];
     editedShortcut: Shortcut | null;
     isOpen: boolean;
@@ -43,7 +43,7 @@ const buildSubmitButton = (
 let lastEditedShortcut: Shortcut | null;
 
 const KeyStrokeForm = (props: Props) => {
-    const { onAddEvent, onEditEvent, shortcuts, editedShortcut, isOpen } = props;
+    const { onAddShortcut, onEditShortcut, shortcuts, editedShortcut, isOpen } = props;
 
     // hooks
     const [description, setDescription] = useState("");
@@ -61,7 +61,7 @@ const KeyStrokeForm = (props: Props) => {
 
     const onAddClick = canSubmitForm
         ? () => {
-              onAddEvent(shortcutBuilder(description, keyStrokesString));
+              onAddShortcut(shortcutBuilder(description, keyStrokesString));
               setDescription("");
               setKeyStrokesString("");
               props.onClose();
@@ -69,7 +69,7 @@ const KeyStrokeForm = (props: Props) => {
         : undefined;
     const onEditClick = canSubmitForm
         ? () => {
-              onEditEvent(lastEditedShortcut as Shortcut, shortcutBuilder(description, keyStrokesString));
+              onEditShortcut(lastEditedShortcut as Shortcut, shortcutBuilder(description, keyStrokesString));
               lastEditedShortcut = null;
               setDescription("");
               setKeyStrokesString("");

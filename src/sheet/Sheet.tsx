@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
+import EditTitle from "common/EditTitle";
+import ShortcutForm from "shortcut/ShortcutForm";
+
 import SheetItems from "sheet/SheetItems";
-import EditTitle from "sheet/EditTitle";
 import AddShortcut from "sheet/AddShortcut";
 import DeleteSheet from "sheet/DeleteSheet";
-
-import ShortcutForm from "shortcut/ShortcutForm";
 
 import "./Sheet.scss";
 
@@ -18,7 +18,7 @@ interface SheetProps {
 let title: string;
 
 const Sheet = (props: SheetProps) => {
-    const { sheet, onSheetUpdate: onSheetUpdateEvent } = props;
+    const { sheet, onSheetUpdate } = props;
 
     // hooks
     const [shortcuts, setShortcuts] = useState<Shortcut[]>(sheet.shortcuts);
@@ -29,7 +29,7 @@ const Sheet = (props: SheetProps) => {
     const onAddShortcut = (shortcut: Shortcut) => {
         const newShortcuts = [...shortcuts, shortcut];
         setShortcuts(newShortcuts);
-        onSheetUpdateEvent(sheet.id, title, newShortcuts);
+        onSheetUpdate(sheet.id, title, newShortcuts);
     };
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
@@ -39,7 +39,7 @@ const Sheet = (props: SheetProps) => {
         newShortcuts[shortcutIndex] = newShortcut;
         setShortcuts(newShortcuts);
         setEditingShortcut(null);
-        onSheetUpdateEvent(sheet.id, title, newShortcuts);
+        onSheetUpdate(sheet.id, title, newShortcuts);
     };
 
     const onCloseShortcutForm = () => {
@@ -48,7 +48,7 @@ const Sheet = (props: SheetProps) => {
 
     const onEditTitle = (newTitle: string) => {
         title = newTitle;
-        onSheetUpdateEvent(sheet.id, newTitle, shortcuts);
+        onSheetUpdate(sheet.id, newTitle, shortcuts);
     };
 
     const onAddShortcutClick = () => {
@@ -63,7 +63,7 @@ const Sheet = (props: SheetProps) => {
 
     const onUpdateShortcuts = (newShortcuts: Shortcut[]) => {
         setShortcuts(newShortcuts);
-        onSheetUpdateEvent(sheet.id, title, newShortcuts);
+        onSheetUpdate(sheet.id, title, newShortcuts);
     };
 
     const onDeleteSheetClick = () => {
@@ -74,7 +74,7 @@ const Sheet = (props: SheetProps) => {
         <div className="sheet">
             <div className="sheet-content">
                 <DeleteSheet onDeleteSheetClick={onDeleteSheetClick} />
-                <EditTitle onEditTitle={onEditTitle} sheet={sheet} />
+                <EditTitle onEditTitle={onEditTitle} title={sheet.title} />
                 <SheetItems
                     shortcuts={shortcuts}
                     onEditShortcutClick={onEditShortcutClick}
@@ -85,8 +85,8 @@ const Sheet = (props: SheetProps) => {
             <ShortcutForm
                 shortcuts={shortcuts}
                 editedShortcut={editingShortcut}
-                onAddEvent={onAddShortcut}
-                onEditEvent={onEditShortcut}
+                onAddShortcut={onAddShortcut}
+                onEditShortcut={onEditShortcut}
                 onClose={onCloseShortcutForm}
                 isOpen={isShortcutFormOpen}
             />

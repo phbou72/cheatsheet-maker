@@ -5,7 +5,7 @@ import "./EditTitle.scss";
 
 interface EditTitleProps {
     onEditTitle: (title: string) => void;
-    sheet: Sheet;
+    title: string;
 }
 
 interface EditTitleFormProps {
@@ -21,17 +21,17 @@ const EditTitleForm = (props: EditTitleFormProps) => {
     const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setEditingTitle(false);
+        onEditTitle(title);
     };
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         const title = e.target.value;
         setTitle(title);
-        onEditTitle(title);
     };
 
     return (
-        <div className="sheet-edit-title-form">
-            <input className="input" type="text" placeholder="Sheet title" value={title} onChange={onChangeTitle} />
+        <div className="edit-title-form">
+            <input className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
             <button className="button" onClick={onSaveClick}>
                 Save
             </button>
@@ -43,14 +43,14 @@ const EditTitle = (props: EditTitleProps) => {
     const { onEditTitle } = props;
 
     const [editingTitle, setEditingTitle] = useState(false);
-    const [title, setTitle] = useState(props.sheet.title);
+    const [title, setTitle] = useState(props.title);
 
     const onEditTitleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         setEditingTitle(true);
     };
 
-    const classes = classnames("sheet-edit-title", {
+    const classes = classnames("edit-title", {
         editing: editingTitle,
     });
 
@@ -62,7 +62,7 @@ const EditTitle = (props: EditTitleProps) => {
                 setEditingTitle={setEditingTitle}
                 onEditTitle={onEditTitle}
             />
-            <a className="sheet-edit-title-button" href="#sheettitle" onClick={onEditTitleClick}>
+            <a className="edit-title-button" href="#title" onClick={onEditTitleClick}>
                 {title}
             </a>
         </div>
