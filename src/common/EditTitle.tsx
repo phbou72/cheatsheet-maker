@@ -10,23 +10,21 @@ interface EditTitleProps {
 
 interface EditTitleFormProps {
     title: string;
-    setTitle: (sheetTitle: string) => void;
     setEditingTitle: (editTitle: boolean) => void;
     onEditTitle: (title: string) => void;
 }
 
 const EditTitleForm = (props: EditTitleFormProps) => {
-    const { title, setTitle, setEditingTitle, onEditTitle } = props;
+    const { title, setEditingTitle, onEditTitle } = props;
 
     const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setEditingTitle(false);
-        onEditTitle(title);
     };
 
     const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         const title = e.target.value;
-        setTitle(title);
+        onEditTitle(title);
     };
 
     return (
@@ -40,10 +38,9 @@ const EditTitleForm = (props: EditTitleFormProps) => {
 };
 
 const EditTitle = (props: EditTitleProps) => {
-    const { onEditTitle } = props;
+    const { onEditTitle, title } = props;
 
     const [editingTitle, setEditingTitle] = useState(false);
-    const [title, setTitle] = useState(props.title);
 
     const onEditTitleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
@@ -56,12 +53,7 @@ const EditTitle = (props: EditTitleProps) => {
 
     return (
         <div className={classes}>
-            <EditTitleForm
-                title={title}
-                setTitle={setTitle}
-                setEditingTitle={setEditingTitle}
-                onEditTitle={onEditTitle}
-            />
+            <EditTitleForm title={title} setEditingTitle={setEditingTitle} onEditTitle={onEditTitle} />
             <a className="edit-title-button" href="#title" onClick={onEditTitleClick}>
                 {title}
             </a>

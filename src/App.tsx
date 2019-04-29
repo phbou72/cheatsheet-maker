@@ -10,9 +10,12 @@ import Sheet from "sheet/Sheet";
 
 import "./App.scss";
 
+const DEFAULT_TITLE = "Untitled page";
+const DEFAULT_SHEETS: Sheet[] = [];
+
 const App = () => {
-    const [sheets, setSheets] = useState<Sheet[]>([]);
-    const [title, setTitle] = useState("Untitled page");
+    const [sheets, setSheets] = useState<Sheet[]>(DEFAULT_SHEETS);
+    const [title, setTitle] = useState(DEFAULT_TITLE);
 
     const onAddSheetClick = () => {
         setSheets([...sheets, buildEmptySheet()]);
@@ -37,7 +40,10 @@ const App = () => {
         setSheets(sheets);
     };
 
-    const onSheetsClear = () => setSheets([]);
+    const onSheetsClear = () => {
+        setSheets(DEFAULT_SHEETS);
+        setTitle(DEFAULT_TITLE);
+    };
 
     const onEditTitle = (newTitle: string) => {
         setTitle(newTitle);

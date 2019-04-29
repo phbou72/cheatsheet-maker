@@ -15,8 +15,6 @@ interface SheetProps {
     onSheetDelete: (id: string) => void;
 }
 
-let title: string;
-
 const Sheet = (props: SheetProps) => {
     const { sheet, onSheetUpdate } = props;
 
@@ -29,7 +27,7 @@ const Sheet = (props: SheetProps) => {
     const onAddShortcut = (shortcut: Shortcut) => {
         const newShortcuts = [...shortcuts, shortcut];
         setShortcuts(newShortcuts);
-        onSheetUpdate(sheet.id, title, newShortcuts);
+        onSheetUpdate(sheet.id, sheet.title, newShortcuts);
     };
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
@@ -39,7 +37,7 @@ const Sheet = (props: SheetProps) => {
         newShortcuts[shortcutIndex] = newShortcut;
         setShortcuts(newShortcuts);
         setEditingShortcut(null);
-        onSheetUpdate(sheet.id, title, newShortcuts);
+        onSheetUpdate(sheet.id, sheet.title, newShortcuts);
     };
 
     const onCloseShortcutForm = () => {
@@ -47,7 +45,6 @@ const Sheet = (props: SheetProps) => {
     };
 
     const onEditTitle = (newTitle: string) => {
-        title = newTitle;
         onSheetUpdate(sheet.id, newTitle, shortcuts);
     };
 
@@ -63,7 +60,7 @@ const Sheet = (props: SheetProps) => {
 
     const onUpdateShortcuts = (newShortcuts: Shortcut[]) => {
         setShortcuts(newShortcuts);
-        onSheetUpdate(sheet.id, title, newShortcuts);
+        onSheetUpdate(sheet.id, sheet.title, newShortcuts);
     };
 
     const onDeleteSheetClick = () => {
