@@ -8,17 +8,17 @@
     &:hover {
         .button {
             display: inline;
+            @media print {
+                display: none;
+            }
         }
     }
+}
 
-    .button {
-        display: none;
-        margin-left: 9px;
-        &:first-child {
-            margin-left: 16px;
-        }
-        @media print {
-            display: none;
-        }
+.button {
+    display: none;
+    margin-left: 9px;
+    &:first-child {
+        margin-left: 16px;
     }
 }
