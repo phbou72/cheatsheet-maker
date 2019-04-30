@@ -17,7 +17,7 @@ interface EditTitleFormProps {
 const EditTitleForm = (props: EditTitleFormProps) => {
     const { title, setEditingTitle, onEditTitle } = props;
 
-    const onSaveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const onSaveAction = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setEditingTitle(false);
     };
@@ -28,12 +28,12 @@ const EditTitleForm = (props: EditTitleFormProps) => {
     };
 
     return (
-        <div className="edit-title-form">
+        <form onSubmit={onSaveAction} className="edit-title-form">
             <input className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
-            <button className="button" onClick={onSaveClick}>
+            <button type="submit" className="button">
                 Save
             </button>
-        </div>
+        </form>
     );
 };
 

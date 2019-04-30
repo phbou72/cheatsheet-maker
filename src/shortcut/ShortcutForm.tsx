@@ -24,22 +24,6 @@ const canSubmit = (description: string, keyStrokesString: string, shortcuts: Sho
     );
 };
 
-const buildSubmitButton = (
-    canSubmitForm: boolean,
-    editedShortcut: Shortcut | null,
-    onAddClick?: () => void,
-    onEditClick?: () => void,
-) => {
-    const text = !editedShortcut ? "Add" : "Edit";
-    const action = !editedShortcut ? onAddClick : onEditClick;
-
-    return (
-        <a className="button is-primary" {...{ disabled: !canSubmitForm }} onClick={action}>
-            {text}
-        </a>
-    );
-};
-
 let lastEditedShortcut: Shortcut | null;
 
 const KeyStrokeForm = (props: Props) => {
@@ -59,16 +43,19 @@ const KeyStrokeForm = (props: Props) => {
 
     const title = editedShortcut ? "Edit shortcut" : "Add shortcut";
 
-    const onAddClick = canSubmitForm
-        ? () => {
+    const onAddAction = canSubmitForm
+        ? (e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
               onAddShortcut(shortcutBuilder(description, keyStrokesString));
               setDescription("");
               setKeyStrokesString("");
               props.onClose();
           }
         : undefined;
-    const onEditClick = canSubmitForm
-        ? () => {
+
+    const onEditAction = canSubmitForm
+        ? (e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
               onEditShortcut(lastEditedShortcut as Shortcut, shortcutBuilder(description, keyStrokesString));
               lastEditedShortcut = null;
               setDescription("");
@@ -76,7 +63,6 @@ const KeyStrokeForm = (props: Props) => {
               props.onClose();
           }
         : undefined;
-    const submitButton = buildSubmitButton(canSubmitForm, editedShortcut, onAddClick, onEditClick);
 
     const onClose = () => {
         props.onClose();
@@ -85,13 +71,19 @@ const KeyStrokeForm = (props: Props) => {
     const header = (
         <React.Fragment>
             <p className="modal-card-title">{title}</p>
-            <button className="delete" aria-label="close" onClick={onClose} />
+            <button className="delete" onClick={onClose} />
         </React.Fragment>
     );
 
+    const text = !editedShortcut ? "Add" : "Edit";
+    const submitAction = !editedShortcut ? onAddAction : onEditAction;
+
     const footer = (
         <React.Fragment>
-            {submitButton}
+            <button type="submit" className="button is-primary" disabled={!canSubmitForm}>
+                {text}
+            </button>
+
             <button className="button" onClick={onClose}>
                 Cancel
             </button>
@@ -101,31 +93,37 @@ const KeyStrokeForm = (props: Props) => {
     return (
         <Modal isOpen={isOpen}>
             <div className="modal-card">
-                <header className="modal-card-head">{header}</header>
+                <form onSubmit={submitAction}>
+                    <header className="modal-card-head">{header}</header>
 
-                <div className="modal-card-body shortcut-form">
-                    <input
-                        autoFocus
-                        className="input"
-                        name="description"
-                        placeholder="Description"
-                        type="text"
-                        value={description}
-                        onChange={e => setDescription(e.currentTarget.value)}
-                    />
+                    <div className="modal-card-body shortcut-form">
+                        <input
+                            autoFocus
+                            className="input"
+                            name="description"
+                            placeholder="Description"
+                            type="text"
+                            value={description}
+                            onChange={e => setDescription(e.currentTarget.value)}
+                        />
 
-                    <input
-                        className="input"
-                        name="keyStrokes"
-                        placeholder="Key strokes"
-                        type="text"
-                        onChange={e => setKeyStrokesString(e.currentTarget.value)}
-                        value={keyStrokesString}
-                    />
-                    <FormErrors description={description} keyStrokesString={keyStrokesString} shortcuts={shortcuts} />
-                </div>
+                        <input
+                            className="input"
+                            name="keyStrokes"
+                            placeholder="Key strokes"
+                            type="text"
+                            onChange={e => setKeyStrokesString(e.currentTarget.value)}
+                            value={keyStrokesString}
+                        />
+                        <FormErrors
+                            description={description}
+                            keyStrokesString={keyStrokesString}
+                            shortcuts={shortcuts}
+                        />
+                    </div>
 
-                <footer className="modal-card-foot">{footer}</footer>
+                    <footer className="modal-card-foot">{footer}</footer>
+                </form>
             </div>
         </Modal>
     );
