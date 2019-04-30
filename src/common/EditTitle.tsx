@@ -29,8 +29,8 @@ const EditTitleForm = (props: EditTitleFormProps) => {
 
     return (
         <form onSubmit={onSaveAction} className="edit-title-form">
-            <input className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
-            <button type="submit" className="button">
+            <input autoFocus className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
+            <button type="submit" className="button is-success">
                 Save
             </button>
         </form>
@@ -53,7 +53,9 @@ const EditTitle = (props: EditTitleProps) => {
 
     return (
         <div className={classes}>
-            <EditTitleForm title={title} setEditingTitle={setEditingTitle} onEditTitle={onEditTitle} />
+            {editingTitle && (
+                <EditTitleForm title={title} setEditingTitle={setEditingTitle} onEditTitle={onEditTitle} />
+            )}
             <a className="edit-title-button" href="#title" onClick={onEditTitleClick}>
                 {title}
             </a>

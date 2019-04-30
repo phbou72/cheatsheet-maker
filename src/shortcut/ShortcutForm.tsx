@@ -80,7 +80,7 @@ const KeyStrokeForm = (props: Props) => {
 
     const footer = (
         <React.Fragment>
-            <button type="submit" className="button is-primary" disabled={!canSubmitForm}>
+            <button type="submit" className="button is-success" disabled={!canSubmitForm}>
                 {text}
             </button>
 
@@ -92,39 +92,41 @@ const KeyStrokeForm = (props: Props) => {
 
     return (
         <Modal isOpen={isOpen}>
-            <div className="modal-card">
-                <form onSubmit={submitAction}>
-                    <header className="modal-card-head">{header}</header>
+            {isOpen && (
+                <div className="modal-card">
+                    <form onSubmit={submitAction}>
+                        <header className="modal-card-head">{header}</header>
 
-                    <div className="modal-card-body shortcut-form">
-                        <input
-                            autoFocus
-                            className="input"
-                            name="description"
-                            placeholder="Description"
-                            type="text"
-                            value={description}
-                            onChange={e => setDescription(e.currentTarget.value)}
-                        />
+                        <div className="modal-card-body shortcut-form">
+                            <input
+                                autoFocus
+                                className="input"
+                                name="description"
+                                placeholder="Description"
+                                type="text"
+                                value={description}
+                                onChange={e => setDescription(e.currentTarget.value)}
+                            />
 
-                        <input
-                            className="input"
-                            name="keyStrokes"
-                            placeholder="Key strokes"
-                            type="text"
-                            onChange={e => setKeyStrokesString(e.currentTarget.value)}
-                            value={keyStrokesString}
-                        />
-                        <FormErrors
-                            description={description}
-                            keyStrokesString={keyStrokesString}
-                            shortcuts={shortcuts}
-                        />
-                    </div>
+                            <input
+                                className="input"
+                                name="keyStrokes"
+                                placeholder="Key strokes"
+                                type="text"
+                                onChange={e => setKeyStrokesString(e.currentTarget.value)}
+                                value={keyStrokesString}
+                            />
+                            <FormErrors
+                                description={description}
+                                keyStrokesString={keyStrokesString}
+                                shortcuts={shortcuts}
+                            />
+                        </div>
 
-                    <footer className="modal-card-foot">{footer}</footer>
-                </form>
-            </div>
+                        <footer className="modal-card-foot">{footer}</footer>
+                    </form>
+                </div>
+            )}
         </Modal>
     );
 };
