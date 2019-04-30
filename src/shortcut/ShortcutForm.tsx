@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import shortcutBuilder from "shortcutBuilder";
 
-import Modal from "common/modal";
+import Modal from "common/Modal";
 
 import FormErrors from "shortcut/FormErrors";
 import { isFilled, isValidKeyStroke } from "shortcut/validators";
@@ -99,26 +99,34 @@ const KeyStrokeForm = (props: Props) => {
     );
 
     return (
-        <Modal className="key-stroke-form" isOpen={isOpen} header={header} footer={footer}>
-            <input
-                className="input"
-                name="description"
-                placeholder="Description"
-                type="text"
-                value={description}
-                onChange={e => setDescription(e.currentTarget.value)}
-            />
+        <Modal isOpen={isOpen}>
+            <div className="modal-card">
+                <header className="modal-card-head">{header}</header>
 
-            <input
-                className="input"
-                name="keyStrokes"
-                placeholder="Key strokes"
-                type="text"
-                onChange={e => setKeyStrokesString(e.currentTarget.value)}
-                value={keyStrokesString}
-            />
+                <div className="modal-card-body shortcut-form">
+                    <input
+                        autoFocus
+                        className="input"
+                        name="description"
+                        placeholder="Description"
+                        type="text"
+                        value={description}
+                        onChange={e => setDescription(e.currentTarget.value)}
+                    />
 
-            <FormErrors description={description} keyStrokesString={keyStrokesString} shortcuts={shortcuts} />
+                    <input
+                        className="input"
+                        name="keyStrokes"
+                        placeholder="Key strokes"
+                        type="text"
+                        onChange={e => setKeyStrokesString(e.currentTarget.value)}
+                        value={keyStrokesString}
+                    />
+                    <FormErrors description={description} keyStrokesString={keyStrokesString} shortcuts={shortcuts} />
+                </div>
+
+                <footer className="modal-card-foot">{footer}</footer>
+            </div>
         </Modal>
     );
 };

@@ -13,12 +13,11 @@
             }
         }
     }
-}
-
-.button {
-    display: none;
-    margin-left: 9px;
-    &:first-child {
-        margin-left: 16px;
+    .button {
+        display: none;
+        margin-left: 9px;
+        &:first-child {
+            margin-left: 16px;
+        }
     }
 }

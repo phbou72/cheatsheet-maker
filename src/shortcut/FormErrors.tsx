@@ -2,8 +2,8 @@ import React from "react";
 
 import { isFilled, isValidKeyStroke } from "shortcut/validators";
 
-const buildBothFilledError = () => <div className="key-stroke-error">Both field must be filled</div>;
-const buildInvalidKeyStrokeError = () => <div className="key-stroke-error">Invalid key stroke</div>;
+const buildBothFilledError = () => <div className="shortcut-error">Both field must be filled</div>;
+const buildInvalidKeyStrokeError = () => <div className="shortcut-error">Invalid key stroke</div>;
 
 interface Props {
     description: string;
