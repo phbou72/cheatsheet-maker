@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IconContext } from "react-icons";
 import { MdAddCircleOutline } from "react-icons/md";
 
 import Menu from "Menu";
@@ -50,21 +51,28 @@ const App = () => {
     };
 
     return (
-        <div className="app">
-            <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
+        <IconContext.Provider value={{ className: "react-icons" }}>
+            <div className="app">
+                <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
 
-            <EditTitle onEditTitle={onEditTitle} title={title} />
+                <EditTitle onEditTitle={onEditTitle} title={title} />
 
-            <button className="app-add-sheet button is-success" onClick={onAddSheetClick}>
-                Add Sheet <MdAddCircleOutline />
-            </button>
+                <button className="app-add-sheet button is-success" onClick={onAddSheetClick}>
+                    Add Sheet <MdAddCircleOutline />
+                </button>
 
-            <div className="app-sheets">
-                {sheets.map(sheet => (
-                    <Sheet key={sheet.id} sheet={sheet} onSheetUpdate={onSheetUpdate} onSheetDelete={onSheetDelete} />
-                ))}
+                <div className="app-sheets">
+                    {sheets.map(sheet => (
+                        <Sheet
+                            key={sheet.id}
+                            sheet={sheet}
+                            onSheetUpdate={onSheetUpdate}
+                            onSheetDelete={onSheetDelete}
+                        />
+                    ))}
+                </div>
             </div>
-        </div>
+        </IconContext.Provider>
     );
 };
 

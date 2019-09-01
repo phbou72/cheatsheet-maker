@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classnames from "classnames";
 
+import { FaRegEdit } from "react-icons/fa";
 import "./EditTitle.scss";
 
 interface EditTitleProps {
@@ -58,6 +59,7 @@ const EditTitle = (props: EditTitleProps) => {
             )}
             <a className="edit-title-button" href="#title" onClick={onEditTitleClick}>
                 {title}
+                <FaRegEdit />
             </a>
         </div>
     );
