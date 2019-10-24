@@ -1,8 +1,53 @@
 import React, { useState } from "react";
 import classnames from "classnames";
-
 import { FaRegEdit } from "react-icons/fa";
-import "./EditTitle.scss";
+import styled from "styled-components";
+
+const StyleEditTitle = styled.div`
+    margin-bottom: 12px;
+
+    @media print {
+        .edit-title-button {
+            display: inline;
+        }
+        .edit-title-form {
+            display: none;
+        }
+    }
+`;
+
+const EditTitleButton = styled.a`
+    display: inline-block;
+    font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+    color: white;
+    text-decoration: underline;
+    .react-icons {
+        margin-left: 16px;
+    }
+
+    @media print {
+        .edit-title-button {
+            display: inline;
+        }
+    }
+`;
+
+const Form = styled.form`
+    display: flex;
+    align-items: center;
+    @media print {
+        .edit-title-form {
+            display: none;
+        }
+    }
+`;
+
+const Input = styled.input`
+    max-width: 250px;
+    margin-right: 8px;
+`;
 
 interface EditTitleProps {
     onEditTitle: (title: string) => void;
@@ -29,12 +74,12 @@ const EditTitleForm = (props: EditTitleFormProps) => {
     };
 
     return (
-        <form onSubmit={onSaveAction} className="edit-title-form">
-            <input autoFocus className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
+        <Form onSubmit={onSaveAction} className="edit-title-form">
+            <Input autoFocus className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
             <button type="submit" className="button is-success">
                 Save
             </button>
-        </form>
+        </Form>
     );
 };
 
@@ -53,15 +98,17 @@ const EditTitle = (props: EditTitleProps) => {
     });
 
     return (
-        <div className={classes}>
+        <StyleEditTitle className={classes}>
             {editingTitle && (
                 <EditTitleForm title={title} setEditingTitle={setEditingTitle} onEditTitle={onEditTitle} />
             )}
-            <a className="edit-title-button" href="#title" onClick={onEditTitleClick}>
-                {title}
-                <FaRegEdit />
-            </a>
-        </div>
+            {!editingTitle && (
+                <EditTitleButton className="edit-title-button" href="#title" onClick={onEditTitleClick}>
+                    {title}
+                    <FaRegEdit />
+                </EditTitleButton>
+            )}
+        </StyleEditTitle>
     );
 };
 

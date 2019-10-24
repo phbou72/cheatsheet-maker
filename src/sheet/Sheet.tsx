@@ -1,13 +1,36 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import EditTitle from "common/EditTitle";
 import ShortcutForm from "shortcut/ShortcutForm";
 
 import SheetItems from "sheet/SheetItems";
-import AddShortcut from "sheet/AddShortcut";
-import DeleteSheet from "sheet/DeleteSheet";
+import AddShortcut from "sheet/AddShortcutButton";
+import DeleteSheet from "sheet/DeleteSheetButton";
 
-import "./Sheet.scss";
+const StyledSheet = styled.div`
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    @media print {
+        padding: 0;
+    }
+`;
+
+const SheetContent = styled.div`
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 250px;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.3);
+    @media print {
+        min-height: unset;
+        padding: 0;
+        margin-bottom: 32px;
+    }
+`;
 
 interface SheetProps {
     sheet: Sheet;
@@ -68,8 +91,8 @@ const Sheet = (props: SheetProps) => {
     };
 
     return (
-        <div className="sheet">
-            <div className="sheet-content">
+        <StyledSheet className="sheet">
+            <SheetContent className="sheet-content">
                 <DeleteSheet onDeleteSheetClick={onDeleteSheetClick} />
                 <EditTitle onEditTitle={onEditTitle} title={sheet.title} />
                 <SheetItems
@@ -78,7 +101,7 @@ const Sheet = (props: SheetProps) => {
                     onUpdateShortcuts={onUpdateShortcuts}
                 />
                 <AddShortcut onAddShortcutClick={onAddShortcutClick} />
-            </div>
+            </SheetContent>
             <ShortcutForm
                 shortcuts={shortcuts}
                 editedShortcut={editingShortcut}
@@ -87,7 +110,7 @@ const Sheet = (props: SheetProps) => {
                 onClose={onCloseShortcutForm}
                 isOpen={isShortcutFormOpen}
             />
-        </div>
+        </StyledSheet>
     );
 };
 

@@ -1,9 +1,15 @@
 import React from "react";
+import styled from "styled-components";
 
 import { isFilled, isValidKeyStroke } from "shortcut/validators";
 
-const buildBothFilledError = () => <div className="shortcut-error">Both field must be filled</div>;
-const buildInvalidKeyStrokeError = () => <div className="shortcut-error">Invalid key stroke</div>;
+const Error = styled.div`
+    margin-top: 16px;
+    color: #e16f6f;
+`;
+
+const buildBothFilledError = () => <Error className="shortcut-error">Both field must be filled</Error>;
+const buildInvalidKeyStrokeError = () => <Error className="shortcut-error">Invalid key stroke</Error>;
 
 interface Props {
     description: string;

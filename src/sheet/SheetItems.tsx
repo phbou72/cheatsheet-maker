@@ -1,8 +1,13 @@
 import React from "react";
+import styled from "styled-components";
 
 import SheetItem from "sheet/SheetItem";
 
-import "./SheetItems.scss";
+const StyleSheetItems = styled.ul`
+    margin: 0;
+    padding: 0;
+    margin-bottom: 24px;
+`;
 
 interface Props {
     shortcuts: Shortcut[];
@@ -48,7 +53,7 @@ const SheetItems = (props: Props) => {
     };
 
     return (
-        <ul className="sheet-items">
+        <StyleSheetItems className="sheet-items">
             {shortcuts.map(shortcut => (
                 <SheetItem
                     onDragOver={onDragOver}
@@ -60,7 +65,7 @@ const SheetItems = (props: Props) => {
                     onEditShortcutClick={onEditShortcutClick}
                 />
             ))}
-        </ul>
+        </StyleSheetItems>
     );
 };
 

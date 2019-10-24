@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import shortcutBuilder from "shortcutBuilder";
 
@@ -7,7 +8,31 @@ import Modal from "common/Modal";
 import FormErrors from "shortcut/FormErrors";
 import { isFilled, isValidKeyStroke } from "shortcut/validators";
 
-import "./ShortcutForm.scss";
+const StyledShortcutForm = styled.div`
+    min-width: 420px;
+    width: 100%;
+    display: inline-flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding: 24px 8px 24px 16px;
+    background-color: #fff;
+    @media print {
+        display: none;
+    }
+
+    input[type="text"] {
+        margin-bottom: 10px;
+        height: 56px;
+        font-size: 18px;
+    }
+`;
+
+const Button = styled.button`
+    display: inline;
+`;
 
 interface Props {
     onAddShortcut: (shortcut: Shortcut) => void;
@@ -26,7 +51,7 @@ const canSubmit = (description: string, keyStrokesString: string, shortcuts: Sho
 
 let lastEditedShortcut: Shortcut | null;
 
-const KeyStrokeForm = (props: Props) => {
+const ShortcutForm = (props: Props) => {
     const { onAddShortcut, onEditShortcut, shortcuts, editedShortcut, isOpen } = props;
 
     // hooks
@@ -71,7 +96,7 @@ const KeyStrokeForm = (props: Props) => {
     const header = (
         <React.Fragment>
             <p className="modal-card-title">{title}</p>
-            <button className="delete" onClick={onClose} />
+            <Button className="delete" onClick={onClose} />
         </React.Fragment>
     );
 
@@ -80,13 +105,13 @@ const KeyStrokeForm = (props: Props) => {
 
     const footer = (
         <React.Fragment>
-            <button type="submit" className="button is-success" disabled={!canSubmitForm}>
+            <Button type="submit" className="button is-success" disabled={!canSubmitForm}>
                 {text}
-            </button>
+            </Button>
 
-            <button className="button" onClick={onClose}>
+            <Button className="button" onClick={onClose}>
                 Cancel
-            </button>
+            </Button>
         </React.Fragment>
     );
 
@@ -97,7 +122,7 @@ const KeyStrokeForm = (props: Props) => {
                     <form onSubmit={submitAction}>
                         <header className="modal-card-head">{header}</header>
 
-                        <div className="modal-card-body shortcut-form">
+                        <StyledShortcutForm className="modal-card-body shortcut-form">
                             <input
                                 autoFocus
                                 className="input"
@@ -121,7 +146,7 @@ const KeyStrokeForm = (props: Props) => {
                                 keyStrokesString={keyStrokesString}
                                 shortcuts={shortcuts}
                             />
-                        </div>
+                        </StyledShortcutForm>
 
                         <footer className="modal-card-foot">{footer}</footer>
                     </form>
@@ -131,4 +156,4 @@ const KeyStrokeForm = (props: Props) => {
     );
 };
 
-export default KeyStrokeForm;
+export default ShortcutForm;

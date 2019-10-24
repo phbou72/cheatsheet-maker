@@ -1,6 +1,30 @@
 import React from "react";
+import styled from "styled-components";
 
-import "./SheetItem.scss";
+const StyledSheetItem = styled.li`
+    display: flex;
+    align-items: center;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    line-height: 32px;
+
+    &:hover {
+        .button {
+            display: inline;
+            @media print {
+                display: none;
+            }
+        }
+    }
+
+    .button {
+        display: none;
+        margin-left: 9px;
+        &:first-child {
+            margin-left: 16px;
+        }
+    }
+`;
 
 interface SheetItemProps {
     shortcut: Shortcut;
@@ -23,7 +47,7 @@ const SheetItem = (props: SheetItemProps) => {
     const keyStrokesString = createKeyStrokesString(keyStrokes);
 
     return (
-        <li
+        <StyledSheetItem
             className="sheet-item"
             draggable
             onDragStart={_e => onDragStart(shortcut)}
@@ -37,7 +61,7 @@ const SheetItem = (props: SheetItemProps) => {
             <button className="button is-success is-small is-rounded" onClick={() => onEditShortcutClick(shortcut)}>
                 Edit
             </button>
-        </li>
+        </StyledSheetItem>
     );
 };
 
