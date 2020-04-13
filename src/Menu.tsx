@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { AppBar, Toolbar, Menu, MenuItem, IconButton } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+
+import styled from "styled-components";
 
 import download from "./utils/download";
 
-import "./Menu.scss";
+const StyledMenu = styled.div`
+    display: flex;
+`;
+
+const StyledImport = styled.input`
+    display: none;
+`;
 
 interface Props {
     title: string;
@@ -26,8 +36,8 @@ const importSheets = (
         return;
     }
 
-    let reader = new FileReader();
-    reader.onload = function(eLoad: any) {
+    const reader = new FileReader();
+    reader.onload = function (eLoad: any) {
         let content = eLoad.target.result;
         const obj = JSON.parse(content);
         const sheets = obj.sheets as Sheet[];
@@ -40,45 +50,51 @@ const importSheets = (
 const SheetActions = (props: Props) => {
     const { title, sheets, onSheetsImport, onSheetsClear } = props;
 
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const openMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const closeMenu = () => {
+        setAnchorEl(null);
+    };
+
     const onImportClick = (e: React.ChangeEvent<HTMLInputElement>) => {
         importSheets(e, onSheetsImport);
+        closeMenu();
     };
 
-    const onExportClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const onExportClick = (e: React.MouseEvent<HTMLLIElement>) => {
         e.preventDefault();
         exportSheets(title, sheets);
+        closeMenu();
     };
 
-    const onClearClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const onClearClick = (e: React.MouseEvent<HTMLLIElement>) => {
         e.preventDefault();
         onSheetsClear();
+        closeMenu();
     };
 
-    const onClickPreventDefault = (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault();
-
     return (
-        <nav className="navbar menu">
-            <div className="navbar-start">
-                <div className="navbar-item has-dropdown is-hoverable">
-                    <a href="#file" className="navbar-link" onClick={onClickPreventDefault}>
-                        File
-                    </a>
-
-                    <div className="navbar-dropdown">
-                        <input type="file" name="importInput" id="importInput" onChange={onImportClick} />
-                        <label htmlFor="importInput">
-                            <div className="navbar-item import">Import</div>
-                        </label>
-                        <a href="#export" className="navbar-item" onClick={onExportClick}>
-                            Export
-                        </a>
-                        <a href="newpage" className="navbar-item" onClick={onClearClick}>
-                            New page
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <StyledMenu>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start" onClick={openMenuClick} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={closeMenu}>
+                        <MenuItem>
+                            <StyledImport type="file" name="importInput" id="importInput" onChange={onImportClick} />
+                            <label htmlFor="importInput">Import</label>
+                        </MenuItem>
+                        <MenuItem onClick={onExportClick}>Export</MenuItem>
+                        <MenuItem onClick={onClearClick}>New page</MenuItem>
+                    </Menu>
+                </Toolbar>
+            </AppBar>
+        </StyledMenu>
     );
 };
 

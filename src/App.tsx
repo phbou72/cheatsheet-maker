@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IconContext } from "react-icons";
 import { MdAddCircleOutline } from "react-icons/md";
+import { StylesProvider } from "@material-ui/core/styles";
 
 import Menu from "Menu";
 import { buildEmptySheet } from "sheetBuilder";
@@ -23,7 +24,7 @@ const App = () => {
     };
 
     const onSheetUpdate = (id: String, title: string, shortcuts: Shortcut[]) => {
-        const sheetIndex = sheets.findIndex(sheet => sheet.id === id);
+        const sheetIndex = sheets.findIndex((sheet) => sheet.id === id);
         const updatedSheet = { ...sheets[sheetIndex], title, shortcuts };
 
         const newSheets = sheets.slice(0);
@@ -32,7 +33,7 @@ const App = () => {
     };
 
     const onSheetDelete = (id: string) => {
-        const newSheets = sheets.filter(sheet => sheet.id !== id);
+        const newSheets = sheets.filter((sheet) => sheet.id !== id);
         setSheets(newSheets);
     };
 
@@ -51,28 +52,30 @@ const App = () => {
     };
 
     return (
-        <IconContext.Provider value={{ className: "react-icons" }}>
-            <div className="app">
-                <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
+        <StylesProvider injectFirst>
+            <IconContext.Provider value={{ className: "react-icons" }}>
+                <div className="app">
+                    <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
 
-                <EditTitle onEditTitle={onEditTitle} title={title} />
+                    <EditTitle onEditTitle={onEditTitle} title={title} />
 
-                <button className="app-add-sheet button is-success" onClick={onAddSheetClick}>
-                    Add Sheet <MdAddCircleOutline />
-                </button>
+                    <button className="app-add-sheet button is-success" onClick={onAddSheetClick}>
+                        Add Sheet <MdAddCircleOutline />
+                    </button>
 
-                <div className="app-sheets">
-                    {sheets.map(sheet => (
-                        <Sheet
-                            key={sheet.id}
-                            sheet={sheet}
-                            onSheetUpdate={onSheetUpdate}
-                            onSheetDelete={onSheetDelete}
-                        />
-                    ))}
+                    <div className="app-sheets">
+                        {sheets.map((sheet) => (
+                            <Sheet
+                                key={sheet.id}
+                                sheet={sheet}
+                                onSheetUpdate={onSheetUpdate}
+                                onSheetDelete={onSheetDelete}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </IconContext.Provider>
+            </IconContext.Provider>
+        </StylesProvider>
     );
 };
 
