@@ -1,5 +1,9 @@
 import React from "react";
-import { MdAddCircleOutline } from "react-icons/md";
+
+// material ui
+import { AddCircleOutline } from "@material-ui/icons";
+
+// styling
 import styled from "styled-components";
 
 const StyledAddShortcut = styled.button`
@@ -7,20 +11,17 @@ const StyledAddShortcut = styled.button`
     align-items: center;
     font-size: 16px;
     color: rgba(255, 255, 255, 0.6);
-    @media print {
-        display: none;
-    }
-    .react-icons {
-        font-size: 20px;
-        margin-left: 8px;
-    }
+`;
+
+const StyledAddCircleOutline = styled(AddCircleOutline)`
+    margin-left: 8px;
 `;
 
 interface Props {
     onAddShortcutClick: () => void;
 }
 
-const AddShortcut = (props: Props) => {
+const AddShortcutButton = (props: Props) => {
     const onAddShortcutClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         props.onAddShortcutClick();
@@ -29,9 +30,9 @@ const AddShortcut = (props: Props) => {
     return (
         <StyledAddShortcut className="add-shortcut-button button is-success" onClick={onAddShortcutClick}>
             Add Shortcut
-            <MdAddCircleOutline />
+            <StyledAddCircleOutline />
         </StyledAddShortcut>
     );
 };
 
-export default AddShortcut;
+export default AddShortcutButton;

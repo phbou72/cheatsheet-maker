@@ -50,6 +50,9 @@ const AddSheetButton = styled(Button)`
     right: 10px;
     display: flex;
     align-items: center;
+    svg {
+        margin-left: 8px;
+    }
 `;
 
 const Sheets = styled.div`
