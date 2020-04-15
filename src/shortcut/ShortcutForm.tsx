@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+
+// material ui
+import { Button, TextField } from "@material-ui/core";
+
+// styling
 import styled from "styled-components";
 
 import shortcutBuilder from "shortcutBuilder";
 
+// common
 import Modal from "common/Modal";
 
+// shortcut
 import FormErrors from "shortcut/FormErrors";
 import { isFilled, isValidKeyStroke } from "shortcut/validators";
 
@@ -19,16 +26,14 @@ const StyledShortcutForm = styled.div`
     padding-left: 20px;
     padding: 24px 8px 24px 16px;
     background-color: #fff;
-
-    input[type="text"] {
-        margin-bottom: 10px;
-        height: 56px;
-        font-size: 18px;
-    }
 `;
 
-const Button = styled.button`
-    display: inline;
+const StyledTextField = styled(TextField)`
+    margin-bottom: 10px;
+`;
+
+const ActionButton = styled(Button)`
+    margin-left: 8px;
 `;
 
 interface Props {
@@ -102,13 +107,13 @@ const ShortcutForm = (props: Props) => {
 
     const footer = (
         <React.Fragment>
-            <Button type="submit" className="button is-success" disabled={!canSubmitForm}>
-                {text}
-            </Button>
-
-            <Button className="button" onClick={onClose}>
+            <Button variant="contained" onClick={onClose}>
                 Cancel
             </Button>
+
+            <ActionButton type="submit" variant="contained" color="primary" disabled={!canSubmitForm}>
+                {text}
+            </ActionButton>
         </React.Fragment>
     );
 
@@ -120,9 +125,8 @@ const ShortcutForm = (props: Props) => {
                         <header className="modal-card-head">{header}</header>
 
                         <StyledShortcutForm className="modal-card-body shortcut-form">
-                            <input
+                            <StyledTextField
                                 autoFocus
-                                className="input"
                                 name="description"
                                 placeholder="Description"
                                 type="text"
@@ -130,14 +134,14 @@ const ShortcutForm = (props: Props) => {
                                 onChange={(e) => setDescription(e.currentTarget.value)}
                             />
 
-                            <input
-                                className="input"
+                            <StyledTextField
                                 name="keyStrokes"
                                 placeholder="Key strokes"
                                 type="text"
                                 onChange={(e) => setKeyStrokesString(e.currentTarget.value)}
                                 value={keyStrokesString}
                             />
+
                             <FormErrors
                                 description={description}
                                 keyStrokesString={keyStrokesString}
