@@ -1,7 +1,7 @@
 import React from "react";
 
 // material ui
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 
 // styling
 import styled from "styled-components";
@@ -11,8 +11,7 @@ const Form = styled.form`
     align-items: center;
 `;
 
-const Input = styled.input`
-    max-width: 250px;
+const StyledTextfield = styled(TextField)`
     margin-right: 8px;
 `;
 
@@ -37,7 +36,14 @@ const EditTitleForm = (props: EditTitleFormProps) => {
 
     return (
         <Form onSubmit={onSaveAction} className="edit-title-form">
-            <Input autoFocus className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
+            <StyledTextfield
+                autoFocus
+                className="input"
+                type="text"
+                placeholder="Title"
+                value={title}
+                onChange={onChangeTitle}
+            />
             <Button type="submit" variant="contained" color="primary">
                 Save
             </Button>
