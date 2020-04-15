@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { IconContext } from "react-icons";
-import { MdAddCircleOutline } from "react-icons/md";
-import { StylesProvider } from "@material-ui/core/styles";
 
+// material ui
+import { StylesProvider } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import { AddCircleOutline } from "@material-ui/icons";
+
+// styling
+import styled from "styled-components";
+
+// local
 import Menu from "Menu";
 import { buildEmptySheet } from "sheetBuilder";
 
@@ -10,10 +16,56 @@ import EditTitle from "common/EditTitle";
 
 import Sheet from "sheet/Sheet";
 
-import "./App.scss";
-
 const DEFAULT_TITLE = "Untitled page";
 const DEFAULT_SHEETS: Sheet[] = [];
+
+const StyledApp = styled.div`
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(to right top, #1e646e, #118577, #52a468, #a1bb4f, #fec748);
+`;
+
+const StyledEditTitle = styled(EditTitle)`
+    position: absolute;
+    top: 65px;
+    left: 16px;
+    height: 48px;
+    margin-bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    a[href="#title"] {
+        font-size: 32px;
+    }
+`;
+
+const AddSheetButton = styled(Button)`
+    position: absolute;
+    top: 65px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    .react-icons {
+        margin-left: 8px;
+        font-size: 32px;
+    }
+`;
+
+const Sheets = styled.div`
+    margin-top: 48px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+`;
 
 const App = () => {
     const [sheets, setSheets] = useState<Sheet[]>(DEFAULT_SHEETS);
@@ -53,28 +105,26 @@ const App = () => {
 
     return (
         <StylesProvider injectFirst>
-            <IconContext.Provider value={{ className: "react-icons" }}>
-                <div className="app">
-                    <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
+            <StyledApp>
+                <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
 
-                    <EditTitle onEditTitle={onEditTitle} title={title} />
+                <StyledEditTitle onEditTitle={onEditTitle} title={title} />
 
-                    <button className="app-add-sheet button is-success" onClick={onAddSheetClick}>
-                        Add Sheet <MdAddCircleOutline />
-                    </button>
+                <AddSheetButton onClick={onAddSheetClick} color="primary">
+                    Add Sheet <AddCircleOutline />
+                </AddSheetButton>
 
-                    <div className="app-sheets">
-                        {sheets.map((sheet) => (
-                            <Sheet
-                                key={sheet.id}
-                                sheet={sheet}
-                                onSheetUpdate={onSheetUpdate}
-                                onSheetDelete={onSheetDelete}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </IconContext.Provider>
+                <Sheets>
+                    {sheets.map((sheet) => (
+                        <Sheet
+                            key={sheet.id}
+                            sheet={sheet}
+                            onSheetUpdate={onSheetUpdate}
+                            onSheetDelete={onSheetDelete}
+                        />
+                    ))}
+                </Sheets>
+            </StyledApp>
         </StylesProvider>
     );
 };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import classnames from "classnames";
 
 // icons
 import { Edit } from "@material-ui/icons";
@@ -25,10 +24,11 @@ const EditTitleButton = styled.a`
 interface EditTitleProps {
     onEditTitle: (title: string) => void;
     title: string;
+    className?: string;
 }
 
 const EditTitle = (props: EditTitleProps) => {
-    const { onEditTitle, title } = props;
+    const { onEditTitle, title, className } = props;
 
     const [editingTitle, setEditingTitle] = useState(false);
 
@@ -36,10 +36,6 @@ const EditTitle = (props: EditTitleProps) => {
         e.preventDefault();
         setEditingTitle(true);
     };
-
-    const classes = classnames({
-        editing: editingTitle,
-    });
 
     const content = editingTitle ? (
         <EditTitleForm title={title} setEditingTitle={setEditingTitle} onEditTitle={onEditTitle} />
@@ -50,7 +46,7 @@ const EditTitle = (props: EditTitleProps) => {
         </EditTitleButton>
     );
 
-    return <StyledEditTitle className={classes}>{content}</StyledEditTitle>;
+    return <StyledEditTitle className={className}>{content}</StyledEditTitle>;
 };
 
 export default EditTitle;
