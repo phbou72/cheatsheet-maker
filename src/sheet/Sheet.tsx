@@ -12,9 +12,6 @@ const StyledSheet = styled.div`
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
-    @media print {
-        padding: 0;
-    }
 `;
 
 const SheetContent = styled.div`
@@ -23,13 +20,9 @@ const SheetContent = styled.div`
     width: 100%;
     min-height: 250px;
     border-radius: 8px;
+    border: solid 1px rgba(0, 10, 20, 0.3);
     padding: 16px;
     background-color: rgba(255, 255, 255, 0.3);
-    @media print {
-        min-height: unset;
-        padding: 0;
-        margin-bottom: 32px;
-    }
 `;
 
 interface SheetProps {
@@ -54,7 +47,7 @@ const Sheet = (props: SheetProps) => {
     };
 
     const onEditShortcut = (oldShortcut: Shortcut, newShortcut: Shortcut) => {
-        const shortcutIndex = shortcuts.findIndex(shortcut => shortcut === oldShortcut);
+        const shortcutIndex = shortcuts.findIndex((shortcut) => shortcut === oldShortcut);
 
         const newShortcuts = shortcuts.slice(0);
         newShortcuts[shortcutIndex] = newShortcut;
