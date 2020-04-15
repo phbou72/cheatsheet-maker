@@ -1,19 +1,20 @@
 import React from "react";
 
+// material ui
+import { Button } from "@material-ui/core";
+
 // styling
 import styled from "styled-components";
 
 // material
 import { RemoveCircleOutline } from "@material-ui/icons";
 
-const StyledDeleteSheetButton = styled.button`
+const StyledDeleteSheetButton = styled(Button)`
     position: absolute;
     top: 16px;
     right: 16px;
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.6);
+    /* display: flex; */
+    /* align-items: center; */
 `;
 
 const StyledRemoveCircleOutline = styled(RemoveCircleOutline)`
@@ -31,7 +32,7 @@ const DeleteSheetButton = (props: Props) => {
     };
 
     return (
-        <StyledDeleteSheetButton className="delete-sheet-button button is-danger" onClick={onDeleteSheetClick}>
+        <StyledDeleteSheetButton onClick={onDeleteSheetClick} color="primary" variant="contained">
             Delete Sheet <StyledRemoveCircleOutline />
         </StyledDeleteSheetButton>
     );

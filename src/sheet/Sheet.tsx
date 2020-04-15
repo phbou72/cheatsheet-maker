@@ -84,8 +84,8 @@ const Sheet = (props: SheetProps) => {
     };
 
     return (
-        <StyledSheet className="sheet">
-            <SheetContent className="sheet-content">
+        <StyledSheet>
+            <SheetContent>
                 <DeleteSheetButton onDeleteSheetClick={onDeleteSheetClick} />
                 <EditTitle onEditTitle={onEditTitle} title={sheet.title} />
                 <SheetItems

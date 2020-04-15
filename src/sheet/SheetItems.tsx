@@ -23,7 +23,7 @@ const SheetItems = (props: Props) => {
 
     // edit/delete button events
     const onDeleteShortcutClick = (deleteShortcut: Shortcut) => {
-        const newShortcuts = shortcuts.filter(shortcut => shortcut.description !== deleteShortcut.description);
+        const newShortcuts = shortcuts.filter((shortcut) => shortcut.description !== deleteShortcut.description);
         onUpdateShortcuts(newShortcuts);
     };
     const onEditShortcutClick = (shortcut: Shortcut) => {
@@ -53,8 +53,8 @@ const SheetItems = (props: Props) => {
     };
 
     return (
-        <StyleSheetItems className="sheet-items">
-            {shortcuts.map(shortcut => (
+        <StyleSheetItems>
+            {shortcuts.map((shortcut) => (
                 <SheetItem
                     onDragOver={onDragOver}
                     onDragStart={onDragStart}
