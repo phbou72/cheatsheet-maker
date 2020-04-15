@@ -5,8 +5,8 @@ import EditTitle from "common/EditTitle";
 import ShortcutForm from "shortcut/ShortcutForm";
 
 import SheetItems from "sheet/SheetItems";
-import AddShortcut from "sheet/AddShortcutButton";
-import DeleteSheet from "sheet/DeleteSheetButton";
+import AddShortcutButton from "sheet/AddShortcutButton";
+import DeleteSheetButton from "sheet/DeleteSheetButton";
 
 const StyledSheet = styled.div`
     padding: 16px;
@@ -86,14 +86,14 @@ const Sheet = (props: SheetProps) => {
     return (
         <StyledSheet className="sheet">
             <SheetContent className="sheet-content">
-                <DeleteSheet onDeleteSheetClick={onDeleteSheetClick} />
+                <DeleteSheetButton onDeleteSheetClick={onDeleteSheetClick} />
                 <EditTitle onEditTitle={onEditTitle} title={sheet.title} />
                 <SheetItems
                     shortcuts={shortcuts}
                     onEditShortcutClick={onEditShortcutClick}
                     onUpdateShortcuts={onUpdateShortcuts}
                 />
-                <AddShortcut onAddShortcutClick={onAddShortcutClick} />
+                <AddShortcutButton onAddShortcutClick={onAddShortcutClick} />
             </SheetContent>
             <ShortcutForm
                 shortcuts={shortcuts}

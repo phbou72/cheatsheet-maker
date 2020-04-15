@@ -19,9 +19,6 @@ const StyledShortcutForm = styled.div`
     padding-left: 20px;
     padding: 24px 8px 24px 16px;
     background-color: #fff;
-    @media print {
-        display: none;
-    }
 
     input[type="text"] {
         margin-bottom: 10px;
@@ -60,7 +57,7 @@ const ShortcutForm = (props: Props) => {
 
     if ((!lastEditedShortcut && editedShortcut) || (editedShortcut && lastEditedShortcut !== editedShortcut)) {
         setDescription(editedShortcut.description);
-        setKeyStrokesString(editedShortcut.keyStrokes.map(keyStroke => keyStroke.label).join("+"));
+        setKeyStrokesString(editedShortcut.keyStrokes.map((keyStroke) => keyStroke.label).join("+"));
         lastEditedShortcut = editedShortcut;
     }
 
@@ -130,7 +127,7 @@ const ShortcutForm = (props: Props) => {
                                 placeholder="Description"
                                 type="text"
                                 value={description}
-                                onChange={e => setDescription(e.currentTarget.value)}
+                                onChange={(e) => setDescription(e.currentTarget.value)}
                             />
 
                             <input
@@ -138,7 +135,7 @@ const ShortcutForm = (props: Props) => {
                                 name="keyStrokes"
                                 placeholder="Key strokes"
                                 type="text"
-                                onChange={e => setKeyStrokesString(e.currentTarget.value)}
+                                onChange={(e) => setKeyStrokesString(e.currentTarget.value)}
                                 value={keyStrokesString}
                             />
                             <FormErrors

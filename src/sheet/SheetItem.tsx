@@ -1,4 +1,6 @@
 import React from "react";
+
+// styling
 import styled from "styled-components";
 
 const StyledSheetItem = styled.li`
@@ -11,9 +13,6 @@ const StyledSheetItem = styled.li`
     &:hover {
         .button {
             display: inline;
-            @media print {
-                display: none;
-            }
         }
     }
 
@@ -36,7 +35,7 @@ interface SheetItemProps {
 }
 
 const createKeyStrokesString = (keyStrokes: KeyStroke[]) => {
-    const symbols = (keyStrokes && keyStrokes.map(keyStroke => keyStroke.symbol)) || [];
+    const symbols = (keyStrokes && keyStrokes.map((keyStroke) => keyStroke.symbol)) || [];
     return symbols.join(" + ");
 };
 
@@ -50,9 +49,9 @@ const SheetItem = (props: SheetItemProps) => {
         <StyledSheetItem
             className="sheet-item"
             draggable
-            onDragStart={_e => onDragStart(shortcut)}
-            onDragOver={_e => onDragOver(shortcut)}
-            onDragEnd={_e => onDragEnd()}
+            onDragStart={(_e) => onDragStart(shortcut)}
+            onDragOver={(_e) => onDragOver(shortcut)}
+            onDragEnd={(_e) => onDragEnd()}
         >
             {description}: {keyStrokesString}
             <button className="button is-danger is-small is-rounded" onClick={() => onDeleteShortcutClick(shortcut)}>
