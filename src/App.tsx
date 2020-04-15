@@ -30,9 +30,8 @@ const StyledApp = styled.div`
 
 const StyledEditTitle = styled(EditTitle)`
     position: absolute;
-    top: 65px;
-    left: 16px;
-    height: 48px;
+    top: 75px;
+    left: 10px;
     margin-bottom: 0;
 
     display: flex;
@@ -41,16 +40,16 @@ const StyledEditTitle = styled(EditTitle)`
 
     a[href="#title"] {
         font-size: 32px;
+        line-height: 1;
     }
 `;
 
 const AddSheetButton = styled(Button)`
     position: absolute;
-    top: 65px;
-    right: 16px;
+    top: 75px;
+    right: 10px;
     display: flex;
     align-items: center;
-    font-size: 20px;
 `;
 
 const Sheets = styled.div`
@@ -104,7 +103,7 @@ const App = () => {
 
                 <StyledEditTitle onEditTitle={onEditTitle} title={title} />
 
-                <AddSheetButton onClick={onAddSheetClick} color="primary">
+                <AddSheetButton onClick={onAddSheetClick} variant="contained" color="primary">
                     Add Sheet <AddCircleOutline />
                 </AddSheetButton>
 

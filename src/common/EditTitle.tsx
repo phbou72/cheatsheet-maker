@@ -17,8 +17,10 @@ const EditTitleButton = styled.a`
     font-size: 24px;
     display: inline-flex;
     align-items: center;
-    color: white;
     text-decoration: underline;
+    svg {
+        margin-left: 4px;
+    }
 `;
 
 interface EditTitleProps {

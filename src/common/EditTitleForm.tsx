@@ -1,5 +1,8 @@
 import React from "react";
 
+// material ui
+import { Button } from "@material-ui/core";
+
 // styling
 import styled from "styled-components";
 
@@ -35,9 +38,9 @@ const EditTitleForm = (props: EditTitleFormProps) => {
     return (
         <Form onSubmit={onSaveAction} className="edit-title-form">
             <Input autoFocus className="input" type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
-            <button type="submit" className="button is-success">
+            <Button type="submit" variant="contained" color="primary">
                 Save
-            </button>
+            </Button>
         </Form>
     );
 };
