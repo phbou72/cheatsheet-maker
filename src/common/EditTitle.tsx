@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import classnames from "classnames";
-import { FaRegEdit } from "react-icons/fa";
+
+// icons
+import { Edit } from "@material-ui/icons";
+
+// styling
 import styled from "styled-components";
 
 const StyleEditTitle = styled.div`
     margin-bottom: 12px;
-
-    @media print {
-        .edit-title-button {
-            display: inline;
-        }
-        .edit-title-form {
-            display: none;
-        }
-    }
 `;
 
 const EditTitleButton = styled.a`
@@ -23,25 +18,11 @@ const EditTitleButton = styled.a`
     align-items: center;
     color: white;
     text-decoration: underline;
-    .react-icons {
-        margin-left: 16px;
-    }
-
-    @media print {
-        .edit-title-button {
-            display: inline;
-        }
-    }
 `;
 
 const Form = styled.form`
     display: flex;
     align-items: center;
-    @media print {
-        .edit-title-form {
-            display: none;
-        }
-    }
 `;
 
 const Input = styled.input`
@@ -97,19 +78,16 @@ const EditTitle = (props: EditTitleProps) => {
         editing: editingTitle,
     });
 
-    return (
-        <StyleEditTitle className={classes}>
-            {editingTitle && (
-                <EditTitleForm title={title} setEditingTitle={setEditingTitle} onEditTitle={onEditTitle} />
-            )}
-            {!editingTitle && (
-                <EditTitleButton className="edit-title-button" href="#title" onClick={onEditTitleClick}>
-                    {title}
-                    <FaRegEdit />
-                </EditTitleButton>
-            )}
-        </StyleEditTitle>
+    const content = editingTitle ? (
+        <EditTitleForm title={title} setEditingTitle={setEditingTitle} onEditTitle={onEditTitle} />
+    ) : (
+        <EditTitleButton href="#title" onClick={onEditTitleClick}>
+            {title}
+            <Edit />
+        </EditTitleButton>
     );
+
+    return <StyleEditTitle className={classes}>{content}</StyleEditTitle>;
 };
 
 export default EditTitle;
