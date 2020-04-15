@@ -26,7 +26,6 @@ const StyledApp = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(to right top, #1e646e, #118577, #52a468, #a1bb4f, #fec748);
 `;
 
 const StyledEditTitle = styled(EditTitle)`
@@ -52,11 +51,6 @@ const AddSheetButton = styled(Button)`
     display: flex;
     align-items: center;
     font-size: 20px;
-    color: rgba(255, 255, 255, 0.6);
-    .react-icons {
-        margin-left: 8px;
-        font-size: 32px;
-    }
 `;
 
 const Sheets = styled.div`
