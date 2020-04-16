@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // material ui
 import { StylesProvider } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
@@ -66,6 +69,7 @@ const Sheets = styled.div`
 const App = () => {
     const [sheets, setSheets] = useState<Sheet[]>(DEFAULT_SHEETS);
     const [title, setTitle] = useState(DEFAULT_TITLE);
+    const { t } = useTranslation();
 
     const onAddSheetClick = () => {
         setSheets([...sheets, buildEmptySheet()]);
@@ -107,7 +111,7 @@ const App = () => {
                 <StyledEditTitle onEditTitle={onEditTitle} title={title} />
 
                 <AddSheetButton onClick={onAddSheetClick} variant="contained" color="primary">
-                    Add Sheet <AddCircleOutline />
+                    {t("addSheet")} <AddCircleOutline />
                 </AddSheetButton>
 
                 <Sheets>
