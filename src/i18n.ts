@@ -2,19 +2,18 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
+import translationsEn from "i18n/en";
+import translationFr from "i18n/fr";
+
 i18n.use(LanguageDetector)
     .use(initReactI18next)
     .init({
         resources: {
             en: {
-                translations: {
-                    addSheet: "Add Sheet",
-                },
+                translations: translationsEn,
             },
             fr: {
-                translations: {
-                    addSheet: "Ajouter une feuille",
-                },
+                translations: translationFr,
             },
         },
         fallbackLng: "en",
@@ -23,7 +22,7 @@ i18n.use(LanguageDetector)
         ns: ["translations"],
         defaultNS: "translations",
 
-        keySeparator: false,
+        keySeparator: ".",
 
         interpolation: {
             escapeValue: false,

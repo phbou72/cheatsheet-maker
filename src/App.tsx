@@ -111,7 +111,7 @@ const App = () => {
                 <StyledEditTitle onEditTitle={onEditTitle} title={title} />
 
                 <AddSheetButton onClick={onAddSheetClick} variant="contained" color="primary">
-                    {t("addSheet")} <AddCircleOutline />
+                    {t("app.addSheet")} <AddCircleOutline />
                 </AddSheetButton>
 
                 <Sheets>

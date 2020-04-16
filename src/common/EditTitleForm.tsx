@@ -1,5 +1,8 @@
 import React from "react";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // material ui
 import { Button, TextField } from "@material-ui/core";
 
@@ -24,6 +27,8 @@ interface EditTitleFormProps {
 const EditTitleForm = (props: EditTitleFormProps) => {
     const { title, setEditingTitle, onEditTitle } = props;
 
+    const { t } = useTranslation();
+
     const onSaveAction = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setEditingTitle(false);
@@ -39,7 +44,7 @@ const EditTitleForm = (props: EditTitleFormProps) => {
             <StyledTextfield autoFocus type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
 
             <Button type="submit" variant="contained" color="primary">
-                Save
+                {t("common.editTitleForm.save")}
             </Button>
         </Form>
     );

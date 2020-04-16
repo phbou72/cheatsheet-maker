@@ -1,5 +1,8 @@
 import React from "react";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // styling
 import styled from "styled-components";
 
@@ -10,9 +13,6 @@ const Error = styled.div`
     color: #e16f6f;
 `;
 
-const buildBothFilledError = () => <Error>Both field must be filled</Error>;
-const buildInvalidKeyStrokeError = () => <Error>Invalid key stroke</Error>;
-
 interface Props {
     description: string;
     keyStrokesString: string;
@@ -22,12 +22,14 @@ interface Props {
 const FormErrors = (props: Props) => {
     const { description, keyStrokesString, shortcuts } = props;
 
+    const { t } = useTranslation();
+
     if (!isFilled(description, keyStrokesString, shortcuts)) {
-        return buildBothFilledError();
+        return <Error>{t("shortcut.formErrors.bothFieldFilled")}</Error>;
     }
 
     if (!isValidKeyStroke(description, keyStrokesString, shortcuts)) {
-        return buildInvalidKeyStrokeError();
+        return <Error>{t("shortcut.formErrors.invalidKeyStroke")}</Error>;
     }
 
     return null;

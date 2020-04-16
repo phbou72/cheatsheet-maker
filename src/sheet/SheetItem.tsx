@@ -1,5 +1,8 @@
 import React from "react";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // material ui
 import { Button } from "@material-ui/core";
 
@@ -40,6 +43,8 @@ const SheetItem = (props: SheetItemProps) => {
     const { onDeleteShortcutClick, onEditShortcutClick, shortcut, onDragStart, onDragOver, onDragEnd } = props;
     const { description, keyStrokes } = shortcut;
 
+    const { t } = useTranslation();
+
     const keyStrokesString = createKeyStrokesString(keyStrokes);
 
     return (
@@ -51,10 +56,10 @@ const SheetItem = (props: SheetItemProps) => {
         >
             {description}: {keyStrokesString}
             <DeleteButton color="secondary" onClick={() => onDeleteShortcutClick(shortcut)}>
-                Delete
+                {t("sheet.sheetItem.delete")}
             </DeleteButton>
             <EditButton color="primary" onClick={() => onEditShortcutClick(shortcut)}>
-                Edit
+                {t("sheet.sheetItem.edit")}
             </EditButton>
         </StyledSheetItem>
     );

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // material ui
 import { Button, TextField, Dialog, DialogTitle } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
@@ -67,6 +70,7 @@ const ShortcutForm = (props: Props) => {
     // hooks
     const [description, setDescription] = useState("");
     const [keyStrokesString, setKeyStrokesString] = useState("");
+    const { t } = useTranslation();
 
     if ((!lastEditedShortcut && editedShortcut) || (editedShortcut && lastEditedShortcut !== editedShortcut)) {
         setDescription(editedShortcut.description);
@@ -76,7 +80,7 @@ const ShortcutForm = (props: Props) => {
 
     const canSubmitForm = canSubmit(description, keyStrokesString, shortcuts);
 
-    const title = editedShortcut ? "Edit shortcut" : "Add shortcut";
+    const title = editedShortcut ? t("shortcut.shortcutForm.editShortcut") : t("shortcut.shortcutForm.addShortcut");
 
     const onAddAction = canSubmitForm
         ? (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,7 +107,7 @@ const ShortcutForm = (props: Props) => {
         props.onClose();
     };
 
-    const actionText = !editedShortcut ? "Add" : "Edit";
+    const actionText = !editedShortcut ? t("shortcut.shortcutForm.add") : t("shortcut.shortcutForm.edit");
     const submitAction = !editedShortcut ? onAddAction : onEditAction;
 
     return (
@@ -137,7 +141,7 @@ const ShortcutForm = (props: Props) => {
 
                 <Footer>
                     <Button variant="contained" onClick={onClose}>
-                        Cancel
+                        {t("shortcut.shortcutForm.cancel")}
                     </Button>
                     <ActionButton type="submit" variant="contained" color="primary" disabled={!canSubmitForm}>
                         {actionText}

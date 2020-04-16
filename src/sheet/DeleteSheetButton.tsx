@@ -1,5 +1,8 @@
 import React from "react";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // material ui
 import { Button } from "@material-ui/core";
 
@@ -24,6 +27,8 @@ interface Props {
 }
 
 const DeleteSheetButton = (props: Props) => {
+    const { t } = useTranslation();
+
     const onDeleteSheetClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         props.onDeleteSheetClick();
@@ -31,7 +36,7 @@ const DeleteSheetButton = (props: Props) => {
 
     return (
         <StyledDeleteSheetButton onClick={onDeleteSheetClick} color="secondary" variant="contained">
-            Delete Sheet <StyledRemoveCircleOutline />
+            {t("sheet.deleteSheetButton.deleteSheet")} <StyledRemoveCircleOutline />
         </StyledDeleteSheetButton>
     );
 };
