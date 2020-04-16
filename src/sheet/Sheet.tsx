@@ -26,6 +26,7 @@ const SheetContent = styled.div`
     min-height: 250px;
     border-radius: 8px;
     border: solid 1px rgba(0, 10, 20, 0.3);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
     padding: 16px;
     background-color: rgba(255, 255, 255, 0.3);
 `;
