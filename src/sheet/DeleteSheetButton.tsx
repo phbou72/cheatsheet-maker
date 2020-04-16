@@ -30,7 +30,7 @@ const DeleteSheetButton = (props: Props) => {
     };
 
     return (
-        <StyledDeleteSheetButton onClick={onDeleteSheetClick} color="primary" variant="contained">
+        <StyledDeleteSheetButton onClick={onDeleteSheetClick} color="secondary" variant="contained">
             Delete Sheet <StyledRemoveCircleOutline />
         </StyledDeleteSheetButton>
     );
