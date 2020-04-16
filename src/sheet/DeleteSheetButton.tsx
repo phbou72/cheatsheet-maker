@@ -13,8 +13,6 @@ const StyledDeleteSheetButton = styled(Button)`
     position: absolute;
     top: 16px;
     right: 16px;
-    /* display: flex; */
-    /* align-items: center; */
 `;
 
 const StyledRemoveCircleOutline = styled(RemoveCircleOutline)`

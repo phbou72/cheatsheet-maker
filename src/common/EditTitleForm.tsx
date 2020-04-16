@@ -36,14 +36,7 @@ const EditTitleForm = (props: EditTitleFormProps) => {
 
     return (
         <Form onSubmit={onSaveAction}>
-            <StyledTextfield
-                autoFocus
-                className="input"
-                type="text"
-                placeholder="Title"
-                value={title}
-                onChange={onChangeTitle}
-            />
+            <StyledTextfield autoFocus type="text" placeholder="Title" value={title} onChange={onChangeTitle} />
 
             <Button type="submit" variant="contained" color="primary">
                 Save

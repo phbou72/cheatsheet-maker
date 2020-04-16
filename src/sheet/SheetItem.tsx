@@ -47,7 +47,6 @@ const SheetItem = (props: SheetItemProps) => {
 
     return (
         <StyledSheetItem
-            className="sheet-item"
             draggable
             onDragStart={(_e) => onDragStart(shortcut)}
             onDragOver={(_e) => onDragOver(shortcut)}

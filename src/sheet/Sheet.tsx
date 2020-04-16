@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+
+// styling
 import styled from "styled-components";
 
+// common
 import EditTitle from "common/EditTitle";
+
 import ShortcutForm from "shortcut/ShortcutForm";
 
+// sheet
 import SheetItems from "sheet/SheetItems";
 import AddShortcutButton from "sheet/AddShortcutButton";
 import DeleteSheetButton from "sheet/DeleteSheetButton";
