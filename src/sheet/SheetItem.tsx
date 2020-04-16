@@ -1,5 +1,8 @@
 import React from "react";
 
+// material ui
+import { Button } from "@material-ui/core";
+
 // styling
 import styled from "styled-components";
 
@@ -9,20 +12,14 @@ const StyledSheetItem = styled.li`
     margin: 0 0 8px 0;
     font-size: 18px;
     line-height: 32px;
+`;
 
-    &:hover {
-        .button {
-            display: inline;
-        }
-    }
+const DeleteButton = styled(Button)`
+    margin-left: 16px;
+`;
 
-    .button {
-        display: none;
-        margin-left: 9px;
-        &:first-child {
-            margin-left: 16px;
-        }
-    }
+const EditButton = styled(Button)`
+    margin-left: 8px;
 `;
 
 interface SheetItemProps {
@@ -53,12 +50,12 @@ const SheetItem = (props: SheetItemProps) => {
             onDragEnd={(_e) => onDragEnd()}
         >
             {description}: {keyStrokesString}
-            <button className="button is-danger is-small is-rounded" onClick={() => onDeleteShortcutClick(shortcut)}>
+            <DeleteButton color="secondary" onClick={() => onDeleteShortcutClick(shortcut)}>
                 Delete
-            </button>
-            <button className="button is-success is-small is-rounded" onClick={() => onEditShortcutClick(shortcut)}>
+            </DeleteButton>
+            <EditButton color="primary" onClick={() => onEditShortcutClick(shortcut)}>
                 Edit
-            </button>
+            </EditButton>
         </StyledSheetItem>
     );
 };
