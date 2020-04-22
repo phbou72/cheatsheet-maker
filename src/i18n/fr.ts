@@ -12,7 +12,7 @@ const translation = {
             addShortcut: "Ajouter un raccourcis",
         },
         deleteSheetButton: {
-            deleteSheet: "Supprimer la feui;;e",
+            deleteSheet: "Supprimer la feuille",
         },
         sheetItem: {
             delete: "Supprimer",
