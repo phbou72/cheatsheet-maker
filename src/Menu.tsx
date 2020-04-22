@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Menu, MenuItem, IconButton } from "@material-ui/core";
+
+// Firebase
+// import * as firebase from "firebase/app";
+// import "firebase/auth";
+
+// material ui
+import { AppBar, Toolbar, Menu, MenuItem, IconButton, Button } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import styled from "styled-components";
@@ -8,10 +14,17 @@ import download from "./utils/download";
 
 const StyledMenu = styled.div`
     display: flex;
+    position: relative;
 `;
 
 const StyledImport = styled.input`
     display: none;
+`;
+
+const SignOutButton = styled(Button)`
+    position: absolute;
+    top: 0px;
+    right 0px;
 `;
 
 interface Props {
@@ -92,6 +105,7 @@ const SheetActions = (props: Props) => {
                         <MenuItem onClick={onExportClick}>Export</MenuItem>
                         <MenuItem onClick={onClearClick}>New page</MenuItem>
                     </Menu>
+                    <SignOutButton>Sign out</SignOutButton>
                 </Toolbar>
             </AppBar>
         </StyledMenu>
