@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 // Firebase
-// import * as firebase from "firebase/app";
-// import "firebase/auth";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 // material ui
 import { AppBar, Toolbar, Menu, MenuItem, IconButton, Button } from "@material-ui/core";
@@ -23,8 +23,9 @@ const StyledImport = styled.input`
 
 const SignOutButton = styled(Button)`
     position: absolute;
-    top: 0px;
-    right 0px;
+    top: 15px;
+    right: 0px;
+    color: white;
 `;
 
 interface Props {
@@ -105,7 +106,7 @@ const SheetActions = (props: Props) => {
                         <MenuItem onClick={onExportClick}>Export</MenuItem>
                         <MenuItem onClick={onClearClick}>New page</MenuItem>
                     </Menu>
-                    <SignOutButton>Sign out</SignOutButton>
+                    <SignOutButton onClick={() => firebase.auth()?.signOut()}>Sign out</SignOutButton>
                 </Toolbar>
             </AppBar>
         </StyledMenu>

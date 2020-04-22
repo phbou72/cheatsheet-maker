@@ -13,7 +13,7 @@ const config = {
 };
 
 const uiConfig = {
-    // signInFlow: "popup",
+    signInFlow: "popup",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
         // Avoid redirects after sign-in.
@@ -46,17 +46,7 @@ const Auth = () => {
             </div>
         );
     }
-    return (
-        <AppRouter />
-        // <div>
-        //     <h1>My App</h1>
-        //     <p>Welcome {auth()?.currentUser?.displayName}! You are now signed-in!</p>
-
-        //     <a href="#signout" onClick={() => firebase.auth()?.signOut()}>
-        //         Sign-out
-        //     </a>
-        // </div>
-    );
+    return <AppRouter />;
 };
 
 export default Auth;
