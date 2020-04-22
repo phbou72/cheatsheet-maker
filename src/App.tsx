@@ -1,15 +1,14 @@
 import React from "react";
-// import { BrowserRouter } from "react-router-dom";
 
 // material ui
 import { StylesProvider } from "@material-ui/core/styles";
 
-import Editor from "./Editor";
+import AppRouter from "AppRouter";
 
 const App = () => {
     return (
         <StylesProvider injectFirst>
-            <Editor />
+            <AppRouter />
         </StylesProvider>
     );
 };
