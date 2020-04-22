@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// i18n
+import { useTranslation } from "react-i18next";
+
 // Firebase
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -64,6 +67,8 @@ const importSheets = (
 const SheetActions = (props: Props) => {
     const { title, sheets, onSheetsImport, onSheetsClear } = props;
 
+    const { t } = useTranslation();
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const openMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -101,12 +106,12 @@ const SheetActions = (props: Props) => {
                     <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={closeMenu}>
                         <MenuItem>
                             <StyledImport type="file" name="importInput" id="importInput" onChange={onImportClick} />
-                            <label htmlFor="importInput">Import</label>
+                            <label htmlFor="importInput">{t("menu.import")}</label>
                         </MenuItem>
-                        <MenuItem onClick={onExportClick}>Export</MenuItem>
-                        <MenuItem onClick={onClearClick}>New page</MenuItem>
+                        <MenuItem onClick={onExportClick}>{t("menu.export")}</MenuItem>
+                        <MenuItem onClick={onClearClick}>{t("menu.newPage")}</MenuItem>
                     </Menu>
-                    <SignOutButton onClick={() => firebase.auth()?.signOut()}>Sign out</SignOutButton>
+                    <SignOutButton onClick={() => firebase.auth()?.signOut()}>{t("menu.signOut")}</SignOutButton>
                 </Toolbar>
             </AppBar>
         </StyledMenu>

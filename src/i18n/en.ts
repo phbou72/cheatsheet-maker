@@ -32,6 +32,12 @@ const translation = {
             cancel: "Cancel",
         },
     },
+    menu: {
+        import: "Import",
+        export: "Export",
+        newPage: "New page",
+        signOut: "Sign out",
+    },
 };
 
 export default translation;
