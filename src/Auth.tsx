@@ -44,6 +44,7 @@ const Auth = () => {
             </div>
         );
     }
+
     return <AppRouter />;
 };
 

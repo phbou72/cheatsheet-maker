@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useRecoilState } from "recoil";
 
 // i18n
 import { useTranslation } from "react-i18next";
@@ -14,12 +15,13 @@ import styled from "styled-components";
 import Menu from "Menu";
 import { buildEmptySheet } from "sheetBuilder";
 
+// atoms
+import sheetTitleState from "sheet/sheetTitle.state";
+import sheetsState from "sheet/sheets.state";
+
 import EditTitle from "common/EditTitle";
 
 import Sheet from "sheet/Sheet";
-
-const DEFAULT_TITLE = "Untitled page";
-const DEFAULT_SHEETS: Sheet[] = [];
 
 const StyledApp = styled.div`
     width: 100%;
@@ -66,8 +68,8 @@ const Sheets = styled.div`
 `;
 
 const Editor = () => {
-    const [sheets, setSheets] = useState<Sheet[]>(DEFAULT_SHEETS);
-    const [title, setTitle] = useState(DEFAULT_TITLE);
+    const [sheets, setSheets] = useRecoilState(sheetsState);
+    const [title, setTitle] = useRecoilState(sheetTitleState);
     const { t } = useTranslation();
 
     const onAddSheetClick = () => {
@@ -94,13 +96,14 @@ const Editor = () => {
     };
 
     const onSheetsClear = () => {
-        setSheets(DEFAULT_SHEETS);
-        setTitle(DEFAULT_TITLE);
+        setSheets([]);
+        setTitle("");
     };
 
     const onEditTitle = (newTitle: string) => {
         setTitle(newTitle);
     };
+
     return (
         <StyledApp>
             <Menu title={title} sheets={sheets} onSheetsImport={onSheetsImport} onSheetsClear={onSheetsClear} />
