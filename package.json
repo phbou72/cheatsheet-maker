@@ -39,13 +39,13 @@
   ],
   "devDependencies": {
     "@types/classnames": "^2.2.11",
-    "@types/jest": "^26.0.19",
-    "@types/node": "^14.14.16",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-portal": "^4.0.2",
-    "@types/react-router": "^5.1.9",
-    "@types/react-router-dom": "^5.1.6",
+    "@types/react-router": "^5.1.11",
+    "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7",
     "@types/uuid": "^8.3.0"
   }
